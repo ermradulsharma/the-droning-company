@@ -1,0 +1,52 @@
+.NavigationItems {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.AlignMenuRow {
+    flex-flow: row;
+}
+
+.AlignMenuColumn {
+    flex-flow: column;
+}
+
+@media (max-width: 499px) {
+    .MobileOnly {
+        display: block;
+        width: 100%;
+    }
+    .ul-dividergray {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (min-width: 500px) {
+    .MobileOnly {
+        display: none;
+    }
+}
+
+.ul-dividergray {
+    width: 100%;
+    height: 1px;
+    background-color: #d1d1d1;
+}
+
+.ul-sidebar-height{
+    height: calc(100% - 100px);
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.menu-flags .flag-select__options {
+    bottom: 35px;
+    right: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    border: 1px solid #F9F9F9;
+}

@@ -1,0 +1,36 @@
+.BannerInner {
+    background-image: url(/images/slider1.webp);
+}
+
+.HireArea,
+.BannerInnerAbout {
+    background-image: url(/images/imgDrone.jpg);
+}
+
+.fixHeight {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.HomeBlockImg {
+    display: block;
+    padding: 15px 0 15px 0px;
+    text-align: center;
+}
+
+.HomeBlockImg img {
+    border-radius: 50%;
+    border: 3px solid #fecd0e !important;
+    padding: 1px;
+    width: 120px;
+}
+
+@media (max-width: 768px) {
+    .BannerInner {
+        background-image: url(/images/slider1-mobile.jpg);
+        padding: 110px 0;
+    }
+}

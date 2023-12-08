@@ -1,0 +1,60 @@
+{
+    "welcome": {
+        "title": "Willkommen, bitte melden Sie sich in Ihrem Konto an"
+    },
+    "intro": {
+        "skip-button": "Überspringen",
+        "back-button": "&larr; Zurück",
+        "next-button": "Nächster &rarr;",
+        "done-button": "Getan",
+        "hint-button": "Ich habs",
+        "dashboard-step1": "Hallo Schritt",
+        "dashboard-step2": "Weltschritt"
+    },
+    "forms": {
+        "log-in": "Log In",
+        "sign-up": "Anmelden",        
+        "submit-button": "einreichen",
+        "save-button": "sparen",
+        "cancel-button": "Stornieren",
+        "remember-me": "erinnere dich an mich",
+        "forgot-password-link": "Passwort vergessen?",
+        "no-account": "Hast du kein Konto?",
+        "name":"Name",
+        "email": "Email",
+        "email-placeholder": "Geben Sie Ihre Email-ID ein",
+        "email-invalid": "E-Mail ist ungültig",
+        "email-required": "E-Mail ist erforderlich",
+        "password": "Passwort",
+        "password-placeholder": "Geben Sie Ihr Passwort ein"
+    },
+    "dashboard": {
+        "page-heading": "Instrumententafel"
+    },
+    "team": {
+        "page-heading": "Erstelle ein Team"
+    },
+    "teamdetail": {
+        "page-heading": "Team Detail"
+    },
+    "teamoverview": {
+        "page-heading": "Teamübersicht"
+    },
+    "account": {
+        "page-heading": "Kontoübersicht",
+        "account-summary":"Kontoübersicht",
+        "account-detail": "Kontodetails",
+        "edit-account":"Konto bearbeiten",
+        "change-password": "Passwort ändern",
+        "old-password": "Altes Passwort",
+        "new-password": "Neues Passwort",
+        "confirm-new-password": "Bestätige neues Passwort",
+        "delete-account": "Konto löschen",
+        "delete-account-desc": "Dadurch werden alle Ihre persönlichen Daten für immer entfernt.",
+        "delete-account-modal-desc": "Durch das Löschen Ihres Kontos werden alle Ihre persönlichen Daten und Einstellungen entfernt.",
+        "delete-my-account": "Mein Konto löschen    ",
+        "status": "Kontostatus",
+        "privacy-setting":"Privatsphäreeinstellung",
+        "appearance":"Aussehen"
+    }
+}

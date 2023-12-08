@@ -1,0 +1,60 @@
+{
+    "welcome": {
+        "title": "Welcome, Please login to your account"
+    },
+    "intro": {
+        "skip-button": "Skip",
+        "back-button": "&larr; Back",
+        "next-button": "Next &rarr;",
+        "done-button": "Done",
+        "hint-button": "Got it",
+        "dashboard-step1": "Hello step",
+        "dashboard-step2": "World step"
+    },
+    "forms": {
+        "log-in": "Log In",
+        "sign-up": "Sign Up",
+        "submit-button": "Submit",
+        "save-button": "Save",
+        "cancel-button": "Cancel",
+        "remember-me": "Remember me",
+        "forgot-password-link": "Forgot Password ?",
+        "no-account": "Don't have your account ?",
+        "name":"Name",
+        "email": "Email",
+        "email-placeholder": "Enter your Email ID",
+        "email-invalid": "Email is invalid",
+        "email-required": "Email is required",
+        "password": "Password",
+        "password-placeholder": "Enter your password"
+    },
+    "dashboard": {
+        "page-heading": "Dashboard"
+    },
+    "team": {
+        "page-heading": "Create a Team"
+    },
+    "teamdetail": {
+        "page-heading": "Team Detail"
+    },
+    "teamoverview": {
+        "page-heading": "Team Overview"
+    },
+    "account": {
+        "page-heading": "Account Overview",
+        "account-summary":"Account Summary",
+        "account-detail": "Account Details",
+        "edit-account":"Edit Account",
+        "change-password": "Change Password",
+        "old-password": "Old Password",
+        "new-password": "New Password",
+        "confirm-new-password": "Confirm New Password",
+        "delete-account": "Delete Account",
+        "delete-account-desc": "This will remove all of your personal data forever.",
+        "delete-account-modal-desc": "Deleting your account will remove all of your personal information and settings.",
+        "delete-my-account": "Delete My Account",
+        "status": "Account Status",
+        "privacy-setting":"Privacy Settings",
+        "appearance":"Appearance"
+    }
+}

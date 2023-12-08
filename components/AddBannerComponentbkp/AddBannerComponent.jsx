@@ -1,0 +1,49 @@
+import React, { useEffect, useState } from "react";
+import Loader from "react-loader-spinner";
+import AddBan from "../Addbanner/AddBan";
+
+const AddBannerComponent = ({ data, status, position, index }) => {
+  const [mainData, setData] = useState([]);
+  useEffect(() => {
+    if (data && data !== undefined) {
+      setData(data);
+    }
+  }, [data]);
+  return (
+    <>
+      {status === "loading" || data === null ? (
+        <div className="row">
+          <div
+            className="col-sm-12 text-center justify-content-between"
+            style={{ textAlign: "center" }}
+          >
+            <Loader
+              type="ThreeDots"
+              color="#ffcc0e"
+              height={100}
+              width={100}
+              visible={status === "loading" || data === null}
+            />
+          </div>
+        </div>
+      ) : (
+        <div
+          className={
+            mainData[position]?.banner[index]?.length > 0
+              ? "container mt-2"
+              : ""
+          }
+        >
+          {mainData && (
+            <AddBan
+              href={mainData[position]?.banner[index]?.link}
+              src={mainData[position]?.banner[index]?.banner_image_full_path}
+            />
+          )}
+        </div>
+      )}
+    </>
+  );
+};
+
+export default AddBannerComponent;

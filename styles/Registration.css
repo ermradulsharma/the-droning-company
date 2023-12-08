@@ -1,0 +1,59 @@
+.RegisterBg {
+    /* background-image: url('/images/photo7.jpg'); */
+}
+
+.RegisterBG1 {
+    background-image: url('/images/Lake-Hollywood.jpg');
+}
+
+.RegisterBG2 {
+    /* background-image: url('/images/photo6.jpg'); */
+}
+
+.ThankYouPageBg {
+    /* background-image: url('/images/photo1.jpg'); */
+}
+
+.btn-group>.btnReg input[type=radio] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+}
+
+.btn-group>.btnReg.active,
+.btn-group>.btnReg:active,
+.btn-group>.btnReg:focus {
+    z-index: 1;
+}
+
+.btn-group>.btnReg {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.btn-group>.btnReg {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+
+.btnReg {
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.btn-group .active {
+    background-color: #fecd0e;
+    border-color: #fecd0e;
+    color: #000;
+}
+
+.btn-outline-primary-reg {
+    border-color: #fecd0e;
+}
