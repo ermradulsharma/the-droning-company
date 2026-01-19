@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/favicon.ico" alt="The Droning Company Logo" width="100" />
+  <img src="public/imageslogo.webp" alt="The Droning Company Logo" width="100" />
   <h1>The Droning Company</h1>
   <p><strong>Premier Global Marketplace for Drone Pilots & Aerial Services</strong></p>
 
