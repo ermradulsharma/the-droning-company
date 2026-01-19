@@ -2,7 +2,6 @@
 const withTM = require("next-transpile-modules")([
   "@fullcalendar/common",
   "@babel/preset-react",
-  "@fullcalendar/common",
   "@fullcalendar/daygrid",
   "@fullcalendar/interaction",
   "@fullcalendar/react",
@@ -25,12 +24,8 @@ module.exports = withTM({
     domains: [
       "104.211.230.191",
       "14.97.182.98",
-      "https://thedroningcompany.com/",
       "thedroningcompany.com",
-      "thedroningcompany",
-      "https://media.thedroningcompany.com",
-      "media.thedroningcompany.com",
-      "media.thedroningcompany"
+      "media.thedroningcompany.com"
     ],
     formats: ['image/webp'],
     minimumCacheTTL: 31536000,

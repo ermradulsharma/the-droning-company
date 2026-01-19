@@ -1,34 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The Droning Company - Frontend
 
-## Getting Started
+Welcome to the frontend repository for **The Droning Company**, a platform dedicated to drone pilots and aerial services. This project is built using Next.js and React, providing a robust interface for job listings, pilot profiles, and community engagement.
 
-First, run the development server:
+## 🚀 Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org/) (v12)
+- **Library:** [React](https://reactjs.org/) (v17)
+- **Styling:** CSS & Bootstrap
+- **State Management:** [Redux Toolkit](https://redux-toolkit.js.org/)
+- **UI Components:** [MUI (Material UI)](https://mui.com/)
+- **Calendar Integration:** FullCalendar
+- **Payment Processing:** Stripe
+- **Forms:** Formik & Yup
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+Ensure you have Node.js and npm (or yarn) installed on your system.
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd the-droning-company-frontend
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Development
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the results.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Building for Production
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+To create an optimized production build:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## 📂 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+- `components/`: Reusable UI components.
+- `pages/`: Next.js pages and API routes.
+- `redux/`: Redux store, slices, and logic.
+- `styles/`: Global styles and CSS modules.
+- `public/`: Static assets like images and fonts.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🤝 Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Please see `CONTRIBUTING.md` for guidelines on how to contribute to this project.
 
-## Deploy on Vercel
+## 📄 License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is proprietary and confidential.

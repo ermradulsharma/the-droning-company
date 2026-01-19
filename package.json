@@ -1,5 +1,7 @@
 {
   "name": "the-droning-company",
+  "version": "1.0.0",
+  "description": "Frontend for The Droning Company platform, built with Next.js and React.",
   "private": true,
   "scripts": {
     "dev": "next dev",
