@@ -59,7 +59,7 @@ function MyApp({ Component, pageProps }) {
           name="facebook-domain-verification"
           content="3t3ty9zswecwk98ceg4o7bu1lz3zsi"
         />
-        <meta name="google-adsense-account" content="ca-pub-8937256325792237"/>
+        <meta name="google-adsense-account" content="ca-pub-8937256325792237" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -219,6 +219,4 @@ function MyApp({ Component, pageProps }) {
     </Provider>
   );
 }
-export default dynamic(() => Promise.resolve(MyApp), {
-  ssr: true,
-});
+export default MyApp;

@@ -43,10 +43,9 @@ const Home = () => {
 
   const { authTokens, accessToken, userType } = useAuthContext();
 
-  let history = useRouter();
   const [searchKeyword, setSearchKeyword] = useState("");
   const onSearchCompany = () => {
-    history.push(`/company-directory/${searchKeyword}`);
+    router.push(`/company-directory/${searchKeyword}`);
   };
 
   const [threeBlocksTwo, setThreeBlocksTwo] = useState([]);
