@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { SERVER_URL } from "../../../util/Constants";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useCommonFunctionContext from "../../../hooks/useCommonFunctionContext";
 import Pagination from '../../../components/UI/Pagination/Pagination';
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -39,8 +39,8 @@ const MyJobs = () => {
     }
     useEffect(() => {
         getUserCreatedJob()
-    }, [jobFilter, currentPage, inputSearchKeyword, userId]);
-    const getUserCreatedJob = async () => {
+    }, [getUserCreatedJob]);
+    const getUserCreatedJob = useCallback(async () => {
         setLoading(true)
         try {
             await fetch(`${SERVER_URL}/job/myJobs?user_id=${userId}&jobfilter=${jobFilter}&page=${currentPage}&q=${searchKeyword}`, {
@@ -69,7 +69,7 @@ const MyJobs = () => {
             setLoading(false);
         }
         setLoading(false);
-    }
+    }, [userId, jobFilter, currentPage, accessToken, searchKeyword]);
 
     const onPageChangeHandler = (pageNum) => {
         setCurrentPage(pageNum)
@@ -89,7 +89,7 @@ const MyJobs = () => {
                     <div className="col-sm-6">
                         <ul id="tabs" className="mt-4 nav nav-tabs d-flex justify-content-end">
                             <li className="nav-item">
-                                <Link href="/user/create-job">
+                                <Link href="/user/create-job" legacyBehavior>
                                     <a className="nav-link active">Create Job</a>
                                 </Link>
                             </li>
@@ -97,7 +97,7 @@ const MyJobs = () => {
                     </div>
                 </div>
             </div>
-           
+
             <div className="row">
                 <div className="col-12 text-left mb-3">
                     <div className="card px-0 pb-0">
@@ -176,19 +176,19 @@ const MyJobs = () => {
                                                                                 <span className={'badge ' + backgroundStatusColor(job.status)}>
                                                                                     {job.status}</span>
                                                                             </p>
-                                                                            <a onClick={()=>jobDetailHandler(job.id)} className="post-title">{job.job_title}
-                                                                            </a>
+                                                                            <button type="button" onClick={() => jobDetailHandler(job.id)} className="btn btn-link post-title p-0 text-left" style={{ textDecoration: 'none' }}>{job.job_title}
+                                                                            </button>
                                                                             <p>{extractLocation ? extractLocation.city : ''}, {extractLocation ? extractLocation.state : ''}, {extractLocation ? extractLocation.country : ''}</p>
                                                                             <small>Posted On: {
-                                                                                    <Moment format="MM/DD/YYYY">
-                                                                                        {job.created_at}
-                                                                                    </Moment>    
-                                                                                    }
+                                                                                <Moment format="MM/DD/YYYY">
+                                                                                    {job.created_at}
+                                                                                </Moment>
+                                                                            }
                                                                             </small>
                                                                         </div>
                                                                     </div>
                                                                     <div className="card-action-right">
-                                                                        <button type="button" className="btn btn-dark btn-sm" onClick={()=>jobDetailHandler(job.id)}>Job Details</button>
+                                                                        <button type="button" className="btn btn-dark btn-sm" onClick={() => jobDetailHandler(job.id)}>Job Details</button>
                                                                         {/* <button type="button" className="btn btn-outline-danger btn-sm">Request Job Cancellation</button> */}
                                                                     </div>
                                                                 </div>

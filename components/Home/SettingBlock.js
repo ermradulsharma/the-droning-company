@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { SERVER_URL } from "../../util/Constants";
+import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
 import Link from "next/link";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import parse from "html-react-parser";
 import Image from 'next/image';
 
@@ -19,7 +20,7 @@ const SettingBlock = ({ ids, limit }) => {
       })
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           setLoadingNews(false);
           if (response.statusCode === 200) {
             setNews(response.data);
@@ -28,7 +29,7 @@ const SettingBlock = ({ ids, limit }) => {
     } catch (error) {
       setLoadingNews(false);
     }
-  }, []);
+  }, [ids, limit]);
 
   return (
     <>
@@ -50,7 +51,7 @@ const SettingBlock = ({ ids, limit }) => {
         news.map((block, index) => {
           return (
 
-            <div className="col-item settingBlock" style={{ backgroundImage: "url(" + block.block_image + ")" }}>
+            <div key={index} className="col-item settingBlock" style={{ backgroundImage: "url(" + `${MEDIA_BASE_URL}/${getCleanImageUrl(block.block_image)}` + ")" }}>
 
 
               <div className="BandBox">
@@ -67,19 +68,21 @@ const SettingBlock = ({ ids, limit }) => {
                     alt={block.block_title}
                   /> */}
 
-                  <Image
-                    src={block.block_image}
-                    alt={block.block_title}
-                    className="img-fluid"
-                    onLoad={() => setLoadingImage(false)}
-                    width={120}
-                    height={120}
-                    priority={true}
-                  />
+                  {block.block_image ? (
+                    <Image
+                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(block.block_image)}`}
+                      alt={block.block_title}
+                      className="img-fluid"
+                      onLoad={() => setLoadingImage(false)}
+                      width={120}
+                      height={120}
+                      priority={true}
+                    />
+                  ) : null}
                 </div>
                 <p>{block.block_description}</p>
 
-                <Link href={block?.block_button_link} passHref>
+                <Link href={block?.block_button_link} passHref legacyBehavior>
                   <a className="btn BtnLearn">LEARN MORE</a>
                 </Link>
               </div>

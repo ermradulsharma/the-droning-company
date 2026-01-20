@@ -4,7 +4,7 @@ import useToastContext from "../../hooks/useToastContext";
 import useAuthContext from "../../hooks/useAuthContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 
 const VerifyEmail = ({ match }) => {
   const router = useRouter();

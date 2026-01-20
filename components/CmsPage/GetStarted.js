@@ -1,6 +1,7 @@
 import React from "react";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import Link from "next/link";
+import Image from "next/image";
 
 const GetStarted = () => {
 
@@ -16,7 +17,7 @@ const GetStarted = () => {
 				<div className="col-sm-4">
 					<div className="row BestPilotBox">
 						<div className="col-12 col-sm-12">
-							<img className="img-fluid IconImg" src={`/images/ic1.png`} alt="sign up/create an account" />
+							<Image className="img-fluid IconImg" src={`/images/ic1.png`} alt="sign up/create an account" width={100} height={100} />
 						</div>
 						<div className="col-12 col-sm-12">
 							<div className="BestSteps">
@@ -29,7 +30,7 @@ const GetStarted = () => {
 				<div className="col-sm-4">
 					<div className="row BestPilotBox">
 						<div className="col-12 col-sm-12">
-							<img className="img-fluid IconImg" src={`/images/ic2.png`} alt="Search for a drone pilot" />
+							<Image className="img-fluid IconImg" src={`/images/ic2.png`} alt="Search for a drone pilot" width={100} height={100} />
 						</div>
 						<div className="col-12 col-sm-12">
 							<div className="BestSteps">
@@ -42,7 +43,7 @@ const GetStarted = () => {
 				<div className="col-sm-4">
 					<div className="row BestPilotBox">
 						<div className="col-12 col-sm-12">
-							<img className="img-fluid IconImg" src={`/images/ic3.png`} alt="Get your job done" />
+							<Image className="img-fluid IconImg" src={`/images/ic3.png`} alt="Get your job done" width={100} height={100} />
 						</div>
 						<div className="col-12 col-sm-12">
 							<div className="BestSteps">
@@ -54,7 +55,7 @@ const GetStarted = () => {
 				</div>
 			</div>
 			<div className="text-center autoWidthBtn">
-				<a className="btn BtnGetStarted" title="Get Started" href="/registration">Get Started</a>
+				<Link href="/registration" legacyBehavior><a className="btn BtnGetStarted" title="Get Started">Get Started</a></Link>
 			</div>
 		</Aux>
 	);

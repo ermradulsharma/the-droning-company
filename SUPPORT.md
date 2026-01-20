@@ -13,7 +13,7 @@ If you've found a bug or have a feature request, please [open an issue](https://
 ## 📧 Email Support
 
 For direct inquiries or sensitive matters, you can reach out to our team at:
-support@thedroningcompany.com
+support@example.com
 
 ## 💬 Community
 

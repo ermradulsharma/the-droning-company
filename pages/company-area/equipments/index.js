@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { SERVER_URL } from "../../../util/Constants";
 import useAuthContext from "../../../hooks/useAuthContext";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import axios from "axios";
 import useToastContext from "../../../hooks/useToastContext";
 import { useConfirm } from "material-ui-confirm";
@@ -34,7 +35,7 @@ const Equipment = () => {
   useEffect(() => {
     getAllEquipments();
     dispatch(getDashboardAds("pilot-my-equipment"));
-  }, [userId]);
+  }, [getAllEquipments, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -50,7 +51,7 @@ const Equipment = () => {
 
   const [above_title_index, setAboveTitleIndex] = useState(0);
   const [bottom_page_index, setBottomPageIndex] = useState(0);
- const [above_title2_index, setAboveTitle2Index] = useState(0);
+  const [above_title2_index, setAboveTitle2Index] = useState(0);
   const [bottom_page2_index, setBottomPage2Index] = useState(0);
 
 
@@ -89,7 +90,7 @@ const Equipment = () => {
     }
   }, [getDashboardAds_data]);
 
-  const getAllEquipments = async () => {
+  const getAllEquipments = useCallback(async () => {
     try {
       setFullPageLoading(true);
       await fetch(`${SERVER_URL}/pilot-dashboard/equipment/show/${userId}`, {
@@ -109,7 +110,7 @@ const Equipment = () => {
     } catch (error) {
       setFullPageLoading(false);
     }
-  };
+  }, [userId, accessToken]);
 
   const dragOver = (e) => {
     e.preventDefault();
@@ -386,17 +387,19 @@ const Equipment = () => {
                                         onClick={fileInputClicked}
                                       >
                                         {equipmentImage ||
-                                        equipmentData.image ? (
-                                          <img
+                                          equipmentData.image ? (
+                                          <Image
                                             src={
                                               equipmentImage
                                                 ? equipmentImage
                                                 : equipmentData.image
-                                                ? equipmentData.image
-                                                : equipmentImage
+                                                  ? equipmentData.image
+                                                  : equipmentImage
                                             }
-                                            height="140"
-                                            style={{ borderRadius: "10px" }}
+                                            height={140}
+                                            width={200}
+                                            alt="preview"
+                                            style={{ borderRadius: "10px", objectFit: 'contain' }}
                                           />
                                         ) : (
                                           <div className="ulPd5rem">
@@ -461,7 +464,7 @@ const Equipment = () => {
                                       className={
                                         "form-control" +
                                         (errors.manufacturer &&
-                                        touched.manufacturer
+                                          touched.manufacturer
                                           ? " is-invalid"
                                           : "")
                                       }
@@ -530,17 +533,16 @@ const Equipment = () => {
                                     {equipment.title}
                                   </h6>
                                   <div className="dropdown no-arrow">
-                                    <a
-                                      className="dropdown-toggle"
-                                      href="#"
-                                      role="button"
+                                    <button
+                                      className="btn btn-link p-0 dropdown-toggle"
+                                      type="button"
                                       id="dropdownMenuLink"
                                       data-toggle="dropdown"
                                       aria-haspopup="true"
                                       aria-expanded="false"
                                     >
                                       <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
+                                    </button>
                                     <div
                                       className="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                       aria-labelledby="dropdownMenuLink"
@@ -576,11 +578,13 @@ const Equipment = () => {
                                       className="form-group ULd-flex ULjustify-content-center ULalign-items-center"
                                       style={{ minHeight: "200px" }}
                                     >
-                                      <img
+                                      <Image
                                         className="img-fluid"
-                                        style={{ maxHeight: "200px" }}
+                                        style={{ maxHeight: "200px", objectFit: 'contain' }}
                                         src={equipment.image}
                                         alt={equipment.title}
+                                        width={200}
+                                        height={200}
                                       />
                                     </div>
                                     <ul className="EquipmentDetails">
@@ -614,7 +618,7 @@ const Equipment = () => {
         position={bottom_page_position}
         index={bottom_page_index}
       />
-       <AddBannerComponent
+      <AddBannerComponent
         data={getDashboardAds_data}
         status={getDashboardAds_status}
         position={bottom_page2_position}

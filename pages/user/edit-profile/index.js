@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 import axios from "axios";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from 'yup';
@@ -7,7 +8,7 @@ import useAuthContext from "../../../hooks/useAuthContext";
 import useToastContext from "../../../hooks/useToastContext";
 
 import SearchLocationInput from "../../../components/SearchLocationInput/SearchLocationInput";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 
 const EditProfile = () => {
     const PROFILE_IMAGE = "/user-pilot/images/undraw_profile.svg";
@@ -31,9 +32,9 @@ const EditProfile = () => {
     });
     useEffect(() => {
         getUserDetail()
-    }, []);
+    }, [getUserDetail]);
 
-    const getUserDetail = async () => {
+    const getUserDetail = useCallback(async () => {
         setLoading(true);
         try {
             await fetch(`${SERVER_URL}/profile/show/${userId}`, {
@@ -55,7 +56,7 @@ const EditProfile = () => {
         } catch (error) {
             setLoading(false);
         }
-    }
+    }, [userId, accessToken, setUserProfileImage]);
 
     const profilePictureSelected = () => {
         if (profileInputRef.current.files.length) {
@@ -188,7 +189,7 @@ const EditProfile = () => {
                                 <div className="row">
                                     <div className="col-sm-3">
                                         <figure className="pilot-profile mr-3" onClick={() => fileInputClicked()}>
-                                            <img className="img-profile rounded-circle" height="150px" width="150px" style={{ objectFit: "cover" }} alt="profile"
+                                            <Image className="img-profile rounded-circle" height={150} width={150} style={{ objectFit: "cover" }} alt="profile"
                                                 src={profileImage ? profileImage : PROFILE_IMAGE} />
                                             <div className="pilot-edit">
                                                 <input

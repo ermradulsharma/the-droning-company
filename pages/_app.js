@@ -6,8 +6,7 @@ import * as gtag from "../lib/gtag";
 import "../styles/sb-admin-2.min.css";
 import "../styles/user-style.css";
 import "../styles/style.css";
-import "react-toastify/dist/ReactToastify.min.css";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthContextProvider } from "../context/AuthContext";
 import { ToastContextProvider } from "../context/ToastContext";
 import { UserContextProvider } from "../context/UserContext";
@@ -46,31 +45,24 @@ function MyApp({ Component, pageProps }) {
     <Provider store={store}>
       {" "}
       <Head>
-        <link
-          rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-        />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
-          rel="stylesheet"
-        />
         <meta
           name="facebook-domain-verification"
           content="3t3ty9zswecwk98ceg4o7bu1lz3zsi"
         />
         <meta name="google-adsense-account" content="ca-pub-8937256325792237" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: `
+      </Head>
+      <Script
+        id="schema-org"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: `
             {
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "The Droning Company",
-              "url": "https://www.thedroningcompany.com/",
-              "logo": "https://www.thedroningcompany.com/images/logo.png",
-              "alternateName": "TheDroningCompany.com",
+              "url": "/",
+              "logo": "/images/logo.png",
+              "alternateName": "THE DRONING COMPANY",
               "sameAs": [
                 "https://www.facebook.com/TheDroningCompany",
                 "https://www.instagram.com/thedroningcompany/",
@@ -87,14 +79,15 @@ function MyApp({ Component, pageProps }) {
               ]
             }
             `,
-          }}
-        ></script>
+        }}
+      ></Script>
 
-        <script
-          type="text/plain"
-          data-cookiecategory="analytics"
-          dangerouslySetInnerHTML={{
-            __html: `
+      <Script
+        id="taboola-analytics"
+        type="text/plain"
+        data-cookiecategory="analytics"
+        dangerouslySetInnerHTML={{
+          __html: `
             window._tfa = window._tfa || [];
             window._tfa.push({notify: 'event', name: 'page_view', id: 1567833});
             !function (t, f, a, x) {
@@ -106,10 +99,8 @@ function MyApp({ Component, pageProps }) {
             '//cdn.taboola.com/libtrc/unip/1567833/tfa.js',
             'tb_tfa_script');
             `,
-          }}
-        ></script>
-
-      </Head>
+        }}
+      ></Script>
       {/* Global Site Tag (gtag.js) - Google Analytics */}
       <Script
         // strategy="afterInteractive"

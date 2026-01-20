@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { SERVER_URL } from "../../util/Constants";
 import Link from "next/link";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import parse from "html-react-parser";
 import Image from "next/image";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -56,7 +56,7 @@ const BoxSection = () => {
   const [open_interview_modal, setinterviewmodal] = useState(false);
   const [open_video_modal, setvideomodal] = useState(false);
 
-  const getFabelBoxData = async () => {
+  const getFavelBoxData = useCallback(async () => {
     setLoading_fourboxData(true);
     let { data } = await axiosInstance.get("get-favel-boxes");
     setLoading_fourboxData(false);
@@ -68,7 +68,7 @@ const BoxSection = () => {
       setdrone_geekData(GetFavBoxData(api_respomse, "the-drone-geek"));
     } else {
     }
-  };
+  }, []);
 
   useEffect(() => {
     try {
@@ -85,8 +85,8 @@ const BoxSection = () => {
     } catch (error) {
       setLoadingNews(false);
     }
-    getFabelBoxData();
-  }, []);
+    getFavelBoxData();
+  }, [getFavelBoxData]);
 
   return (
     <div className="MainArticles paddngtb">
@@ -120,13 +120,19 @@ const BoxSection = () => {
                 <div className="ArticleTitle">{article_data?.box_name}</div>
                 <div className="d-sm-block" style={{ position: "relative" }}>
                   <div>
-                    <Link href="/blog/Fravel-s-Footnote/article">
-                      <img
-                        className="img-fluid"
-                        src={article_data?.image_full_path}
-                        onLoad={() => setLoadingImage(false)}
-                        alt="Video Reel of the Week"
-                      />
+                    <Link href="/blog/Fravel-s-Footnote/article" passHref legacyBehavior>
+                      <a>
+                        {article_data?.image_full_path ? (
+                          <Image
+                            className="img-fluid"
+                            src={article_data?.image_full_path}
+                            onLoad={() => setLoadingImage(false)}
+                            alt="Video Reel of the Week"
+                            width={400}
+                            height={300}
+                          />
+                        ) : null}
+                      </a>
                     </Link>
                   </div>
                 </div>
@@ -141,12 +147,16 @@ const BoxSection = () => {
                 <div className="d-sm-block" style={{ position: "relative" }}>
                   <div>
                     <a>
-                      <img
-                        className="img-fluid"
-                        src={interviews_data?.image_full_path}
-                        onLoad={() => setLoadingImage(false)}
-                        alt="video reviews data"
-                      />
+                      {interviews_data?.image_full_path ? (
+                        <Image
+                          className="img-fluid"
+                          src={interviews_data?.image_full_path}
+                          onLoad={() => setLoadingImage(false)}
+                          alt="video reviews data"
+                          width={400}
+                          height={300}
+                        />
+                      ) : null}
                     </a>
                   </div>
                 </div>
@@ -164,14 +174,16 @@ const BoxSection = () => {
                 <div className="d-sm-block" style={{ position: "relative" }}>
                   <div>
                     <a>
-                      <img
-                        className="img-fluid"
-                        src={video_reviews_data?.image_full_path}
-                        alt="Trending News"
-                        width={200}
-                        height={200}
-                        onLoad={() => setLoadingImage(false)}
-                      />
+                      {video_reviews_data?.image_full_path ? (
+                        <Image
+                          className="img-fluid"
+                          src={video_reviews_data?.image_full_path}
+                          alt="Trending News"
+                          width={400}
+                          height={300}
+                          onLoad={() => setLoadingImage(false)}
+                        />
+                      ) : null}
                     </a>
                   </div>
                 </div>
@@ -187,12 +199,16 @@ const BoxSection = () => {
                 <div className="d-sm-block" style={{ position: "relative" }}>
                   <div onClick={handleClickOpen}>
                     <a>
-                      <img
-                        className="img-fluid"
-                        src={drone_geek_data?.image_full_path}
-                        alt="Trending News"
-                        onLoad={() => setLoadingImage(false)}
-                      />
+                      {drone_geek_data?.image_full_path ? (
+                        <Image
+                          className="img-fluid"
+                          src={drone_geek_data?.image_full_path}
+                          alt="Trending News"
+                          onLoad={() => setLoadingImage(false)}
+                          width={400}
+                          height={300}
+                        />
+                      ) : null}
                     </a>
                   </div>
                 </div>
@@ -233,7 +249,7 @@ const Text = ({ title, link }) => {
     <div key={title} className="ArticleDesc mt-2">
       <div className="ArticleDescH fixHeight">{title}</div>
 
-      <Link href={`/blog/${link}`}>
+      <Link href={`/blog/${link}`} legacyBehavior>
         <a href={`/blog/${link}`} className="SeeMore">
           Read More <i className="fas fa-long-arrow-alt-right"></i>
         </a>

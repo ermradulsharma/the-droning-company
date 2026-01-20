@@ -1,16 +1,19 @@
 import React from 'react'
+import Image from 'next/image';
+import { MEDIA_BASE_URL } from '../../util/Constants';
+import { getCleanImageUrl } from '../../util/utils';
 
-export default function AddBanSmall({src,href,resolution}) {
-  
+export default function AddBanSmall({ src, href, resolution }) {
+
   return (
     <>
-     <a href={href} rel="nofollow" target="_blank" className="bannerAddsSmall">
+      <a href={href} rel="nofollow noreferrer" target="_blank" className="bannerAddsSmall">
         <figure>
-        <img src={src} alt={src}/>
+          <Image src={`${MEDIA_BASE_URL}/${getCleanImageUrl(src)}`} alt={src} width={300} height={100} />
           {/* <img src="/images/02imgarticle.jpg" alt=""/> */}
         </figure>
       </a>
-    
+
     </>
   )
 }

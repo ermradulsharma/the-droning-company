@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import SEO from "../../components/Seo/Seo";
-import { APPLICATION_NAME } from "../../util/Constants";
+import { APPLICATION_NAME, MEDIA_BASE_URL } from "../../util/Constants";
 import { useDispatch, useSelector } from "react-redux";
 import { generateRandomBannerIndex } from "../../util/utils";
 import { getContactUsData } from "../../redux/HomePageSlice";
@@ -75,7 +75,7 @@ const AwardVoting = (props) => {
 		}
 
 		window.addEventListener('message', event => {
-			if (event.origin.startsWith('https://www.thedroningcompany.com') || event.origin.startsWith('https://media.thedroningcompany.com')) {
+			if (event.origin.startsWith(MEDIA_BASE_URL)) {
 				let height = event.data;
 				setHeight(height + "px");
 			}
@@ -126,7 +126,7 @@ const AwardVoting = (props) => {
 					ref={ref}
 					onLoad={onLoad}
 					id="awardVotingForm"
-					src="https://media.thedroningcompany.com/award-voting"
+					src={`${MEDIA_BASE_URL}/award-voting`}
 					width="100%"
 					height={height}
 					scrolling="no"
@@ -139,7 +139,7 @@ const AwardVoting = (props) => {
 				></iframe>
 
 				{/* <iframe
-					src="https://media.thedroningcompany.com/award-voting"
+					src="https://media.example.com/award-voting"
 					title="Contact Form"
 					width="100%"
 					height="700"

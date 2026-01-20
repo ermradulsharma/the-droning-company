@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { SERVER_URL } from "../../../util/Constants";
 import useAuthContext from "../../../hooks/useAuthContext";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import Link from "next/link";
+import Image from "next/image";
 import Moment from "react-moment";
 const Dashboard = () => {
     const { accessToken, userId, setUserProfileImage
-     } = useAuthContext();
+    } = useAuthContext();
     const [getRecentJob, setRecentJob] = useState([]);
     const [jobFilter, setJobFilter] = useState('all');
     const [loading, setLoading] = useState(false);
@@ -36,9 +37,9 @@ const Dashboard = () => {
     }
     useEffect(() => {
         getUserCreatedJob()
-    }, [jobFilter, userId]);
+    }, [getUserCreatedJob]);
 
-    const getUserCreatedJob = async () => {
+    const getUserCreatedJob = useCallback(async () => {
 
         /* if (!loading) {
             setFullPageLoading(true)
@@ -64,7 +65,7 @@ const Dashboard = () => {
         } catch (error) {
             setFullPageLoading(false);
         }
-    }
+    }, [userId, jobFilter, accessToken, setUserProfileImage]);
 
     return (
         fullPageLoading ?
@@ -84,7 +85,7 @@ const Dashboard = () => {
                 <div className="row">
                     <div className="col-12 text-center justify-content-between">
                         <div className="profile-image">
-                            <img className="img-profile rounded-circle med" alt="profile" src={getRecentJob.profile_photo} />
+                            <Image className="img-profile rounded-circle med" alt="profile" src={getRecentJob.profile_photo} width={150} height={150} />
                         </div>
                     </div>
                 </div>
@@ -135,7 +136,7 @@ const Dashboard = () => {
                                             Member Since</div>
                                         <div className="h5 mb-0 font-weight-bold text-gray-800">
                                             <Moment format="MM/DD/YYYY">
-                                            {getRecentJob.member_since}
+                                                {getRecentJob.member_since}
                                             </Moment>
                                         </div>
                                     </div>
@@ -208,11 +209,11 @@ const Dashboard = () => {
                                                         <td>{
                                                             <Moment format="MM/DD/YYYY">
                                                                 {job.created_at}
-                                                            </Moment>    
+                                                            </Moment>
                                                         }</td>
                                                         <td>
-                                                            <Link href={`/user/edit-job/${job.id}`}>
-                                                                <a href={`/user/edit-job/${job.id}`} className="btn btn-outline-primary btn-sm mt-2"><i className="far fa-edit"></i> &nbsp;Edit Job</a>
+                                                            <Link href={`/user/edit-job/${job.id}`} legacyBehavior>
+                                                                <a className="btn btn-outline-primary btn-sm mt-2"><i className="far fa-edit"></i> &nbsp;Edit Job</a>
                                                             </Link>
                                                         </td>
                                                     </tr>
@@ -222,10 +223,10 @@ const Dashboard = () => {
                                             )}
                                             {
                                                 !loading && getRecentJob.recentJobs && getRecentJob.recentJobs.length < 1
-                                                ?
-                                                <tr><td colSpan="5" style={{textAlign:'center'}}>Job Not found</td></tr>
-                                                :
-                                                null
+                                                    ?
+                                                    <tr><td colSpan="5" style={{ textAlign: 'center' }}>Job Not found</td></tr>
+                                                    :
+                                                    null
                                             }
                                         </tbody>
                                     </table>

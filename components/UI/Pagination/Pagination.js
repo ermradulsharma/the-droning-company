@@ -38,7 +38,6 @@ const Pagination = ({ total, pageLimit, dataLimit, pageChange, cPage }) => {
         }
         return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
     };
-    console.log(pages)
     return (
         <Aux>
             <ul className="pagination justify-content-center paddngt">

@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import useAuthContext from "../../../hooks/useAuthContext";
 import { SERVER_URL, MEDIA_BASE_URL } from "../../../util/Constants";
 import Aux from "../../../hoc/Auxiliary/Auxiliary";
 import axios from "axios";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import Link from "next/link";
 import {
   checkTokenExist,
   DisplayAddsInDashboardPages,
   generateRandomBannerIndex,
+  getCleanImageUrl,
 } from "../../../util/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { getDashboardAds } from "../../../redux/HomePageSlice";
@@ -69,7 +71,7 @@ const DashboardMain = () => {
     }
   };
 
-  const getDasboardDetail = async () => {
+  const getDasboardDetail = useCallback(async () => {
     await axios(`${SERVER_URL}/company-dashboard/index/${userId}`, {
       method: "GET",
       headers: {
@@ -94,7 +96,7 @@ const DashboardMain = () => {
         setFullPageLoading(false);
         setProfileBuild(false);
       });
-  };
+  }, [userId, accessToken, setVerifyEmail]);
 
   const {
     getDashboardAds_status,
@@ -115,7 +117,7 @@ const DashboardMain = () => {
   useEffect(() => {
     getDasboardDetail();
     dispatch(getDashboardAds("pilot-dashboard"));
-  }, []);
+  }, [getDasboardDetail, dispatch]);
 
   useEffect(() => {
     if (getDashboardAds_data) {
@@ -150,7 +152,7 @@ const DashboardMain = () => {
       );
 
 
-      
+
 
       // let aboveTitle_index = getDashboardAds_data?.findIndex(
       //   (item) => item?.section_name_slug === "under-banner"
@@ -236,7 +238,7 @@ const DashboardMain = () => {
         position={above_title_positon}
         index={above_title_index}
       />
-       <AddBannerComponent
+      <AddBannerComponent
         data={getDashboardAds_data}
         status={getDashboardAds_status}
         position={above_title2_positon}
@@ -249,46 +251,46 @@ const DashboardMain = () => {
         {isProfileBuild ? (
           <div className="company-profile-actions">
             <button
-              style={{background:"#f00000", color:"#ffffff"}}
-              onClick={() => handleDeleteProfile(dashboardData.basic_profile.company_id) }
+              style={{ background: "#f00000", color: "#ffffff" }}
+              onClick={() => handleDeleteProfile(dashboardData.basic_profile.company_id)}
               rel="noreferrer"
               className="m-0 btn action-button danger float-right mx-1"
             >
               Delete Profile
             </button>
-            
-          <Link href={`/company/${dashboardData.basic_profile.slug}`}>
-            <a
-              href={`/company/${dashboardData.basic_profile.slug}`}
-              rel="noreferrer"
-              name="view-profile"
-              className="m-0 btn action-button float-right mx-1"
-              target="_blank"
-            >
-              View Profile
-            </a>
-          </Link>
-          <Link href={`/company-area/build-profile`}>
-          <a
-            href={`/company-area/build-profile`}
-            rel="noreferrer"
-            name="edit-profile"
-            className="m-0 btn action-button float-right mx-1"
-          >
-            Edit Profile
-          </a>
-        </Link>
-        <Link href={`/company-area/change-password`}>
-          <a
-            href={`/company-area/change-password`}
-            rel="noreferrer"
-            name="change-password"
-            className="m-0 btn action-button float-right mx-1"
-          >
-            Change Password
-          </a>
-        </Link>
-        </div>
+
+            <Link href={`/company/${dashboardData.basic_profile.slug}`} legacyBehavior>
+              <a
+                href={`/company/${dashboardData.basic_profile.slug}`}
+                rel="noreferrer"
+                name="view-profile"
+                className="m-0 btn action-button float-right mx-1"
+                target="_blank"
+              >
+                View Profile
+              </a>
+            </Link>
+            <Link href={`/company-area/build-profile`} legacyBehavior>
+              <a
+                href={`/company-area/build-profile`}
+                rel="noreferrer"
+                name="edit-profile"
+                className="m-0 btn action-button float-right mx-1"
+              >
+                Edit Profile
+              </a>
+            </Link>
+            <Link href={`/company-area/change-password`} legacyBehavior>
+              <a
+                href={`/company-area/change-password`}
+                rel="noreferrer"
+                name="change-password"
+                className="m-0 btn action-button float-right mx-1"
+              >
+                Change Password
+              </a>
+            </Link>
+          </div>
         ) : null}
       </div>
 
@@ -299,17 +301,22 @@ const DashboardMain = () => {
               <div className="row mb-4">
                 <div className="col-sm-3">
                   <div className="companyLogo">
-                    <img
+                    <Image
                       className="img-fluid"
-                      src={dashboardData.basic_profile.logo}
+                      src={getCleanImageUrl(dashboardData.basic_profile.logo)}
                       alt={dashboardData.basic_profile.title}
+                      width={200}
+                      height={200}
+                      style={{ objectFit: 'contain' }}
                     />
                     {dashboardData.basic_profile.is_certified === "Yes" ? (
                       <span className="BadageImg">
-                        <img
+                        <Image
                           className="img-fluid"
                           src="/images/badage.png"
                           alt="badage"
+                          width={40}
+                          height={40}
                         />
                       </span>
                     ) : null}
@@ -325,13 +332,13 @@ const DashboardMain = () => {
                       ).getFullYear()}
                     </div>
                     <ul className="PilotDetails">
-                      
+
                     </ul>
 
                     <ul className="PilotSkills">
-                    {dashboardData.basic_profile && dashboardData.basic_profile.service_1 ? (<li><span className="badge badge-warning">{dashboardData.basic_profile.service_1}</span></li>) : ( "" )}
-                    {dashboardData.basic_profile && dashboardData.basic_profile.service_2 ? (<li><span className="badge badge-warning">{dashboardData.basic_profile.service_2}</span></li>) : ( "" )}
-                    {dashboardData.basic_profile && dashboardData.basic_profile.service_3 ? (<li><span className="badge badge-warning">{dashboardData.basic_profile.service_3}</span></li>) : ( "" )}
+                      {dashboardData.basic_profile && dashboardData.basic_profile.service_1 ? (<li><span className="badge badge-warning">{dashboardData.basic_profile.service_1}</span></li>) : ("")}
+                      {dashboardData.basic_profile && dashboardData.basic_profile.service_2 ? (<li><span className="badge badge-warning">{dashboardData.basic_profile.service_2}</span></li>) : ("")}
+                      {dashboardData.basic_profile && dashboardData.basic_profile.service_3 ? (<li><span className="badge badge-warning">{dashboardData.basic_profile.service_3}</span></li>) : ("")}
                     </ul>
 
                     {/* {dashboardData.basic_profile.services.length ? (
@@ -364,47 +371,49 @@ const DashboardMain = () => {
                     ) : null} */}
 
                     <div className="CompanyBoxContactDetails">
-                    <p>
-                      <a href={`tel:${dashboardData.basic_profile.phone}`}>
-                        <i className="fas fa-phone"></i>&nbsp;
-                        {dashboardData.basic_profile.phone}
-                      </a>
-                    </p>
-                    <p>
-                      <a href={`mailto:${email}`}>
-                        <i className="fas fa-envelope"></i> {email}
-                      </a>
-                    </p>
-                  </div>
+                      <p>
+                        <a href={`tel:${dashboardData.basic_profile.phone}`}>
+                          <i className="fas fa-phone"></i>&nbsp;
+                          {dashboardData.basic_profile.phone}
+                        </a>
+                      </p>
+                      <p>
+                        <a href={`mailto:${email}`}>
+                          <i className="fas fa-envelope"></i> {email}
+                        </a>
+                      </p>
+                    </div>
 
-                  <ul className="SocialLinks company-social">
-                    {dashboardData.basic_profile && dashboardData.basic_profile.facebook ? (
-                      <li><a href={dashboardData.basic_profile.facebook} target="_blank" rel="noreferrer"><i className="fab fa-facebook-f"></i></a></li>
-                    ) : ( "" )}
-                    {dashboardData.basic_profile && dashboardData.basic_profile.twitter ? (
-                    <li><a href={dashboardData.basic_profile.twitter} target="_blank" rel="noreferrer"><i className="fab fa-twitter"></i></a></li>
-                    ) : ( "" )}
-                    {dashboardData.basic_profile && dashboardData.basic_profile.linkedin ? (
-                    <li><a href={dashboardData.basic_profile.linkedin} target="_blank" rel="noreferrer"><i className="fab fa-linkedin"></i></a></li>
-                    ) : ( "" )}
-                    {dashboardData.basic_profile && dashboardData.basic_profile.instagram ? (
-                    <li><a href={dashboardData.basic_profile.instagram} target="_blank" rel="noreferrer"><i className="fab fa-instagram"></i></a></li>
-                    ) : ( "" )}
-                    {dashboardData.basic_profile && dashboardData.basic_profile.youtube ? (
-                    <li><a href={dashboardData.basic_profile.youtube} target="_blank" rel="noreferrer"><i className="fab fa-youtube"></i></a></li>
-                    ) : ( "" )}
-                  </ul>
+                    <ul className="SocialLinks company-social">
+                      {dashboardData.basic_profile && dashboardData.basic_profile.facebook ? (
+                        <li><a href={dashboardData.basic_profile.facebook} target="_blank" rel="noreferrer"><i className="fab fa-facebook-f"></i></a></li>
+                      ) : ("")}
+                      {dashboardData.basic_profile && dashboardData.basic_profile.twitter ? (
+                        <li><a href={dashboardData.basic_profile.twitter} target="_blank" rel="noreferrer"><i className="fab fa-twitter"></i></a></li>
+                      ) : ("")}
+                      {dashboardData.basic_profile && dashboardData.basic_profile.linkedin ? (
+                        <li><a href={dashboardData.basic_profile.linkedin} target="_blank" rel="noreferrer"><i className="fab fa-linkedin"></i></a></li>
+                      ) : ("")}
+                      {dashboardData.basic_profile && dashboardData.basic_profile.instagram ? (
+                        <li><a href={dashboardData.basic_profile.instagram} target="_blank" rel="noreferrer"><i className="fab fa-instagram"></i></a></li>
+                      ) : ("")}
+                      {dashboardData.basic_profile && dashboardData.basic_profile.youtube ? (
+                        <li><a href={dashboardData.basic_profile.youtube} target="_blank" rel="noreferrer"><i className="fab fa-youtube"></i></a></li>
+                      ) : ("")}
+                    </ul>
 
                   </div>
                 </div>
                 <div className="col-sm-4 align-self-center">
                   {dashboardData.basic_profile.featured_image ? (
                     <Aux>
-                      <img
+                      <Image
                         className="img-fluid PilotCard"
-                        src={dashboardData.basic_profile.featured_image}
+                        src={getCleanImageUrl(dashboardData.basic_profile.featured_image)}
                         alt="featured_image"
-                        style={{ width: "100%", height: "400px", maxHeight: "300px", objectFit: 'cover', border:"1px solid #000" }}
+                        width={400}
+                        height={300}
+                        style={{ width: "100%", height: "400px", maxHeight: "300px", objectFit: 'cover', border: "1px solid #000" }}
                       />
                     </Aux>
                   ) : null}
@@ -436,11 +445,10 @@ const DashboardMain = () => {
                               return (
                                 <div
                                   key={`video-reel-${index}`}
-                                  className={`${
-                                    dashboardData.reel_video.length < 2
-                                      ? "col-md-12"
-                                      : "col-md-6"
-                                  } form-group`}
+                                  className={`${dashboardData.reel_video.length < 2
+                                    ? "col-md-12"
+                                    : "col-md-6"
+                                    } form-group`}
                                 >
                                   <iframe
                                     width="100%"
@@ -460,7 +468,7 @@ const DashboardMain = () => {
                             })}
                           </div>
                           <div className="text-center">
-                            <Link href="/company-area/videos">
+                            <Link href="/company-area/videos" legacyBehavior>
                               <a
                                 id="add-video"
                                 name="add-video"
@@ -473,7 +481,7 @@ const DashboardMain = () => {
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/company-area/videos">
+                          <Link href="/company-area/videos" legacyBehavior>
                             <a
                               id="add-video"
                               name="add-video"
@@ -502,23 +510,25 @@ const DashboardMain = () => {
                               return (
                                 <div
                                   key={`photo-gallery-${index}`}
-                                  className={`${
-                                    dashboardData.gallery.length < 2
-                                      ? "col-md-12"
-                                      : "col-md-6"
-                                  } form-group`}
+                                  className={`${dashboardData.gallery.length < 2
+                                    ? "col-md-12"
+                                    : "col-md-6"
+                                    } form-group`}
                                 >
-                                  <img
+                                  <Image
                                     className="img-fluid DashEqualImg"
-                                    src={`${MEDIA_BASE_URL}/${photo.image}`}
+                                    src={`${MEDIA_BASE_URL}/${getCleanImageUrl(photo.image)}`}
                                     alt="01imgarticle"
+                                    width={300}
+                                    height={200}
+                                    style={{ objectFit: 'cover' }}
                                   />
                                 </div>
                               );
                             })}
                           </div>
                           <div className="text-center">
-                            <Link href="/company-area/gallery">
+                            <Link href="/company-area/gallery" legacyBehavior>
                               <a
                                 id="photo-gallery"
                                 name="photo-gallery"
@@ -531,7 +541,7 @@ const DashboardMain = () => {
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/company-area/gallery">
+                          <Link href="/company-area/gallery" legacyBehavior>
                             <a
                               id="add-photo"
                               name="add-photo"
@@ -554,7 +564,7 @@ const DashboardMain = () => {
           style={{ minHeight: "400px" }}
           className="flex-row align-items-center justify-content-between"
         >
-          <Link href="/company-area/build-profile">
+          <Link href="/company-area/build-profile" legacyBehavior>
             <a className="btn action-button" style={{ width: "auto" }}>
               Build your profile
             </a>
@@ -568,7 +578,7 @@ const DashboardMain = () => {
         position={bottom_page_position}
         index={bottom_page_index}
       />
-       <AddBannerComponent
+      <AddBannerComponent
         data={getDashboardAds_data}
         status={getDashboardAds_status}
         position={bottom_page2_position}

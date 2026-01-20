@@ -25,12 +25,22 @@ const loadScript = (url, callback) => {
     script.id = 'googleMaps';
     document.getElementsByTagName("head")[0].appendChild(script);
   } else {
-    // console.log('googleMaps API already loaded')
-    callback();
+    // Check if script is already loaded and ready
+    if (window.google && window.google.maps && window.google.maps.places) {
+      callback();
+    } else {
+      existingScript.addEventListener('load', callback);
+    }
   }
 };
 
 function handleScriptLoad(updateQuery, autoCompleteRef, props, setLocObj) {
+  if (!window.google || !window.google.maps || !window.google.maps.places) {
+    // Retry after 100ms if API is not yet available
+    setTimeout(() => handleScriptLoad(updateQuery, autoCompleteRef, props, setLocObj), 100);
+    return;
+  }
+
   autoComplete = new window.google.maps.places.Autocomplete(
     autoCompleteRef.current,
     { types: ["(cities)"] }//, componentRestrictions: { country: "us" } 
@@ -113,11 +123,17 @@ const SearchLocationInput = (props) => {
   const { location } = useCommonFunctionContext();
   const autoCompleteRef = useRef(null);
   useEffect(() => {
-    loadScript(
-      `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`,
-      () => handleScriptLoad(setQuery, autoCompleteRef, props, setLocObj)
-    );
-  }, []);
+    // The Google Maps script is already loaded via _app.js. Ensure the API is ready before initializing.
+    const initAutocomplete = () => {
+      if (window.google && window.google.maps && window.google.maps.places) {
+        handleScriptLoad(setQuery, autoCompleteRef, props, setLocObj);
+      } else {
+        // Retry after a short delay
+        setTimeout(initAutocomplete, 100);
+      }
+    };
+    initAutocomplete();
+  }, [props]);
 
   useEffect(() => {
     if (props.hasOwnProperty('locationString')) {
@@ -127,13 +143,13 @@ const SearchLocationInput = (props) => {
       setQuery("");
       setLocObj("");
     }
-  }, [location, props.locationString])
+  }, [location, props.locationString, props]);
 
   useEffect(() => {
     if (props.hasOwnProperty('locationSelect')) {
       props.locationSelect(query)
     }
-  }, [query])
+  }, [query, props]);
   return (
     <input
       data-obj={locObj}

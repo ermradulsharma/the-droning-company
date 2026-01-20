@@ -5,7 +5,7 @@ import GearReview from "../../components/Category/GearReview";
 import Link from "next/link";
 import Pagination from "../../components/UI/Pagination/Pagination";
 import { SERVER_URL } from "../../util/Constants";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import parse from "html-react-parser";
 import SearchLocationInput from "../../components/SearchLocationInput/SearchLocationInput";
 import { useRouter } from "next/router";

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useToastContext from "../../../hooks/useToastContext";
 import { SERVER_URL } from "../../../util/Constants";
@@ -23,14 +23,6 @@ const VideoGallery = () => {
   const confirm = useConfirm();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo(0, 0);
-    }
-    getAllVideos();
-    dispatch(getDashboardAds("pilot-video-gallery"));
-  }, [userId]);
-
   const {
     getDashboardAds_status,
     getDashboardAds_data,
@@ -46,7 +38,6 @@ const VideoGallery = () => {
   const [bottom_page_index, setBottomPageIndex] = useState(0);
   const [above_title2_index, setAboveTitle2Index] = useState(0);
   const [bottom_page2_index, setBottomPage2Index] = useState(0);
-
 
   useEffect(() => {
     if (getDashboardAds_data) {
@@ -82,7 +73,7 @@ const VideoGallery = () => {
     }
   }, [getDashboardAds_data]);
 
-  const getAllVideos = async () => {
+  const getAllVideos = useCallback(async () => {
     setFullPageLoading(true);
     try {
       await fetch(`${SERVER_URL}/pilot-dashboard/reel-video/show/${userId}`, {
@@ -101,7 +92,15 @@ const VideoGallery = () => {
     } catch (error) {
       setFullPageLoading(false);
     }
-  };
+  }, [userId, accessToken]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
+    getAllVideos();
+    dispatch(getDashboardAds("pilot-video-gallery"));
+  }, [userId, getAllVideos, dispatch]);
 
   const handleDeleteVideo = (id) => {
     confirm({
@@ -181,19 +180,19 @@ const VideoGallery = () => {
     </div>
   ) : (
     <div className="container-fluid">
-     <AddBannerComponent
+      <AddBannerComponent
         data={getDashboardAds_data}
         status={getDashboardAds_status}
         position={above_title_positon}
         index={above_title_index}
       />
-       <AddBannerComponent
+      <AddBannerComponent
         data={getDashboardAds_data}
         status={getDashboardAds_status}
         position={above_title2_positon}
         index={above_title2_index}
       />
-     
+
       <div className="DashHeading mb-3">
         <h1 className="h1 mb-3 text-black">
           <i className="far fa-arrow-alt-circle-right"></i> Videos Gallery
@@ -422,17 +421,16 @@ const VideoGallery = () => {
                             {video.video_type} ({video.position})
                           </h6>
                           <div className="dropdown no-arrow">
-                            <a
-                              className="dropdown-toggle"
-                              href="#"
-                              role="button"
+                            <button
+                              className="dropdown-toggle btn p-0 border-0 bg-transparent"
+                              type="button"
                               id="dropdownMenuLink"
                               data-toggle="dropdown"
                               aria-haspopup="true"
                               aria-expanded="false"
                             >
                               <i className="fas fa-ellipsis-v fa-sm fa-fw text-primary"></i>
-                            </a>
+                            </button>
                             <div
                               className="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                               aria-labelledby="dropdownMenuLink"
@@ -496,7 +494,7 @@ const VideoGallery = () => {
         position={bottom_page_position}
         index={bottom_page_index}
       />
-       <AddBannerComponent
+      <AddBannerComponent
         data={getDashboardAds_data}
         status={getDashboardAds_status}
         position={bottom_page2_position}

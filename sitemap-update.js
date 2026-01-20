@@ -1,14 +1,16 @@
 const fs = require('fs'),
     convert = require('xml-js'),
     moment = require('moment'),
-    hostBlogBaseURL = 'https://www.thedroningcompany.com/blog',
-    getBlogsListURL = `https://media.thedroningcompany.com/api/v1/blog/sitemap`, //@todo get all blogs
-    hostBlogCategoryBaseURL = 'https://www.thedroningcompany.com/news/categories',
-    getBlogCategoryListURL = `https://media.thedroningcompany.com/api/v1/blog-categories`, //@todo get all blog categories
-    hostPilotBaseURL = 'https://www.thedroningcompany.com/pilot',
-    getPilotListURL = `https://media.thedroningcompany.com/api/v1/pilot/sitemap`, //@todo get all pilots
-    hostJobDetailBaseURL = 'https://www.thedroningcompany.com/job',
-    getJobListURL = 'https://media.thedroningcompany.com/api/v1/job/list/sitemap',
+    SERVER_URL = process.env.SERVER_URL || 'http://127.0.0.1:8000/api/v1',
+    HOST_DOMAIN = 'http://localhost:3000', // Placeholder domain
+    hostBlogBaseURL = `${HOST_DOMAIN}/blog`,
+    getBlogsListURL = `${SERVER_URL}/blog/sitemap`,
+    hostBlogCategoryBaseURL = `${HOST_DOMAIN}/news/categories`,
+    getBlogCategoryListURL = `${SERVER_URL}/blog-categories`,
+    hostPilotBaseURL = `${HOST_DOMAIN}/pilot`,
+    getPilotListURL = `${SERVER_URL}/pilot/sitemap`,
+    hostJobDetailBaseURL = `${HOST_DOMAIN}/job`,
+    getJobListURL = `${SERVER_URL}/job/list/sitemap`,
     untrackedUrlsList = [],
     options = { compact: true, ignoreComment: true, spaces: 4 };
 /*
@@ -117,7 +119,7 @@ const filterUniqueURLs = () => {
 
             untrackedUrlsList.forEach(data => {
                 const ele = data.url;
-                if (existingSitemapURLStringList.indexOf(ele.url) == -1) {
+                if (existingSitemapURLStringList.indexOf(ele) == -1) { // Changed ele.url to ele
                     existingSitemapList.urlset.url.push({
                         loc: {
                             _text: ele,

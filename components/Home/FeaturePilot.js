@@ -2,17 +2,26 @@ import React, { useState, useEffect } from "react";
 import { SERVER_URL } from "../../util/Constants";
 import Link from "next/link";
 import parse from 'html-react-parser';
+import Image from "next/image";
 const FeaturePilot = () => {
     const [homefeaturePilotData, sethomefeaturePilotData] = useState([]);
     useEffect(() => {
         fetch(`${SERVER_URL}/home/pilot-feature`, {
             method: "GET",
         })
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
             .then((response) => {
                 if (response.statusCode === 200) {
                     sethomefeaturePilotData(response.data);
                 }
+            })
+            .catch((error) => {
+                console.error("Error fetching featured pilot:", error);
             });
     }, []);
     return (<div className="col-md-6">
@@ -25,8 +34,8 @@ const FeaturePilot = () => {
                     <div className="col-4 col-sm-4">
                         <div className="PilotImg">
                             <Link href={`/pilot/${pilot.slug}`}>
-                                <a href={`/pilot/${pilot.slug}`}> 
-                                    <img className="img-fluid" src={pilot.image} alt="pilot"/>
+                                <a href={`/pilot/${pilot.slug}`}>
+                                    <Image className="img-fluid" src={pilot.image} alt="pilot" width={300} height={300} />
                                 </a>
                             </Link>
                             {/* {
@@ -35,8 +44,8 @@ const FeaturePilot = () => {
                                 <img className="img-fluid PilotVerified" style={{marginTop: '-20px', position:'initial'}} src={insuredIcon} alt="verified" />
                                 :
                                 null
-                            } */}                                                      
-                            
+                            } */}
+
                         </div>
                     </div>
                     <div className="col-8 col-sm-8">
@@ -44,7 +53,7 @@ const FeaturePilot = () => {
                             <h1><Link href={`/pilot/${pilot.slug}`}>{pilot.name}</Link></h1>
                             <p><Link href={`/pilot/${pilot.slug}`}>{pilot.title}</Link></p>
                             <br /><br />
-                           { /*<ul className="PilotDetails">
+                            { /*<ul className="PilotDetails">
                                 <li>({pilot.no_of_jobs} Jobs)</li>
                                 <li>${pilot.hourly_rate}/hr</li>
                              </ul> */ }
@@ -58,11 +67,11 @@ const FeaturePilot = () => {
                             <p>
                                 {
                                     pilot.short_description
-                                    ?
-                                    parse(`${pilot.short_description}...`)
-                                    :
-                                    null
-                                }   
+                                        ?
+                                        parse(`${pilot.short_description}...`)
+                                        :
+                                        null
+                                }
                             </p>
                             <small>
                                 <Link href={`/pilot/${pilot.slug}`}>See Profile</Link>

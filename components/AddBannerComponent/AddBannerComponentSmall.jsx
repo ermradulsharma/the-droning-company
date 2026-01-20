@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import AddBanSmall from "../AddBannerSmall/AddBanSmall";
 
 const AddBannerComponentSmall = ({ data, status, position, index }) => {

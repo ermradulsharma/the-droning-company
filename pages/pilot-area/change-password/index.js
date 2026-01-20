@@ -16,12 +16,12 @@ const ChangePassword = () => {
   const { showToast, hideToast, showToastSuccess, showToastError } =
     useToastContext();
 
-    
+
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getDashboardAds("pilot-change-password"));
-  }, [userId]);
+  }, [userId, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -82,7 +82,7 @@ const ChangePassword = () => {
         position={above_title_positon}
         index={above_title_index}
       />
-       <AddBannerComponent
+      <AddBannerComponent
         data={getDashboardAds_data}
         status={getDashboardAds_status}
         position={above_title2_positon}
@@ -93,7 +93,7 @@ const ChangePassword = () => {
         <h2 className="h2 mb-0 text-black">
           <i className="far fa-arrow-alt-circle-right"></i> Settings
         </h2>
-        <Link href="/user/create-job">
+        <Link href="/user/create-job" legacyBehavior>
           <a className="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i className="fas fa-plus fa-sm text-white-50"></i> Create a Job
           </a>
@@ -189,7 +189,7 @@ const ChangePassword = () => {
                       className={
                         "form-control" +
                         (errors.confirm_new_password &&
-                        touched.confirm_new_password
+                          touched.confirm_new_password
                           ? " is-invalid"
                           : "")
                       }
@@ -221,7 +221,7 @@ const ChangePassword = () => {
         position={bottom_page_position}
         index={bottom_page_index}
       />
-             <AddBannerComponent
+      <AddBannerComponent
         data={getDashboardAds_data}
         status={getDashboardAds_status}
         position={bottom_page2_position}

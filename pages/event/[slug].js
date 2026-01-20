@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 import parse from "html-react-parser";
 import UpcomingEvents from "../../components/Event/UpcomingEvents";
 
-import { SERVER_URL } from "../../util/Constants";
-import Loader from "react-loader-spinner";
+import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
+import Loader from "@/components/Common/Loader";
 import SEO from "../../components/Seo/Seo";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
@@ -203,7 +204,7 @@ const BlogDetail = (props) => {
                   "name": "TheDroningCompany.com",
                   "logo": {
                     "@type": "ImageObject",
-                    "url": "https://www.thedroningcompany.com/images/logo.png",
+                    "url": "/images/logo.png",
                     "width": "",
                     "height": ""
                   }
@@ -304,7 +305,7 @@ const BlogDetail = (props) => {
                                                         <div className="TdMediaBox">
                                                             <img
                                                                 className="img-fluid"
-                                                                src={eventDetailData.image}
+                                                                src={`${MEDIA_BASE_URL}/${getCleanImageUrl(eventDetailData.image)}`}
                                                                 alt={eventDetailData?.title}
                                                             />{" "}
                                                         </div>
@@ -361,12 +362,12 @@ const BlogDetail = (props) => {
                                                         ) : ''}
 
                                                         <div className="row">
-                                                            {eventDetailData.gallery_img_1 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={eventDetailData.gallery_img_1} alt={eventDetailData?.title} /></div>) : null}
-                                                            {eventDetailData.gallery_img_2 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={eventDetailData.gallery_img_2} alt={eventDetailData?.title} /></div>) : null}
-                                                            {eventDetailData.gallery_img_3 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={eventDetailData.gallery_img_3} alt={eventDetailData?.title} /></div>) : null}
-                                                            {eventDetailData.gallery_img_4 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={eventDetailData.gallery_img_4} alt={eventDetailData?.title} /></div>) : null}
-                                                            {eventDetailData.gallery_img_5 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={eventDetailData.gallery_img_5} alt={eventDetailData?.title} /></div>) : null}
-                                                            {eventDetailData.gallery_img_6 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={eventDetailData.gallery_img_6} alt={eventDetailData?.title} /></div>) : null}
+                                                            {eventDetailData.gallery_img_1 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(eventDetailData.gallery_img_1)}`} alt={eventDetailData?.title} /></div>) : null}
+                                                            {eventDetailData.gallery_img_2 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(eventDetailData.gallery_img_2)}`} alt={eventDetailData?.title} /></div>) : null}
+                                                            {eventDetailData.gallery_img_3 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(eventDetailData.gallery_img_3)}`} alt={eventDetailData?.title} /></div>) : null}
+                                                            {eventDetailData.gallery_img_4 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(eventDetailData.gallery_img_4)}`} alt={eventDetailData?.title} /></div>) : null}
+                                                            {eventDetailData.gallery_img_5 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(eventDetailData.gallery_img_5)}`} alt={eventDetailData?.title} /></div>) : null}
+                                                            {eventDetailData.gallery_img_6 ? (<div className="col-md-4 mb-3"> <img className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(eventDetailData.gallery_img_6)}`} alt={eventDetailData?.title} /></div>) : null}
                                                         </div>
 
                                                         <div className="TdShareRow float-right">

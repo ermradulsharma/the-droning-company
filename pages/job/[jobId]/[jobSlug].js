@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import parse from 'html-react-parser';
 import { SERVER_URL } from "../../../util/Constants";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import useAuthContext from "../../../hooks/useAuthContext";
 import SEO from "../../../components/Seo/Seo";
 import Aux from "../../../hoc/Auxiliary/Auxiliary";

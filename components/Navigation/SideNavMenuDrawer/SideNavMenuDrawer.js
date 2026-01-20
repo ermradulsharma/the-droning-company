@@ -1,6 +1,7 @@
 import React from 'react';
 //import { NavLink, Link} from 'react-router-dom';
 import Link from 'next/link';
+import Image from 'next/image';
 import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import useUserContext from "../../../hooks/useUserContext";
 import useAuthContext from "../../../hooks/useAuthContext";
@@ -9,34 +10,34 @@ const SideNavMenuDrawer = (props) => {
     const { drawerCollapsed, setDrawerCollapsed } = useUserContext();
     const { userType } = useAuthContext();
     const drawerCollapsedHandler = (isCollapsed) => {
-        if (isCollapsed) {            
+        if (isCollapsed) {
             document.body.className = "sidebar-toggled";
         } else {
             document.body.className = "";
         }
-        setDrawerCollapsed(isCollapsed);        
+        setDrawerCollapsed(isCollapsed);
     }
-    
+
     return (
         <Aux>
             <ul className={`navbar-nav bg-gradient-primary sidebar sidebar-dark accordion ${drawerCollapsed ? 'toggled' : null}`} id="accordionSidebar">
 
                 {/* <!-- Sidebar - Brand --> */}
-                <Link href="/">
+                <Link href="/" legacyBehavior>
                     <a className="sidebar-brand d-flex align-items-center justify-content-center">
-                        <img className="img-fluid" src="/images/logo.png" alt="logo" />
+                        <Image className="img-fluid" src="/images/logo.png" alt="logo" width={60} height={60} />
                     </a>
                 </Link>
                 {/*  <!-- Divider --> */}
                 <hr className="sidebar-divider my-0" />
-                
+
                 {/* <!--Nav Item - Dashboard --> */}
                 <li className="nav-item">
                     <Link href={`${userType.id === 3 ? "/pilot-area/dashboard" : "/user/dashboard"}`}>
                         <a className="nav-link">
                             <i className="fas fa-fw fa-tachometer-alt"></i>
                             <span>Dashboard</span>
-                        </a>    
+                        </a>
                     </Link>
                 </li>
 
@@ -49,30 +50,30 @@ const SideNavMenuDrawer = (props) => {
 
                 {
                     userType.id !== 3
-                    ?
-                    <Aux>
-                        {/* <!-- Nav Item - Pages Collapse Menu --> */}
-                        <li className="nav-item">
-                            <Link href="/user/jobs">
-                                <a className="nav-link">
-                                    <i className="fas fa-list-alt"></i>
-                                    <span>My Jobs</span>
-                                </a>
-                            </Link>
-                        </li>
+                        ?
+                        <Aux>
+                            {/* <!-- Nav Item - Pages Collapse Menu --> */}
+                            <li className="nav-item">
+                                <Link href="/user/jobs">
+                                    <a className="nav-link">
+                                        <i className="fas fa-list-alt"></i>
+                                        <span>My Jobs</span>
+                                    </a>
+                                </Link>
+                            </li>
 
-                        {/* <!-- Nav Item - Pages Collapse Menu --> */}
-                        <li className="nav-item">
-                            <Link href="/user/create-job">
-                                <a className="nav-link collapsed">
-                                    <i className="fas fa-file-signature"></i>
-                                    <span>Create Job</span>
-                                </a>
-                            </Link>
-                        </li>
+                            {/* <!-- Nav Item - Pages Collapse Menu --> */}
+                            <li className="nav-item">
+                                <Link href="/user/create-job">
+                                    <a className="nav-link collapsed">
+                                        <i className="fas fa-file-signature"></i>
+                                        <span>Create Job</span>
+                                    </a>
+                                </Link>
+                            </li>
 
-                        {/* <!-- Nav Item - Charts --> */}
-                        {/* <li className="nav-item">
+                            {/* <!-- Nav Item - Charts --> */}
+                            {/* <li className="nav-item">
                             <a className="nav-link" href="">
                                 <i className="fas fa-user-times"></i>
                                 <span>Pilots Hired</span></a>
@@ -82,62 +83,62 @@ const SideNavMenuDrawer = (props) => {
                                 <i className="fas fa-tasks"></i>
                                 <span>Job Progress Tracking</span></NavLink>
                         </li> */}
-                    </Aux>
-                    :
-                    <Aux>
-                        <li className="nav-item">
-                            <Link href="/pilot-area/build-profile">
-                                <a className="nav-link">
-                                    <i className="fas fa-money-check-alt"></i>
-                                    <span>Build Profile</span>
-                                </a>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link href="/pilot-area/subscriptions">
-                                <a className="nav-link">
-                                    <i className="fas fa-money-check-alt"></i>
-                                    <span>My Subscriptions</span>
-                                </a>
-                            </Link>
-                        </li>                        
-                        { /* add below more menus for pilot */}
-                        
-                        <li className="nav-item">
-                            <Link href="/pilot-area/service-location">
-                                <a className="nav-link">
-                                    <i className="fas fa-location-arrow"></i>
-                                    <span>Service Locations</span>
-                                </a>
-                            </Link>
-                        </li>     
-                        <li className="nav-item">
-                            <Link href="/pilot-area/gallery">
-                                <a className="nav-link">
-                                    <i className="fas fa-images"></i>
-                                    <span>Photo Gallery</span>
-                                </a>
-                            </Link>
-                        </li>     
-                        <li className="nav-item">
-                            <Link href="/pilot-area/videos">
-                                <a className="nav-link">
-                                    <i className="fas fa-video"></i>
-                                    <span>Video Gallery</span>
-                                </a>
-                            </Link>
-                        </li>     
-                        <li className="nav-item">
-                            <Link href="/pilot-area/equipments">
-                                <a className="nav-link">
-                                    <i className="fas fa-toolbox"></i>
-                                    <span>My Equipment</span>
-                                </a>
-                            </Link>
-                        </li>     
-                    </Aux>
+                        </Aux>
+                        :
+                        <Aux>
+                            <li className="nav-item">
+                                <Link href="/pilot-area/build-profile">
+                                    <a className="nav-link">
+                                        <i className="fas fa-money-check-alt"></i>
+                                        <span>Build Profile</span>
+                                    </a>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link href="/pilot-area/subscriptions">
+                                    <a className="nav-link">
+                                        <i className="fas fa-money-check-alt"></i>
+                                        <span>My Subscriptions</span>
+                                    </a>
+                                </Link>
+                            </li>
+                            { /* add below more menus for pilot */}
+
+                            <li className="nav-item">
+                                <Link href="/pilot-area/service-location">
+                                    <a className="nav-link">
+                                        <i className="fas fa-location-arrow"></i>
+                                        <span>Service Locations</span>
+                                    </a>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link href="/pilot-area/gallery">
+                                    <a className="nav-link">
+                                        <i className="fas fa-images"></i>
+                                        <span>Photo Gallery</span>
+                                    </a>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link href="/pilot-area/videos">
+                                    <a className="nav-link">
+                                        <i className="fas fa-video"></i>
+                                        <span>Video Gallery</span>
+                                    </a>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link href="/pilot-area/equipments">
+                                    <a className="nav-link">
+                                        <i className="fas fa-toolbox"></i>
+                                        <span>My Equipment</span>
+                                    </a>
+                                </Link>
+                            </li>
+                        </Aux>
                 }
-                
+
 
                 {/* <!-- Nav Item - Tables --> */}
                 {/* <!-- Nav Item - Utilities Collapse Menu --> */}
@@ -167,11 +168,11 @@ const SideNavMenuDrawer = (props) => {
 
                 {/* <!-- Sidebar Toggler (Sidebar) --> */}
                 <div className="text-center d-none d-md-inline">
-                    <button className="rounded-circle border-0" id="sidebarToggle" onClick={()=>drawerCollapsedHandler(!drawerCollapsed)}></button>
+                    <button className="rounded-circle border-0" id="sidebarToggle" onClick={() => drawerCollapsedHandler(!drawerCollapsed)}></button>
                 </div>
 
             </ul>
-        </Aux>        
+        </Aux>
     );
 }
 

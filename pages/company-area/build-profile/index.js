@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import axios from "axios";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import Multiselect from "multiselect-react-dropdown";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useToastContext from "../../../hooks/useToastContext";
@@ -132,7 +133,7 @@ const BuildProfile = () => {
   const [location, setloaction] = useState('')
 
 
-  const getPilotBasicProfileDetail = async () => {
+  const getPilotBasicProfileDetail = useCallback(async () => {
     try {
       setFullPageLoading(true);
       await fetch(
@@ -182,9 +183,9 @@ const BuildProfile = () => {
       console.log(error);
       setFullPageLoading(false);
     }
-  };
+  }, [userId, accessToken, setUserProfileImage, showToastError]);
 
-  const getSkillCategories = async () => {
+  const getSkillCategories = useCallback(async () => {
     try {
       await fetch(`${SERVER_URL}/services`, {
         method: "GET",
@@ -197,7 +198,7 @@ const BuildProfile = () => {
           }
         });
     } catch (error) { }
-  };
+  }, []);
 
   const onSelectCategory = (selectedList, selectedItem, setFieldValue) => {
     //console.log(selectedItem);
@@ -416,7 +417,7 @@ const BuildProfile = () => {
     getPilotBasicProfileDetail();
     getSkillCategories();
     dispatch(getDashboardAds("company-build-profile"));
-  }, [userId]);
+  }, [getPilotBasicProfileDetail, getSkillCategories, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -514,7 +515,7 @@ const BuildProfile = () => {
                         className="pilot-avatar"
                         onClick={() => fileInputClicked()}
                       >
-                        <img
+                        <Image
                           className="img-profile"
                           src={
                             pilotProfileImg
@@ -523,8 +524,8 @@ const BuildProfile = () => {
                                 ? profileImage
                                 : PROFILE_IMAGE
                           }
-                          height="150px"
-                          width="150px"
+                          height={150}
+                          width={150}
                           style={{ objectFit: "contain" }}
                           alt="Company Logo"
                         />
@@ -575,9 +576,10 @@ const BuildProfile = () => {
                           </p>
                         )}
 
-                        <img
+                        <Image
                           src={pilotLicenseImg}
-                          height="150px"
+                          height={150}
+                          width={200}
                           style={{ objectFit: "cover" }}
                           alt="Featured Image"
                         />
@@ -1321,9 +1323,10 @@ const BuildProfile = () => {
                               <div className="profile_pic_box">
                                 {firstProfileImage ? (
                                   <div className="about-pilot">
-                                    <img
+                                    <Image
                                       src={firstProfileImage}
-                                      height="200px"
+                                      height={200}
+                                      width={300}
                                       style={{ objectFit: "cover", width: "100%" }}
                                       alt="First Profile Image"
                                     />
@@ -1363,9 +1366,10 @@ const BuildProfile = () => {
                               <div className="profile_pic_box">
                                 {secondProfileImage ? (
                                   <div className="about-pilot">
-                                    <img
+                                    <Image
                                       src={secondProfileImage}
-                                      height="200px"
+                                      height={200}
+                                      width={300}
                                       style={{ objectFit: "cover", width: "100%" }}
                                       alt="Second Profile Image"
                                     />
@@ -1405,9 +1409,10 @@ const BuildProfile = () => {
                               <div className="profile_pic_box">
                                 {thirdProfileImage ? (
                                   <div className="about-pilot">
-                                    <img
+                                    <Image
                                       src={thirdProfileImage}
-                                      height="200px"
+                                      height={200}
+                                      width={300}
                                       style={{ objectFit: "cover", width: "100%" }}
                                       alt="Third Profile Image"
                                     />
@@ -1448,9 +1453,10 @@ const BuildProfile = () => {
                               <div className="profile_pic_box">
                                 {fourthProfileImage ? (
                                   <div className="about-pilot">
-                                    <img
+                                    <Image
                                       src={fourthProfileImage}
-                                      height="200px"
+                                      height={200}
+                                      width={300}
                                       style={{ objectFit: "cover", width: "100%" }}
                                       alt="Fourth Profile Image"
                                     />
@@ -1488,9 +1494,10 @@ const BuildProfile = () => {
                               <div className="profile_pic_box">
                                 {fifthProfileImage ? (
                                   <div className="about-pilot">
-                                    <img
+                                    <Image
                                       src={fifthProfileImage}
-                                      height="200px"
+                                      height={200}
+                                      width={300}
                                       style={{ objectFit: "cover", width: "100%" }}
                                       alt="Fifth Profile Image"
                                     />
@@ -1530,9 +1537,10 @@ const BuildProfile = () => {
                               <div className="profile_pic_box">
                                 {sixthProfileImage ? (
                                   <div className="about-pilot">
-                                    <img
+                                    <Image
                                       src={sixthProfileImage}
-                                      height="200px"
+                                      height={200}
+                                      width={300}
                                       style={{ objectFit: "cover", width: "100%" }}
                                       alt="Sixth Profile Image"
                                     />

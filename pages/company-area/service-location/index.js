@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { SERVER_URL } from "../../../util/Constants";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useToastContext from "../../../hooks/useToastContext";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import SearchLocationInput, {
   loadScript,
 } from "../../../components/SearchLocationInput/SearchLocationInput";
@@ -31,7 +31,7 @@ const ServiceLocation = () => {
   useEffect(() => {
     getServiceLocationsDetail();
     dispatch(getDashboardAds("pilot-service-locations"));
-  }, [userId]);
+  }, [getServiceLocationsDetail, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -83,7 +83,7 @@ const ServiceLocation = () => {
     }
   }, [getDashboardAds_data]);
 
-  const getServiceLocationsDetail = async () => {
+  const getServiceLocationsDetail = useCallback(async () => {
     setFullPageLoading(true);
     try {
       await fetch(`${SERVER_URL}/pilot-dashboard/service-area/show/${userId}`, {
@@ -103,9 +103,9 @@ const ServiceLocation = () => {
     } catch (error) {
       setFullPageLoading(false);
     }
-  };
+  }, [userId, accessToken]);
 
-  const getServiceLocationsDetailAfterAdd = async () => {
+  const getServiceLocationsDetailAfterAdd = useCallback(async () => {
     settableLoading(true);
     try {
       await fetch(`${SERVER_URL}/pilot-dashboard/service-area/show/${userId}`, {
@@ -125,7 +125,7 @@ const ServiceLocation = () => {
     } catch (error) {
       settableLoading(false);
     }
-  };
+  }, [userId, accessToken]);
 
   const handleDeleteServiceLocation = (id, city) => {
     confirm({

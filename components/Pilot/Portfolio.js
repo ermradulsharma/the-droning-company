@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SERVER_URL } from "../../util/Constants";
+import Image from "next/image";
 const Portfolio = ({ profileId }) => {
 
     const [pilotPortfolio, setPilotPortfolio] = useState([]);
@@ -8,7 +9,7 @@ const Portfolio = ({ profileId }) => {
     useEffect(() => {
         fetch(`${SERVER_URL}/pilot-profile/portfolio-new/${profileId}`, {
             method: "GET",
-        }, [profileId])
+        })
             .then((res) => res.json())
             .then((response) => {
                 if (response.statusCode === 200) {
@@ -16,7 +17,7 @@ const Portfolio = ({ profileId }) => {
                     setPortfolioExist(true);
                 }
             });
-    }, []);
+    }, [profileId]);
 
     return (
         hasPortfolioExist ?
@@ -35,7 +36,7 @@ const Portfolio = ({ profileId }) => {
                                     {
                                         galleryOuterWarp.map((photo, index) => {
                                             return <div className="col-sm-4 col-md-4" key={'galleryInnerWarpIndex-' + index}>
-                                                <img className="img-fluid" src={photo.image} alt="photo" />
+                                                <Image className="img-fluid" src={photo.image} alt="photo" width={400} height={300} />
                                             </div>
                                         })
                                     }
@@ -50,17 +51,21 @@ const Portfolio = ({ profileId }) => {
 
                     {/* <!-- Left and right controls --> */}
                     <a className="carousel-control-prev d-none" href="#pilotPortfolio" data-slide="prev" data-bs-target="#pilotPortfolio">
-                        <img
+                        <Image
                             className="img-fluid"
                             src={`/images/arrow-left.png`}
                             alt="arrow"
+                            width={30}
+                            height={30}
                         />
                     </a>
                     <a className="carousel-control-next d-none" href="#pilotPortfolio" data-slide="next" data-bs-target="#pilotPortfolio">
-                        <img
+                        <Image
                             className="img-fluid"
                             src={`/images/arrow-right.png`}
                             alt="arrow"
+                            width={30}
+                            height={30}
                         />
                     </a>
                 </div>

@@ -1,10 +1,12 @@
 import Aux from "../../hoc/Auxiliary/Auxiliary";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import parse from "html-react-parser";
-import { SERVER_URL } from "../../util/Constants";
-import Loader from "react-loader-spinner";
+import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
+import Loader from "@/components/Common/Loader";
 import Portfolio from "../../components/Pilot/Portfolio";
 import Reel from "../../components/Pilot/Reel";
 import ServiceLocation from "../../components/Pilot/ServiceLocation";
@@ -31,17 +33,7 @@ const Pilot = (props) => {
     props?.metaDescription
   );
 
-  useEffect(() => {
-    getProfile();
-  }, [slug]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo(0, 0);
-    }
-  }, []);
-
-  const getProfile = async () => {
+  const getProfile = useCallback(async () => {
     try {
       await fetch(`${SERVER_URL}/pilot-profile/${slug}`, {
         method: "GET",
@@ -60,7 +52,11 @@ const Pilot = (props) => {
       console.log(error);
       setProfileLoading(false);
     }
-  };
+  }, [slug]);
+
+  useEffect(() => {
+    getProfile();
+  }, [getProfile]);
 
   const changeLimitLabel = (limit, total) => {
     if (limit === 10) {
@@ -175,18 +171,22 @@ const Pilot = (props) => {
                 <div className="row PilotBox">
                   <div className="col-sm-3">
                     <div className="PilotImg">
-                      <img
+                      <Image
                         className="img-fluid"
-                        src={pilotData.profile && pilotData.profile.image}
-                        alt=""
+                        src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.image)}`}
+                        alt="pilot"
+                        width={300}
+                        height={300}
                       />
                       {pilotData.profile &&
                         pilotData.profile.is_certified === "Yes" ? (
                         <span className="BadageImg">
-                          <img
+                          <Image
                             className="img-fluid"
                             src={`/images/badage.png`}
                             alt="badage"
+                            width={50}
+                            height={50}
                           />
                         </span>
                       ) : (
@@ -303,10 +303,12 @@ const Pilot = (props) => {
                         return (
                           <div className="col-sm-3" key={"equipment-" + index}>
                             <div className="EqpDetail">
-                              <img
+                              <Image
                                 className="img-fluid"
-                                src={equip.image}
+                                src={`${MEDIA_BASE_URL}/${getCleanImageUrl(equip.image)}`}
                                 alt="eqp"
+                                width={300}
+                                height={200}
                               />
                               <h5>
                                 {equip.title.charAt(0).toUpperCase() +

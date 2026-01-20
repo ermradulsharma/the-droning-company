@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { SERVER_URL } from "../../util/Constants";
+import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
 import Link from "next/link";
-import Loader from "react-loader-spinner";
+import Loader from "../Common/Loader";
 import parse from "html-react-parser";
 import Image from 'next/image';
 
@@ -17,13 +18,22 @@ const NewSection = () => {
       fetch(`${SERVER_URL}/home/blog`, {
         method: "GET",
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          return res.json();
+        })
         .then((response) => {
           //console.log(response);
           setLoadingNews(false);
           if (response.statusCode === 200) {
             setNews(response.data);
           }
+        })
+        .catch((error) => {
+          setLoadingNews(false);
+          console.error("Error fetching news:", error);
         });
     } catch (error) {
       setLoadingNews(false);
@@ -43,7 +53,7 @@ const NewSection = () => {
     return location.map((data, index) => {
       if (index < limitNumber)
         return (
-          <li>
+          <li key={`job-location-${index}`}>
             {data.city}
             {data.state ? ", " + data.state : ""}
           </li>
@@ -79,7 +89,7 @@ const NewSection = () => {
                     </div>
                   </div>
                 ) : null}
-                <Link href={`/blog/${news.category_1_title_slug}`}>
+                <Link legacyBehavior href={`/blog/${news.category_1_title_slug}`}>
                   <a href={`/blog/${news.category_1_title_slug}`}>
                     {/* <img
                       className="img-fluid"
@@ -88,14 +98,16 @@ const NewSection = () => {
                       onLoad={() => setLoadingImage(false)}
                     /> */}
 
-                    <Image
-                      src={news.category_1_image}
-                      alt="Picture of the author"
-                      onLoad={() => setLoadingImage(false)}
-                      width={562}
-                      height={400}
-                      priority={true}
-                    />
+                    {news.category_1_image ? (
+                      <Image
+                        src={`${MEDIA_BASE_URL}/${getCleanImageUrl(news.category_1_image)}`}
+                        alt="Picture of the author"
+                        onLoad={() => setLoadingImage(false)}
+                        width={562}
+                        height={400}
+                        priority={true}
+                      />
+                    ) : null}
 
                   </a>
                 </Link>
@@ -107,7 +119,7 @@ const NewSection = () => {
                   <p className="fixHeight">
                     {news.category_1_short_descrption}
                   </p>
-                  <Link href={`/blog/${news.category_1_title_slug}`}>
+                  <Link legacyBehavior href={`/blog/${news.category_1_title_slug}`}>
                     <a
                       href={`/blog/${news.category_1_title_slug}`}
                       className="SeeMore"
@@ -146,15 +158,17 @@ const NewSection = () => {
                             alt="03imgarticle"
                           /> */}
 
-                          <Image
-                            src={blog_new.image}
-                            className="img-fluid"
-                            alt={blog_new.title}
-                            onLoad={() => setLoadingImage(false)}
-                            width={180}
-                            height={180}
-                            priority={true}
-                          />
+                          {blog_new.image ? (
+                            <Image
+                              src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new.image)}`}
+                              className="img-fluid"
+                              alt={blog_new.title}
+                              onLoad={() => setLoadingImage(false)}
+                              width={180}
+                              height={180}
+                              priority={true}
+                            />
+                          ) : null}
 
                         </div>
                       ) : null}
@@ -168,7 +182,7 @@ const NewSection = () => {
                           {blog_new.excerpt ? (
                             <p>{parse(blog_new.excerpt)}</p>
                           ) : null}
-                          <Link href={`/blog/${blog_new.slug}`}>
+                          <Link legacyBehavior href={`/blog/${blog_new.slug}`}>
                             <a
                               href={`/blog/${blog_new.slug}`}
                               className="SeeMore"
@@ -210,7 +224,7 @@ const NewSection = () => {
                     </div>
                   </div>
                 ) : null}
-                <Link href={`/blog/${news.category_2_title_slug}`}>
+                <Link legacyBehavior href={`/blog/${news.category_2_title_slug}`}>
                   <a href={`/blog/${news.category_2_title_slug}`}>
                     {/* <img
                       className="img-fluid"
@@ -219,14 +233,16 @@ const NewSection = () => {
                       alt="Video Reel of the Week"
                     /> */}
 
-                    <Image
-                      src={news.category_2_image}
-                      alt="Video Reel of the Week"
-                      onLoad={() => setLoadingImage(false)}
-                      width={562}
-                      height={400}
-                      priority={true}
-                    />
+                    {news.category_2_image ? (
+                      <Image
+                        src={`${MEDIA_BASE_URL}/${getCleanImageUrl(news.category_2_image)}`}
+                        alt="Video Reel of the Week"
+                        onLoad={() => setLoadingImage(false)}
+                        width={562}
+                        height={400}
+                        priority={true}
+                      />
+                    ) : null}
                   </a>
                 </Link>
 
@@ -237,7 +253,7 @@ const NewSection = () => {
                   <p className="fixHeight">
                     {news.category_2_short_descrption}{" "}
                   </p>
-                  <Link href={`/blog/${news.category_2_title_slug}`}>
+                  <Link legacyBehavior href={`/blog/${news.category_2_title_slug}`}>
                     <a
                       href={`/blog/${news.category_2_title_slug}`}
                       className="SeeMore"
@@ -279,15 +295,17 @@ const NewSection = () => {
                             alt="03imgarticle"
                           /> */}
 
-                          <Image
-                            src={blog_new_2.image}
-                            className="img-fluid"
-                            alt={blog_new_2.title}
-                            onLoad={() => setLoadingImage(false)}
-                            width={180}
-                            height={180}
-                            priority={true}
-                          />
+                          {blog_new_2.image ? (
+                            <Image
+                              src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new_2.image)}`}
+                              className="img-fluid"
+                              alt={blog_new_2.title}
+                              onLoad={() => setLoadingImage(false)}
+                              width={180}
+                              height={180}
+                              priority={true}
+                            />
+                          ) : null}
 
                         </div>
                       ) : null}
@@ -303,7 +321,7 @@ const NewSection = () => {
                           {blog_new_2.excerpt ? (
                             <p>{parse(blog_new_2.excerpt)}</p>
                           ) : null}
-                          <Link href={`/blog/${blog_new_2.slug}`}>
+                          <Link legacyBehavior href={`/blog/${blog_new_2.slug}`}>
                             <a
                               href={`/blog/${blog_new_2.slug}`}
                               className="SeeMore"

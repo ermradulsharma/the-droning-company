@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { SERVER_URL } from "../../util/Constants";
+import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
 import Link from "next/link";
 import parse from 'html-react-parser';
+import { getCleanImageUrl } from "../../util/utils";
 import Image from 'next/image';
 
 const FeaturePilot = () => {
@@ -22,7 +23,7 @@ const FeaturePilot = () => {
         <>
             {
                 homefeaturePilotData.map((pilot, index) => {
-                    return <div key={'homeFeaturePilot-' + index} className="col-item" style={{ backgroundImage: "url(" + pilot.image + ")" }}>
+                    return <div key={'homeFeaturePilot-' + index} className="col-item" style={{ backgroundImage: "url(" + `${MEDIA_BASE_URL}/${getCleanImageUrl(pilot.image)}` + ")" }}>
                         <div className="BandBox">
                             <div className="BandBoxhead">
                                 <h2>Featured Pilot of the Week</h2>
@@ -31,7 +32,7 @@ const FeaturePilot = () => {
                             <div className={`HomeBlockImg`}>
                                 {/* <img className="img-fluid" src={pilot.image} alt={pilot.name} /> */}
                                 <Image
-                                    src={pilot.image}
+                                    src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilot.image)}`}
                                     alt={pilot.name}
                                     className="img-fluid"
                                     onLoad={() => setLoadingImage(false)}
@@ -41,7 +42,7 @@ const FeaturePilot = () => {
                                 />
                             </div>
                             <p>{pilot.title}</p>
-                            <Link href={`/pilot/${pilot.slug}`}>
+                            <Link href={`/pilot/${pilot.slug}`} legacyBehavior>
                                 <a className="btn BtnLearn">See Profile</a>
                             </Link>
                             {/* <Link className="SeeMore" href={`/pilot-list`}>See More Pilots &gt;</Link> */}

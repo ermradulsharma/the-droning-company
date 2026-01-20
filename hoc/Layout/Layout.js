@@ -99,7 +99,7 @@ const Layout = (props) => {
                           <footer className="sticky-footer bg-white">
                               <div className="container my-auto">
                                   <div className="copyright text-center my-auto">
-                                      <span>Copyright &copy; Your <a href="">thedroningcompany.com</a> 2021</span>
+                                      <span>Copyright &copy; Your <a href="">example.com</a> 2021</span>
                                   </div>
                               </div>
                           </footer>

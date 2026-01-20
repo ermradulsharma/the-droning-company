@@ -1,9 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import axios from "axios";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import Multiselect from "multiselect-react-dropdown";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useToastContext from "../../../hooks/useToastContext";
@@ -78,7 +78,7 @@ const BuildProfile = () => {
     instagram_name: "",
   });
 
-  const getPilotBasicProfileDetail = async () => {
+  const getPilotBasicProfileDetail = useCallback(async () => {
     try {
       setFullPageLoading(true);
       await fetch(
@@ -106,7 +106,7 @@ const BuildProfile = () => {
           } else {
             setPilotProfileImage("");
             setUserProfileImage("");
-            setFieldValue("addressLocation", "");
+            // setFieldValue("addressLocation", "");
             showToastError(
               "Profile not found, please create your profile first"
             );
@@ -116,9 +116,9 @@ const BuildProfile = () => {
       console.log(error);
       setFullPageLoading(false);
     }
-  };
+  }, [userId, accessToken, setUserProfileImage, showToastError]);
 
-  const getSkillCategories = async () => {
+  const getSkillCategories = useCallback(async () => {
     try {
       await fetch(`${SERVER_URL}/skill-categories`, {
         method: "GET",
@@ -130,7 +130,7 @@ const BuildProfile = () => {
           }
         });
     } catch (error) { }
-  };
+  }, []);
 
   const onSelectCategory = (selectedList, selectedItem, setFieldValue) => {
     //console.log(selectedItem);
@@ -258,7 +258,7 @@ const BuildProfile = () => {
     getPilotBasicProfileDetail();
     getSkillCategories();
     dispatch(getDashboardAds("pilot-build-profile"));
-  }, [userId]);
+  }, [getPilotBasicProfileDetail, getSkillCategories, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -357,7 +357,7 @@ const BuildProfile = () => {
                         className="pilot-avatar"
                         onClick={() => fileInputClicked()}
                       >
-                        <img
+                        <Image
                           className="img-profile rounded-circle"
                           src={
                             pilotProfileImg
@@ -366,8 +366,8 @@ const BuildProfile = () => {
                                 ? profileImage
                                 : PROFILE_IMAGE
                           }
-                          height="150px"
-                          width="150px"
+                          height={150}
+                          width={150}
                           style={{ objectFit: "cover" }}
                           alt="profile"
                         />
@@ -418,10 +418,11 @@ const BuildProfile = () => {
                           </p>
                         )}
 
-                        <img
+                        <Image
                           src={pilotLicenseImg}
-                          height="150px"
-                          style={{ objectFit: "cover" }}
+                          height={150}
+                          width={300}
+                          style={{ objectFit: "contain" }}
                           alt="license"
                         />
                         <label>
@@ -580,103 +581,103 @@ const BuildProfile = () => {
 
 
                           <div className="row gutters">
-                              <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 className="mb-2 text-primary">
-                                  Personal / Contact Details
-                                </h6>
-                              </div>
+                            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                              <h6 className="mb-2 text-primary">
+                                Personal / Contact Details
+                              </h6>
+                            </div>
 
-                              <div className="col-md-6">
-                                  <div className="htmlForm-group">
-                                    <label htmlFor="first_name">First Name *</label>
-                                    <Field
-                                      name="first_name"
-                                      placeholder="Enter First Name"
-                                      type="text"
-                                      id="first_name"
-                                      className={
-                                        "form-control" +
-                                        (errors.first_name && touched.first_name
-                                          ? " is-invalid"
-                                          : "")
-                                      }
-                                    />
-                                    <ErrorMessage
-                                      name="first_name"
-                                      component="div"
-                                      className="error-color"
-                                    />
-                                  </div>
+                            <div className="col-md-6">
+                              <div className="htmlForm-group">
+                                <label htmlFor="first_name">First Name *</label>
+                                <Field
+                                  name="first_name"
+                                  placeholder="Enter First Name"
+                                  type="text"
+                                  id="first_name"
+                                  className={
+                                    "form-control" +
+                                    (errors.first_name && touched.first_name
+                                      ? " is-invalid"
+                                      : "")
+                                  }
+                                />
+                                <ErrorMessage
+                                  name="first_name"
+                                  component="div"
+                                  className="error-color"
+                                />
                               </div>
+                            </div>
 
-                              <div className="col-md-6">
-                                  <div className="htmlForm-group">
-                                    <label htmlFor="last_name">Last Name *</label>
-                                    <Field
-                                      name="last_name"
-                                      placeholder="Enter Last Name"
-                                      type="text"
-                                      id="last_name"
-                                      className={
-                                        "form-control" +
-                                        (errors.last_name && touched.last_name
-                                          ? " is-invalid"
-                                          : "")
-                                      }
-                                    />
-                                    <ErrorMessage
-                                      name="last_name"
-                                      component="div"
-                                      className="error-color"
-                                    />
-                                  </div>
+                            <div className="col-md-6">
+                              <div className="htmlForm-group">
+                                <label htmlFor="last_name">Last Name *</label>
+                                <Field
+                                  name="last_name"
+                                  placeholder="Enter Last Name"
+                                  type="text"
+                                  id="last_name"
+                                  className={
+                                    "form-control" +
+                                    (errors.last_name && touched.last_name
+                                      ? " is-invalid"
+                                      : "")
+                                  }
+                                />
+                                <ErrorMessage
+                                  name="last_name"
+                                  component="div"
+                                  className="error-color"
+                                />
                               </div>
+                            </div>
 
-                              <div className="col-md-6">
-                                  <div className="htmlForm-group">
-                                    <label htmlFor="email">Email *</label>
-                                    <Field
-                                      name="email"
-                                      placeholder="Enter email address"
-                                      type="text"
-                                      id="email"
-                                      className={
-                                        "form-control" +
-                                        (errors.email && touched.email
-                                          ? " is-invalid"
-                                          : "")
-                                      }
-                                    />
-                                    <ErrorMessage
-                                      name="email"
-                                      component="div"
-                                      className="error-color"
-                                    />
-                                  </div>
+                            <div className="col-md-6">
+                              <div className="htmlForm-group">
+                                <label htmlFor="email">Email *</label>
+                                <Field
+                                  name="email"
+                                  placeholder="Enter email address"
+                                  type="text"
+                                  id="email"
+                                  className={
+                                    "form-control" +
+                                    (errors.email && touched.email
+                                      ? " is-invalid"
+                                      : "")
+                                  }
+                                />
+                                <ErrorMessage
+                                  name="email"
+                                  component="div"
+                                  className="error-color"
+                                />
                               </div>
+                            </div>
 
-                              <div className="col-md-6">
-                                  <div className="htmlForm-group">
-                                    <label htmlFor="mobile">Contact Number *</label>
-                                    <Field
-                                      name="mobile"
-                                      placeholder="Enter Contact Number"
-                                      type="text"
-                                      id="mobile"
-                                      className={
-                                        "form-control" +
-                                        (errors.mobile && touched.mobile
-                                          ? " is-invalid"
-                                          : "")
-                                      }
-                                    />
-                                    <ErrorMessage
-                                      name="mobile"
-                                      component="div"
-                                      className="error-color"
-                                    />
-                                  </div>
+                            <div className="col-md-6">
+                              <div className="htmlForm-group">
+                                <label htmlFor="mobile">Contact Number *</label>
+                                <Field
+                                  name="mobile"
+                                  placeholder="Enter Contact Number"
+                                  type="text"
+                                  id="mobile"
+                                  className={
+                                    "form-control" +
+                                    (errors.mobile && touched.mobile
+                                      ? " is-invalid"
+                                      : "")
+                                  }
+                                />
+                                <ErrorMessage
+                                  name="mobile"
+                                  component="div"
+                                  className="error-color"
+                                />
                               </div>
+                            </div>
                           </div>
 
 

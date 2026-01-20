@@ -106,3 +106,17 @@ export const extractVedioId = (vedio_url) => {
 export const trancateStr = (str, length) => {
   return str.substring(0, length) + "...";
 };
+
+export const getCleanImageUrl = (url) => {
+  if (!url) return "";
+  if (typeof url !== 'string') return url;
+  if (url.startsWith('http')) {
+    try {
+      const urlObj = new URL(url);
+      return urlObj.pathname.replace(/^\//, "");
+    } catch (e) {
+      return url.replace(/^https?:\/\/[^\/]+\//, "").replace(/^\//, "");
+    }
+  }
+  return url.replace(/^\//, ""); // Remove leading slash if any
+};

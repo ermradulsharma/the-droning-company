@@ -14,12 +14,15 @@ const ChangePassword = () => {
     return (
         <div className="container-fluid">
             <div className="d-sm-flex align-items-center justify-content-between mb-4 DashHeading">
-                    <h2 className="h2 mb-0 text-black"><i className="far fa-arrow-alt-circle-right"></i> Settings</h2>
-                    <Link href="/user/create-job"><a className="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                            className="fas fa-plus fa-sm text-white-50"></i> Create a Job</a></Link>
-                   
+                <h2 className="h2 mb-0 text-black"><i className="far fa-arrow-alt-circle-right"></i> Settings</h2>
+                <Link href="/user/create-job" legacyBehavior>
+                    <a className="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <i className="fas fa-plus fa-sm text-white-50"></i> Create a Job
+                    </a>
+                </Link>
+
             </div>
-            <Formik 
+            <Formik
                 initialValues={{
                     old_password: '',
                     new_password: '',
@@ -46,17 +49,17 @@ const ChangePassword = () => {
                             "Access-Control-Allow-Origin": "*"
                         }
                     })
-                    .then((response) => {
-                        hideToast();
-                        showToastSuccess(response.data.message);    
-                    })
-                    .catch((error) => {
-                        hideToast();
-                        showToastError(error.response.data.message)
-                    })
+                        .then((response) => {
+                            hideToast();
+                            showToastSuccess(response.data.message);
+                        })
+                        .catch((error) => {
+                            hideToast();
+                            showToastError(error.response.data.message)
+                        })
                 }}
-                >
-                {({ errors, status, touched, isSubmitting }) => (                
+            >
+                {({ errors, status, touched, isSubmitting }) => (
                     <Form className="card ProfileForm">
                         <div className="col-sm-10 offset-sm-1">
                             <div className="row">
@@ -84,8 +87,8 @@ const ChangePassword = () => {
                 )}
             </Formik>
         </div>
-        
-        
+
+
     )
 }
 

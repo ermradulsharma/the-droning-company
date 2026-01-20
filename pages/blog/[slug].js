@@ -6,8 +6,9 @@ import parse from "html-react-parser";
 import BlogRecent from "../../components/Blog/BlogRecent";
 import FeaturePilot from "../../components/Blog/FeaturePilot";
 import BlogCategories from "../../components/Blog/BlogCategories";
-import { SERVER_URL } from "../../util/Constants";
-import Loader from "react-loader-spinner";
+import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
+import Loader from "@/components/Common/Loader";
 import SEO from "../../components/Seo/Seo";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
@@ -97,7 +98,7 @@ const BlogDetail = (props) => {
   };
 
 
-  
+
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -212,9 +213,8 @@ const BlogDetail = (props) => {
                   "@id": '${props?.currentUrl}'
                 },
                 "headline": "${blogDetailData?.title || "The Droning Company"}",
-                "description": "${
-                  blogDetailData?.meta_description || "The Droning Company"
-                }",
+                "description": "${blogDetailData?.meta_description || "The Droning Company"
+              }",
                 "image": {
                   "@type": "ImageObject",
                   "url": "${blogDetailData?.image}",
@@ -230,7 +230,7 @@ const BlogDetail = (props) => {
                   "name": "TheDroningCompany.com",
                   "logo": {
                     "@type": "ImageObject",
-                    "url": "https://www.thedroningcompany.com/images/logo.png",
+                    "url": "/images/logo.png",
                     "width": "",
                     "height": ""
                   }
@@ -253,7 +253,7 @@ const BlogDetail = (props) => {
                   <Link href="/news">Blogs</Link>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
-                  <Link href={`/blog/${slug}`}>
+                  <Link href={`/blog/${slug}`} legacyBehavior>
                     <a>{blogDetailData?.title}</a>
                   </Link>
                 </li>
@@ -297,7 +297,7 @@ const BlogDetail = (props) => {
                   />
 
                   {blogDetailData?.length > 0 ||
-                  Object.keys(blogDetailData)?.length ? (
+                    Object.keys(blogDetailData)?.length ? (
                     <article className="TdPostSingleItemStandard TdPostListColumns">
                       <div className="TdArticleContentHolder row">
                         <header className="Td_headline col-sm-12">
@@ -321,7 +321,7 @@ const BlogDetail = (props) => {
                         </header>
                         {/*  Underneath the main heading */}
                         {getBlogDetailsPageAdsData_status === "loading" ||
-                        getBlogDetailsPageAdsData_data === null ? (
+                          getBlogDetailsPageAdsData_data === null ? (
                           <div className="row">
                             <div
                               className="col-sm-12 text-center justify-content-between"
@@ -334,7 +334,7 @@ const BlogDetail = (props) => {
                                 width={100}
                                 visible={
                                   getBlogDetailsPageAdsData_status ===
-                                    "loading" ||
+                                  "loading" ||
                                   getBlogDetailsPageAdsData_data === null
                                 }
                               />
@@ -363,7 +363,7 @@ const BlogDetail = (props) => {
                             <div className="TdMediaBox">
                               <img
                                 className="img-fluid"
-                                src={blogDetailData.image}
+                                src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blogDetailData.image)}`}
                                 alt="post1"
                               />{" "}
                               <hr />
@@ -447,7 +447,7 @@ const BlogDetail = (props) => {
               )}
 
               {blogDetailData?.length > 0 ||
-              Object.keys(blogDetailData)?.length ? (
+                Object.keys(blogDetailData)?.length ? (
                 <>
                   <div className="BlogRelatedPosts paddngt">
                     <AddBannerComponent
@@ -478,12 +478,12 @@ const BlogDetail = (props) => {
                                 <div className="row">
                                   {relatedBlog.map((blog) => {
                                     return (
-                                      <div  key={blog.slug} className="col-sm-4">
+                                      <div key={blog.slug} className="col-sm-4">
                                         <div className="RelatedPostBox">
                                           {blog.image ? (
                                             <img
                                               className="img-fluid"
-                                              src={blog.image}
+                                              src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog.image)}`}
                                               alt={parse(blog.title)}
                                             />
                                           ) : null}
@@ -498,11 +498,11 @@ const BlogDetail = (props) => {
                                           <p>
                                             {blog.description
                                               ? parse(
-                                                  blog.description.substring(
-                                                    0,
-                                                    80
-                                                  )
+                                                blog.description.substring(
+                                                  0,
+                                                  80
                                                 )
+                                              )
                                               : ""}
                                           </p>
                                           <Link
@@ -678,7 +678,7 @@ const BlogDetail = (props) => {
   );
 };
 
-const FooterNoteLayout = ({}) => {
+const FooterNoteLayout = ({ }) => {
   return (
     <div>
       <BoxSection />
@@ -696,9 +696,9 @@ export async function getServerSideProps(context) {
     .then((res) => res.json())
     .then((response) => {
       let relatedBlogs = [];
-      
 
-   
+
+
 
       for (let i = 0; i < response?.relatedBlogs?.length; i++) {
         let blogGroup = response?.relatedBlogs[i];

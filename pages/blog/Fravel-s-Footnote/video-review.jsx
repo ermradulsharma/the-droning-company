@@ -7,7 +7,7 @@ import BlogRecent from "../../../components/Blog/BlogRecent";
 import FeaturePilot from "../../../components/Blog/FeaturePilot";
 import BlogCategories from "../../../components/Blog/BlogCategories";
 import { SERVER_URL } from "../../../util/Constants";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import SEO from "../../../components/Seo/Seo";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
@@ -87,7 +87,7 @@ const VideoReview = (props) => {
     history.push(`/news/${searchKeyword}`);
   };
 
-  const getFabelBoxData = async () => {
+  const getFavelBoxData = useCallback(async () => {
     setLoading_fourboxData(true);
     let { data } = await axiosInstance.get("get-favel-boxes");
     setLoading_fourboxData(false);
@@ -96,15 +96,15 @@ const VideoReview = (props) => {
       setvideo_reviewsData(GetFavBoxData(api_respomse, "video-reviews"));
     } else {
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
     }
-    getFabelBoxData();
+    getFavelBoxData();
     dispatch(getBlogDetailsPageAdsData());
-  }, [slug]);
+  }, [slug, getFavelBoxData, dispatch]);
 
   useEffect(() => {
     if (getBlogDetailsPageAdsData_data) {
@@ -211,9 +211,8 @@ const VideoReview = (props) => {
                   "@id": '${props?.currentUrl}'
                 },
                 "headline": "${blogDetailData?.title || "The Droning Company"}",
-                "description": "${
-                  blogDetailData?.meta_description || "The Droning Company"
-                }",
+                "description": "${blogDetailData?.meta_description || "The Droning Company"
+              }",
                 "image": {
                   "@type": "ImageObject",
                   "url": "${blogDetailData?.image}",
@@ -229,7 +228,7 @@ const VideoReview = (props) => {
                   "name": "TheDroningCompany.com",
                   "logo": {
                     "@type": "ImageObject",
-                    "url": "https://www.thedroningcompany.com/images/logo.png",
+                    "url": "https://www.example.com/images/logo.png",
                     "width": "",
                     "height": ""
                   }
@@ -245,18 +244,18 @@ const VideoReview = (props) => {
           <nav aria-label="Breadcrumb navigation" role="navigation">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <Link href="/">Home</Link>
+                <Link href="/" legacyBehavior>Home</Link>
               </li>
               <li className="breadcrumb-item">
-                <Link href="/news">Blogs</Link>
+                <Link href="/news" legacyBehavior>Blogs</Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                <Link href={`/blog/Fravel-s-Footnote`}>
+                <Link href={`/blog/Fravel-s-Footnote`} legacyBehavior>
                   <a>Fravel-s-Footnote</a>
                 </Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                <Link href={`/blog/Fravel-s-Footnote/video-review`}>
+                <Link href={`/blog/Fravel-s-Footnote/video-review`} legacyBehavior>
                   <a>video-review</a>
                 </Link>
               </li>
@@ -278,42 +277,42 @@ const VideoReview = (props) => {
               </div>
 
               {getBlogDetailsPageAdsData_status === "loading" ||
-                        getBlogDetailsPageAdsData_data === null ? (
-                          <div className="row">
-                            <div
-                              className="col-sm-12 text-center justify-content-between"
-                              style={{ textAlign: "center" }}
-                            >
-                              <Loader
-                                type="ThreeDots"
-                                color="#ffcc0e"
-                                height={100}
-                                width={100}
-                                visible={
-                                  getBlogDetailsPageAdsData_status ===
-                                    "loading" ||
-                                  getBlogDetailsPageAdsData_data === null
-                                }
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="container mt-5">
-                            {getBlogDetailsPageAdsData_data !== null && (
-                              <AddBan
-                                src={
-                                  getBlogDetailsPageAdsData_data[UNDER_HEADING]
-                                    ?.banner[topbannerIndex]
-                                    ?.banner_image_full_path
-                                }
-                                href={
-                                  getBlogDetailsPageAdsData_data[UNDER_HEADING]
-                                    ?.banner[topbannerIndex]?.link
-                                }
-                              />
-                            )}
-                          </div>
-                        )}
+                getBlogDetailsPageAdsData_data === null ? (
+                <div className="row">
+                  <div
+                    className="col-sm-12 text-center justify-content-between"
+                    style={{ textAlign: "center" }}
+                  >
+                    <Loader
+                      type="ThreeDots"
+                      color="#ffcc0e"
+                      height={100}
+                      width={100}
+                      visible={
+                        getBlogDetailsPageAdsData_status ===
+                        "loading" ||
+                        getBlogDetailsPageAdsData_data === null
+                      }
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="container mt-5">
+                  {getBlogDetailsPageAdsData_data !== null && (
+                    <AddBan
+                      src={
+                        getBlogDetailsPageAdsData_data[UNDER_HEADING]
+                          ?.banner[topbannerIndex]
+                          ?.banner_image_full_path
+                      }
+                      href={
+                        getBlogDetailsPageAdsData_data[UNDER_HEADING]
+                          ?.banner[topbannerIndex]?.link
+                      }
+                    />
+                  )}
+                </div>
+              )}
 
               <div className="d-sm-block pt-2" style={{ position: "relative" }}>
                 {/* {video_reviews_data?.favel_box_details?.map((item) => {
@@ -340,7 +339,7 @@ const VideoReview = (props) => {
                     reviewed autel robotics evo lite
                   </div>
 
-                  <Link href={`/blog/reviewed-autel-robotics-evo-lite-`}>
+                  <Link href={`/blog/reviewed-autel-robotics-evo-lite-`} legacyBehavior>
                     <a
                       href={`/blog/reviewed-autel-robotics-evo-lite-`}
                       className="SeeMore"
@@ -352,112 +351,120 @@ const VideoReview = (props) => {
                 </div>
 
                 <>
-                <div className="BlogRelatedPosts paddngt">
-                  <AddBannerComponent
-                    data={getBlogDetailsPageAdsData_data}
-                    status={getBlogDetailsPageAdsData_status}
-                    position={aboveRelatedPosition}
-                    index={aboveRelatedIndex}
-                  />
-                  <div className="MainHeading text-left">
-                    <h1>Related Posts</h1>
-                  </div>
-                  {relatedBlogData?.length > 0 ? (
-                    <div
-                      id="demo"
-                      className="carousel slide"
-                      data-ride="carousel"
-                    >
-                      <div className="carousel-inner">
-                        {relatedBlogData?.map((relatedBlog, index) => {
-                          return (
-                            <div
-                              key={relatedBlog.slug}
-                              className={
-                                "carousel-item " + (index === 0 ? "active" : "")
-                              }
-                            >
-                              <div className="row">
-                                {relatedBlog.map((blog) => {
-                                  return (
-                                    <div key={blog.slug} className="col-sm-4">
-                                      <div className="RelatedPostBox">
-                                        {blog.image ? (
-                                          <img
-                                            className="img-fluid"
-                                            src={blog.image}
-                                            alt={parse(blog.title)}
-                                          />
-                                        ) : null}
-                                        <h2 className="RelatedPostheading">
-                                          <Link
-                                            href={`/blog/${blog.slug}`}
-                                            target="_self"
-                                          >
-                                            {parse(blog.title)}
-                                          </Link>
-                                        </h2>
-                                        <p>
-                                          {blog.description
-                                            ? parse(
+                  <div className="BlogRelatedPosts paddngt">
+                    <AddBannerComponent
+                      data={getBlogDetailsPageAdsData_data}
+                      status={getBlogDetailsPageAdsData_status}
+                      position={aboveRelatedPosition}
+                      index={aboveRelatedIndex}
+                    />
+                    <div className="MainHeading text-left">
+                      <h1>Related Posts</h1>
+                    </div>
+                    {relatedBlogData?.length > 0 ? (
+                      <div
+                        id="demo"
+                        className="carousel slide"
+                        data-ride="carousel"
+                      >
+                        <div className="carousel-inner">
+                          {relatedBlogData?.map((relatedBlog, index) => {
+                            return (
+                              <div
+                                key={relatedBlog.slug}
+                                className={
+                                  "carousel-item " + (index === 0 ? "active" : "")
+                                }
+                              >
+                                <div className="row">
+                                  {relatedBlog.map((blog) => {
+                                    return (
+                                      <div key={blog.slug} className="col-sm-4">
+                                        <div className="RelatedPostBox">
+                                          {blog.image ? (
+                                            <Image
+                                              className="img-fluid"
+                                              src={blog.image}
+                                              alt={parse(blog.title)}
+                                              width={300}
+                                              height={200}
+                                            />
+                                          ) : null}
+                                          <h2 className="RelatedPostheading">
+                                            <Link
+                                              href={`/blog/${blog.slug}`}
+                                              target="_self"
+                                              legacyBehavior
+                                            >
+                                              <a>{parse(blog.title)}</a>
+                                            </Link>
+                                          </h2>
+                                          <p>
+                                            {blog.description
+                                              ? parse(
                                                 blog.description.substring(
                                                   0,
                                                   80
                                                 )
                                               )
-                                            : ""}
-                                        </p>
-                                        <Link
-                                          className="SeeMore"
-                                          href={`/blog/${blog.slug}`}
-                                          target="_self"
-                                        >
-                                          Read More
-                                        </Link>
+                                              : ""}
+                                          </p>
+                                          <Link
+                                            className="SeeMore"
+                                            href={`/blog/${blog.slug}`}
+                                            target="_self"
+                                            legacyBehavior
+                                          >
+                                            <a className="SeeMore">Read More</a>
+                                          </Link>
+                                        </div>
                                       </div>
-                                    </div>
-                                  );
-                                })}
+                                    );
+                                  })}
+                                </div>
                               </div>
-                            </div>
-                          );
-                        })}
+                            );
+                          })}
+                        </div>
+                        <a
+                          className="carousel-control-prev"
+                          href="#demo"
+                          data-slide="prev"
+                        >
+                          <Image
+                            className="img-fluid"
+                            src="/images/arrow-left.png"
+                            alt="arrow"
+                            width={30}
+                            height={30}
+                          />
+                        </a>
+                        <a
+                          className="carousel-control-next"
+                          href="#demo"
+                          data-slide="next"
+                        >
+                          <Image
+                            className="img-fluid"
+                            src="/images/arrow-right.png"
+                            alt="arrow"
+                            width={30}
+                            height={30}
+                          />
+                        </a>
                       </div>
-                      <a
-                        className="carousel-control-prev"
-                        href="#demo"
-                        data-slide="prev"
-                      >
-                        <img
-                          className="img-fluid"
-                          src="/images/arrow-left.png"
-                          alt="arrow"
-                        />
-                      </a>
-                      <a
-                        className="carousel-control-next"
-                        href="#demo"
-                        data-slide="next"
-                      >
-                        <img
-                          className="img-fluid"
-                          src="/images/arrow-right.png"
-                          alt="arrow"
-                        />
-                      </a>
-                    </div>
-                  ) : (
-                    <p>No related blog found</p>
-                  )}
-                </div>
-                {/*  Bottom of the blog baneer */}
-                <AddBannerComponent
-                  data={getBlogDetailsPageAdsData_data}
-                  status={getBlogDetailsPageAdsData_status}
-                  position={BOTTOM_INDEX}
-                  index={bottombannerIndex}
-                />
-              </>
+                    ) : (
+                      <p>No related blog found</p>
+                    )}
+                  </div>
+                  {/*  Bottom of the blog baneer */}
+                  <AddBannerComponent
+                    data={getBlogDetailsPageAdsData_data}
+                    status={getBlogDetailsPageAdsData_status}
+                    position={BOTTOM_INDEX}
+                    index={bottombannerIndex}
+                  />
+                </>
               </div>
             </div>
 

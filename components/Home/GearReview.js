@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SERVER_URL } from "../../util/Constants";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 
 const GearReview = () => {
     const [gearReviewData, setgearReviewData] = useState([]);

@@ -1,6 +1,9 @@
 import React from "react";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import Link from "next/link";
+import Image from "next/image";
+import { MEDIA_BASE_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
 
 const OurTeams = (props) => {
 	let teamMember = [
@@ -38,7 +41,7 @@ const OurTeams = (props) => {
 			name: 'Akshata',
 			slug: 'akshata',
 			designation: 'For the latest drone tech news',
-			image: 'https://media.thedroningcompany.com/images/contentPage/PufrOShRxHWnKVnbeyqHDHl7nJB14Ce6pfr6Em2t.jpg'
+			image: `${MEDIA_BASE_URL}/${getCleanImageUrl('https://media.example.com/images/contentPage/PufrOShRxHWnKVnbeyqHDHl7nJB14Ce6pfr6Em2t.jpg')}`
 		},
 		{
 			name: 'Ron Morgan',
@@ -63,16 +66,14 @@ const OurTeams = (props) => {
 					{
 						teamMember.filter(member => member.slug != props.currentMember).map((member, index) => {
 							return <div key={`team-member-${index}`} className="col-sm-6 col-lg-4 col-xl-4">
-								<Link href={`/our-team/${member.slug}`}>
-									<a href={`/our-team/${member.slug}`}>
-										<div className="single-person">
-											<div className="person-image">
-												<img className="img-fluid" src={member.image} alt="person1" />
-											</div>
-											<div className="person-info">
-												<h3 className="full-name">{member.name}</h3>
-												<span className="speciality">{member.designation}</span>
-											</div>
+								<Link href={`/our-team/${member.slug}`} legacyBehavior>
+									<a className="single-person">
+										<div className="person-image">
+											<Image className="img-fluid" src={member.image} alt="person1" width={300} height={300} />
+										</div>
+										<div className="person-info">
+											<h3 className="full-name">{member.name}</h3>
+											<span className="speciality">{member.designation}</span>
 										</div>
 									</a>
 								</Link>

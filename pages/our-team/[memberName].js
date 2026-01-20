@@ -4,7 +4,7 @@ import GetStarted from "../../components/CmsPage/GetStarted";
 import OurTeams from "../../components/CmsPage/OurTeams";
 import Link from "next/link"
 import { SERVER_URL, APPLICATION_NAME } from "../../util/Constants";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import parse from 'html-react-parser';
 import SEO from "../../components/Seo/Seo";
 import { useRouter } from "next/router";

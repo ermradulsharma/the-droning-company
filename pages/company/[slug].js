@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import parse from "html-react-parser";
 import { SERVER_URL, MEDIA_BASE_URL } from "../../util/Constants";
-import Loader from "react-loader-spinner";
+import { getCleanImageUrl } from "../../util/utils";
+import Loader from "@/components/Common/Loader";
 import Portfolio from "../../components/Company/Portfolio";
 import Reel from "../../components/Company/Reel";
 import ServiceLocation from "../../components/Pilot/ServiceLocation";
@@ -198,7 +199,7 @@ const Pilot = (props) => {
                       <a target='_blank' rel="noreferrer" href={hero_link}>
                         <img
                           className="img-fluid"
-                          src={`${MEDIA_BASE_URL}/${pilotData.profile && pilotData.profile.featured_image}`}
+                          src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.featured_image)}`}
                           alt={pilotData.profile && pilotData.profile.title}
                           style={{ width: "100%", height: "400px", objectFit: 'cover', border: "1px solid #000" }}
                         />
@@ -210,7 +211,7 @@ const Pilot = (props) => {
                       <a target='_blank' rel="noreferrer" href={hero_link}>
                         <img
                           className="img-fluid"
-                          src={`${MEDIA_BASE_URL}/${pilotData.profile && pilotData.profile.logo}`}
+                          src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.logo)}`}
                           alt={pilotData.profile && pilotData.profile.title}
                           style={{ border: '1px solid #ccc', padding: 3 }}
                         />
@@ -363,7 +364,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${pilotData.profile && pilotData.profile.profile_img_1}`}
+                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_1)}`}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />
@@ -381,7 +382,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${pilotData.profile && pilotData.profile.profile_img_2}`}
+                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_2)}`}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />
@@ -396,7 +397,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${pilotData.profile && pilotData.profile.profile_img_3}`}
+                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_3)}`}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />
@@ -411,7 +412,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${pilotData.profile && pilotData.profile.profile_img_4}`}
+                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_4)}`}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />
@@ -426,7 +427,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${pilotData.profile && pilotData.profile.profile_img_5}`}
+                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_5)}`}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />
@@ -441,7 +442,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${pilotData.profile && pilotData.profile.profile_img_6}`}
+                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_6)}`}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />

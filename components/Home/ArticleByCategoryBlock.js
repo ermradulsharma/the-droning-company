@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { SERVER_URL } from "../../util/Constants";
+import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
 import Link from "next/link";
-import Loader from "react-loader-spinner";
+import Loader from "../Common/Loader";
 import parse from "html-react-parser";
 import Image from 'next/image';
 
@@ -24,12 +25,12 @@ const ArticleByCategoryBlock = ({ category, limit, title = category, image = nul
     } catch (error) {
       setLoadingNews(false);
     }
-  }, []);
+  }, [category, limit, skip]);
 
   return (
     <div className="card categoryArticle">
       <h4 className="card-header">
-        <Link href={`/news/categories/${slug}`}>
+        <Link legacyBehavior href={`/news/categories/${slug}`}>
           <a href={`/news/categories/${slug}`}>{title}</a>
         </Link>
       </h4>
@@ -45,28 +46,26 @@ const ArticleByCategoryBlock = ({ category, limit, title = category, image = nul
         <>
           {(news !== undefined && news) ? (
             <>
-              <Link href={`/news/categories/${slug}`}>
+              <Link legacyBehavior href={`/news/categories/${slug}`}>
                 <a href={`/news/categories/${slug}`}>
                   {/* <img className="img-fluid" src={image ? image : news.image} alt={news.title} /> */}
                   {(column == 3) ? '' : ''}
                   <Image
-                    src={image ? image : news.image}
+                    src={`${MEDIA_BASE_URL}/${getCleanImageUrl(image ? image : news.image)}`}
                     alt={news.title}
                     className="img-fluid"
                     onLoad={() => setLoadingImage(false)}
                     width={(column == 3) ? 367 : 280}
                     height={(column == 3) ? 230 : 180}
-                    fill={true}
-                    style={{ objectFit: "cover", width: "100%" }}
                     priority={true}
-                    layout={"responsive"}
+                    style={{ objectFit: "cover", width: "100%", height: "auto" }}
                   />
                 </a>
               </Link>
               {(cbody == 'show') ? (
                 <div className="card-body">
                   <h2>
-                    <Link href={`/blog/${news.slug}`}>
+                    <Link legacyBehavior href={`/blog/${news.slug}`}>
                       <a href={`/blog/${news.slug}`}>
                         {news.title}
                       </a>
@@ -78,19 +77,18 @@ const ArticleByCategoryBlock = ({ category, limit, title = category, image = nul
             </>
           ) : (
             <>
-              <Link href={`/news/categories/${slug}`}>
+              <Link legacyBehavior href={`/news/categories/${slug}`}>
                 <a href={`/news/categories/${slug}`}>
                   {/* <img className="img-fluid" src={image ? image : '/images/no-image.png'} alt={'news.title'} /> */}
                   <Image
-                    src={image ? image : '/images/no-image.png'}
+                    src={`${MEDIA_BASE_URL}/${getCleanImageUrl(image ? image : '/images/no-image.png')}`}
                     alt={'news.title'}
                     className="img-fluid"
                     onLoad={() => setLoadingImage(false)}
                     width={(column == 3) ? 367 : 280}
                     height={(column == 3) ? 230 : 180}
-                    style={{ objectFit: "cover", width: "100%" }}
                     priority={true}
-                    layout={"responsive"}
+                    style={{ objectFit: "cover", width: "100%", height: "auto" }}
                   />
                 </a>
               </Link>

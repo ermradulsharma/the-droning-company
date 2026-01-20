@@ -1,6 +1,6 @@
 import React, {Fragment, useState, useEffect} from "react";
 import { useRouter } from "next/router";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import parse from 'html-react-parser';
 import SEO from "../../components/Seo/Seo";
 import { SERVER_URL, APPLICATION_NAME    } from "../../util/Constants";

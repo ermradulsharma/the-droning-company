@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 import axios from "axios";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -6,7 +7,7 @@ import { SERVER_URL } from "../../../util/Constants";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useToastContext from "../../../hooks/useToastContext";
 import SearchLocationInput from "../../../components/SearchLocationInput/SearchLocationInput";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import {
   DeactivateAccount,
@@ -68,7 +69,7 @@ const EditProfile = () => {
   useEffect(() => {
     getUserDetail();
     dispatch(getDashboardAds("pilot-edit-profile"));
-  }, []);
+  }, [getUserDetail, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -120,7 +121,7 @@ const EditProfile = () => {
     }
   }, [getDashboardAds_data]);
 
-  const getUserDetail = async () => {
+  const getUserDetail = useCallback(async () => {
     setLoading(true);
     try {
       await fetch(`${SERVER_URL}/profile/show/${userId}`, {
@@ -142,7 +143,7 @@ const EditProfile = () => {
     } catch (error) {
       setLoading(false);
     }
-  };
+  }, [userId, accessToken, setUserProfileImage]);
 
   const profilePictureSelected = () => {
     if (profileInputRef.current.files.length) {
@@ -312,10 +313,10 @@ const EditProfile = () => {
                     className="pilot-profile mr-3"
                     onClick={() => fileInputClicked()}
                   >
-                    <img
+                    <Image
                       className="img-profile rounded-circle"
-                      height="150px"
-                      width="150px"
+                      height={150}
+                      width={150}
                       style={{ objectFit: "cover" }}
                       alt="profile"
                       src={profileImage ? profileImage : PROFILE_IMAGE}

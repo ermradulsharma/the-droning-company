@@ -2,6 +2,7 @@ import Aux from "../../hoc/Auxiliary/Auxiliary";
 import React, { useState, useEffect } from "react";
 import { SERVER_URL } from "../../util/Constants";
 import Link from "next/link";
+import Image from "next/image";
 const CompanyProfileArticles = ({ title, articles }) => {
     return (
         <Aux>
@@ -16,24 +17,24 @@ const CompanyProfileArticles = ({ title, articles }) => {
                             <div className="row">
                                 {
                                     blogPost.image
-                                    ?
-                                    <div className="col-2 col-sm-2">
-                                    <Link href={`/blog/${blogPost.slug}`}>
-                                        <a href={`/blog/${blogPost.slug}`} className="SeeMore">
-                                            <img className="img-fluid" src={blogPost.image} alt={blogPost.title} />
-                                        </a>
-                                    </Link>
-                                    </div>
-                                    :
-                                    null
+                                        ?
+                                        <div className="col-2 col-sm-2">
+                                            <Link href={`/blog/${blogPost.slug}`} legacyBehavior>
+                                                <a className="SeeMore">
+                                                    <Image className="img-fluid" src={blogPost.image} alt={blogPost.title} width={400} height={300} />
+                                                </a>
+                                            </Link>
+                                        </div>
+                                        :
+                                        null
                                 }
-                                
+
                                 <div className={`${blogPost.image ? 'col-10 col-sm-10' : 'col-12 col-sm-12'} `}>
                                     <div className="ArticleDesc">
                                         <div className="ArticleDescH">{blogPost.title}</div>
                                         <p>{blogPost.excerpt}</p>
-                                        <Link href={`/blog/${blogPost.slug}`}>
-                                            <a href={`/blog/${blogPost.slug}`} className="BtnSearch" style={{padding:"4px 15px", borderRadius: "4px", height:"auto"}}>Read More</a>
+                                        <Link href={`/blog/${blogPost.slug}`} legacyBehavior>
+                                            <a className="BtnSearch" style={{ padding: "4px 15px", borderRadius: "4px", height: "auto" }}>Read More</a>
                                         </Link>
                                     </div>
                                 </div>

@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /user/
 Disallow: /pilot-area/
 
-Sitemap: https://www.thedroningcompany.com/sitemap.xml
+# Sitemap removed

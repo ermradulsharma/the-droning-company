@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { SERVER_URL } from "../../util/Constants";
 import Link from "next/link";
+import Image from "next/image";
+import { MEDIA_BASE_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
 
 const UpcomingEvents = ({ limit = 3, skip = 0 }) => {
   const [recentBlogPostData, setRecentBlogPostData] = useState([]);
@@ -15,7 +18,7 @@ const UpcomingEvents = ({ limit = 3, skip = 0 }) => {
           setRecentBlogPostData(response.data);
         }
       });
-  }, []);
+  }, [limit, skip]);
 
   // if layout= footnote dont show fabel footnote titile ,
 
@@ -35,10 +38,10 @@ const UpcomingEvents = ({ limit = 3, skip = 0 }) => {
                     <div className="TdImageTextWidgetImage">
                       <Link href={`/event/${event.slug}`}>
                         <a href={`/event/${event.slug}`}>
-                          <img
-                            width="160"
-                            height="160"
-                            src={event.image}
+                          <Image
+                            width={160}
+                            height={160}
+                            src={`${MEDIA_BASE_URL}/${getCleanImageUrl(event.image)}`}
                             className="img-fluid"
                             alt={event.title}
                           />

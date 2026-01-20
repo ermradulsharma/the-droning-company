@@ -5,7 +5,8 @@ import GearReview from "../../components/Category/GearReview";
 import Link from "next/link";
 import Pagination from "../../components/UI/Pagination/Pagination";
 import { SERVER_URL, MEDIA_BASE_URL } from "../../util/Constants";
-import Loader from "react-loader-spinner";
+import { getCleanImageUrl } from "../../util/utils";
+import Loader from "@/components/Common/Loader";
 import parse from "html-react-parser";
 import useCommonFunctionContext from "../../hooks/useCommonFunctionContext";
 import SearchLocationInput from "../../components/SearchLocationInput/SearchLocationInput";
@@ -202,7 +203,7 @@ const CategoryPilot = () => {
                         <div className="CompanyLogo">
                           <Link href={`/company/${profile.slug}`}>
                             <a className="SeeMore" href={`/company/${profile.slug}`}>
-                              <img className="img-fluid" src={`${MEDIA_BASE_URL}/${profile.logo}`} alt={profile.name} style={{ border: '1px solid #ccc', padding: 3 }} />
+                              <img className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(profile.logo)}`} alt={profile.name} style={{ border: '1px solid #ccc', padding: 3 }} />
                             </a>
                           </Link>
                         </div>

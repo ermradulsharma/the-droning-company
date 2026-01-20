@@ -1,14 +1,12 @@
-/** @type {import('next').NextConfig} */
-const withTM = require("next-transpile-modules")([
-  "@fullcalendar/common",
-  "@babel/preset-react",
-  "@fullcalendar/daygrid",
-  "@fullcalendar/interaction",
-  "@fullcalendar/react",
-  "@fullcalendar/timegrid",
-]);
-
-module.exports = withTM({
+const nextConfig = {
+  transpilePackages: [
+    "@fullcalendar/common",
+    "@babel/preset-react",
+    "@fullcalendar/daygrid",
+    "@fullcalendar/interaction",
+    "@fullcalendar/react",
+    "@fullcalendar/timegrid",
+  ],
 
   generateBuildId: async () => {
     // You can, for example, get the latest git commit hash here
@@ -21,13 +19,29 @@ module.exports = withTM({
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: [
-      "104.211.230.191",
-      "14.97.182.98",
-      "thedroningcompany.com",
-      "media.thedroningcompany.com"
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "104.211.230.191",
+      },
+      {
+        protocol: "http",
+        hostname: "127.0.0.1",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
+      {
+        protocol: "https",
+        hostname: "example.com",
+      },
+      {
+        protocol: "https",
+        hostname: "media.example.com",
+      },
     ],
-    formats: ['image/webp'],
+    formats: ["image/webp"],
     minimumCacheTTL: 31536000,
   },
   typescript: {
@@ -41,7 +55,7 @@ module.exports = withTM({
   async redirects() {
     return [
       {
-        source: '/company/www.thedroningcompany.com',
+        source: '/company/external-site',
         destination: '/company-directory',
         permanent: true,
       },
@@ -88,5 +102,7 @@ module.exports = withTM({
     ]
   },
 
-});
+};
+
+module.exports = nextConfig;
 

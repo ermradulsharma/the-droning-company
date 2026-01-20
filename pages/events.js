@@ -4,7 +4,7 @@ import RecentEventsBlock from "../components/Event/RecentEventsBlock";
 import { useRouter } from "next/router";
 import useCommonFunctionContext from "../hooks/useCommonFunctionContext";
 import { SERVER_URL, APPLICATION_NAME } from "../util/Constants";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import SEO from "../components/Seo/Seo";
 import { useDispatch, useSelector } from "react-redux";
 import { getHomePageAdsData } from "../redux/HomePageSlice";
@@ -32,7 +32,7 @@ const Home = () => {
     getHomePageAdsData_status,
     getHomePageAdsData_data,
     getHomePageAdsData_error,
-  } = useSelector((state) => state?.home);
+  } = useSelector((state) => state?.home || {});
   const [homeBannerTopIndex, setHomeBannerTopIndex] = useState(0);
   const [homeBannerBottomIndex, setHomeBannerBottomIndex] = useState(0);
   const [abovegearReview, setAboveGearReview] = useState(0);

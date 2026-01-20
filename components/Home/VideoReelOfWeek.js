@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { SERVER_URL } from "../../util/Constants";
+import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
 import Link from "next/link";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import parse from "html-react-parser";
 import Image from 'next/image';
 
@@ -14,17 +15,26 @@ const VideoReelOfWeek = ({ category, limit, title = category, image = null, skip
             fetch(`${SERVER_URL}/get-blogs-by-category?category=${category}&limit=${limit}&skip=${skip}`, {
                 method: "GET"
             })
-                .then((res) => res.json())
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+                    return res.json();
+                })
                 .then((response) => {
                     setLoadingNews(false);
                     if (response.statusCode === 200) {
                         setNews(...response.data);
                     }
+                })
+                .catch((error) => {
+                    setLoadingNews(false);
+                    console.error("Error fetching video reel:", error);
                 });
         } catch (error) {
             setLoadingNews(false);
         }
-    }, []);
+    }, [category, limit, skip]);
 
     return (
         <>
@@ -39,7 +49,7 @@ const VideoReelOfWeek = ({ category, limit, title = category, image = null, skip
             ) : (
                 <>
                     {(news !== undefined && news !== null) ? (
-                        <div className="col-item" style={{ backgroundImage: "url(" + news.image + ")" }}>
+                        <div className="col-item" style={{ backgroundImage: "url(" + `${MEDIA_BASE_URL}/${getCleanImageUrl(news.image)}` + ")" }}>
                             <div className="BandBox">
                                 <div className="BandBoxhead">
                                     <h2>{title}</h2>
@@ -48,7 +58,7 @@ const VideoReelOfWeek = ({ category, limit, title = category, image = null, skip
                                 <div className={`HomeBlockImg`}>
                                     {/* <img className="img-fluid" src={image ? image : news.image} onLoad={() => setLoadingImage(false)} alt="Video Reel of the Week" /> */}
                                     <Image
-                                        src={image ? image : news.image}
+                                        src={`${MEDIA_BASE_URL}/${getCleanImageUrl(image ? image : news.image)}`}
                                         alt="Video Reel of the Week"
                                         className="img-fluid"
                                         onLoad={() => setLoadingImage(false)}
@@ -58,13 +68,13 @@ const VideoReelOfWeek = ({ category, limit, title = category, image = null, skip
                                     />
                                 </div>
                                 <p>{news.excerpt}</p>
-                                <Link href={`/blog/${news.slug}`}>
+                                <Link href={`/blog/${news.slug}`} legacyBehavior>
                                     <a className="btn BtnLearn">READ MORE</a>
                                 </Link>
                             </div>
                         </div>
                     ) : (
-                        <div className="col-item" style={{ backgroundImage: "url(" + image ? image : '/images/no-image.png' + ")" }}>
+                        <div className="col-item" style={{ backgroundImage: "url(" + `${MEDIA_BASE_URL}/${getCleanImageUrl(image ? image : '/images/no-image.png')}` + ")" }}>
                             <div className="BandBox">
                                 <div className="BandBoxhead">
                                     <h2>{title}</h2>
@@ -73,7 +83,7 @@ const VideoReelOfWeek = ({ category, limit, title = category, image = null, skip
                                 <div className={`HomeBlockImg`}>
                                     {/* <img className="img-fluid" src={image ? image : '/images/no-image.png'} onLoad={() => setLoadingImage(false)} alt="Video Reel of the Week" /> */}
                                     <Image
-                                        src={image ? image : '/images/no-image.png'}
+                                        src={`${MEDIA_BASE_URL}/${getCleanImageUrl(image ? image : '/images/no-image.png')}`}
                                         onLoad={() => setLoadingImage(false)}
                                         alt="Video Reel of the Week"
                                         className="img-fluid"
@@ -83,7 +93,7 @@ const VideoReelOfWeek = ({ category, limit, title = category, image = null, skip
                                     />
                                 </div>
                                 <p>{news.excerpt}</p>
-                                <Link href={`/news/categories/${slug}`}>
+                                <Link href={`/news/categories/${slug}`} legacyBehavior>
                                     <a className="btn BtnLearn">READ MORE</a>
                                 </Link>
                             </div>

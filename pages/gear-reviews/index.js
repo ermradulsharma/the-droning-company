@@ -5,7 +5,7 @@ import SEO from "../../components/Seo/Seo";
 import { useDispatch, useSelector } from "react-redux";
 import { getGearReviewsData } from "../../redux/HomePageSlice";
 import AddBan from "../../components/Addbanner/AddBan";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import { generateRandomBannerIndex } from "../../util/utils";
 import AddBannerComponent from "../../components/AddBannerComponent/AddBannerComponent";
 import useMetaTags from "../../hooks/useMetaTags";

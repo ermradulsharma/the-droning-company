@@ -6,7 +6,7 @@ import BlogArticle from "../../components/Blog/BlogArticle";
 import BlogRecent from '../../components/Blog/BlogRecent';
 import BlogCategories from '../../components/Blog/BlogCategories';
 import { SERVER_URL, APPLICATION_NAME } from "../../util/Constants";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import Pagination from '../../components/UI/Pagination/Pagination';
 import SEO from '../../components/Seo/Seo';
 import useCommonFunctionContext from '../../hooks/useCommonFunctionContext';

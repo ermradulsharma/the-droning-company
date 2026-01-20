@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import useAuthContext from "../../../hooks/useAuthContext";
 import { SERVER_URL } from "../../../util/Constants";
 import Aux from "../../../hoc/Auxiliary/Auxiliary";
 import axios from "axios";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import Link from "next/link";
 import {
   checkTokenExist,
@@ -65,7 +66,7 @@ const DashboardMain = () => {
     }
   };
 
-  const getDasboardDetail = async () => {
+  const getDasboardDetail = useCallback(async () => {
     await axios(`${SERVER_URL}/pilot-dashboard/index/${userId}`, {
       method: "GET",
       headers: {
@@ -90,7 +91,7 @@ const DashboardMain = () => {
         setFullPageLoading(false);
         setProfileBuild(false);
       });
-  };
+  }, [userId, accessToken, setVerifyEmail]);
 
   const {
     getDashboardAds_status,
@@ -111,7 +112,7 @@ const DashboardMain = () => {
   useEffect(() => {
     getDasboardDetail();
     dispatch(getDashboardAds("pilot-dashboard"));
-  }, []);
+  }, [getDasboardDetail, dispatch]);
 
   useEffect(() => {
     if (getDashboardAds_data) {
@@ -212,9 +213,8 @@ const DashboardMain = () => {
           <i className="far fa-arrow-alt-circle-right"></i> Dashboard
         </h1>
         {isProfileBuild ? (
-          <Link href={`/pilot/${dashboardData.basic_profile.slug}`}>
+          <Link href={`/pilot/${dashboardData.basic_profile.slug}`} legacyBehavior>
             <a
-              href={`/pilot/${dashboardData.basic_profile.slug}`}
               rel="noreferrer"
               name="view-profile"
               className="m-0 btn action-button float-right"
@@ -233,17 +233,21 @@ const DashboardMain = () => {
               <div className="row PilotBox paddngtb40">
                 <div className="col-sm-2">
                   <div className="PilotImg">
-                    <img
+                    <Image
                       className="img-fluid"
                       src={dashboardData.basic_profile.profile_image}
                       alt={dashboardData.basic_profile.title}
+                      width={200}
+                      height={200}
                     />
                     {dashboardData.basic_profile.is_certified === "Yes" ? (
                       <span className="BadageImg">
-                        <img
+                        <Image
                           className="img-fluid"
                           src="/images/badage.png"
                           alt="badage"
+                          width={40}
+                          height={40}
                         />
                       </span>
                     ) : null}
@@ -296,7 +300,7 @@ const DashboardMain = () => {
                     {/* {
                                                 dashboardData.basic_profile.is_insured
                                                 ?
-                                                <img className="img-fluid PilotVerified" src="../user-pilot/images/verifiedicon.png" alt="verified" />
+                                                <Image className="img-fluid PilotVerified" src="/user-pilot/images/verifiedicon.png" alt="verified" width={20} height={20} />
                                                 :
                                                 null
                                             } */}
@@ -315,10 +319,12 @@ const DashboardMain = () => {
                   </div>
                   {dashboardData.basic_profile.license_image ? (
                     <Aux>
-                      <img
+                      <Image
                         className="img-fluid PilotCard"
                         src={dashboardData.basic_profile.license_image}
                         alt="PilotCard"
+                        width={200}
+                        height={150}
                       />
                       <label>
                         This is only visible to the Droning Company admin
@@ -376,7 +382,7 @@ const DashboardMain = () => {
                             })}
                           </div>
                           <div className="text-center">
-                            <Link href="/pilot-area/videos">
+                            <Link href="/pilot-area/videos" legacyBehavior>
                               <a
                                 id="add-video"
                                 name="add-video"
@@ -389,7 +395,7 @@ const DashboardMain = () => {
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/pilot-area/videos">
+                          <Link href="/pilot-area/videos" legacyBehavior>
                             <a
                               id="add-video"
                               name="add-video"
@@ -423,17 +429,19 @@ const DashboardMain = () => {
                                     : "col-md-6"
                                     } form-group`}
                                 >
-                                  <img
+                                  <Image
                                     className="img-fluid DashEqualImg"
                                     src={photo.image}
                                     alt="01imgarticle"
+                                    width={300}
+                                    height={200}
                                   />
                                 </div>
                               );
                             })}
                           </div>
                           <div className="text-center">
-                            <Link href="/pilot-area/gallery">
+                            <Link href="/pilot-area/gallery" legacyBehavior>
                               <a
                                 id="photo-gallery"
                                 name="photo-gallery"
@@ -446,7 +454,7 @@ const DashboardMain = () => {
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/pilot-area/gallery">
+                          <Link href="/pilot-area/gallery" legacyBehavior>
                             <a
                               id="add-photo"
                               name="add-photo"
@@ -506,7 +514,7 @@ const DashboardMain = () => {
                             </table>
                           </div>
                           <div className="text-center">
-                            <Link href="/pilot-area/service-location">
+                            <Link href="/pilot-area/service-location" legacyBehavior>
                               <a
                                 id="add-location"
                                 name="add-location"
@@ -519,7 +527,7 @@ const DashboardMain = () => {
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/pilot-area/service-location">
+                          <Link href="/pilot-area/service-location" legacyBehavior>
                             <a
                               id="add-location"
                               name="add-location"
@@ -552,11 +560,13 @@ const DashboardMain = () => {
                                   : "col-md-6"
                                   } form-group`}
                               >
-                                <img
+                                <Image
                                   className="img-fluid DashEqualImg"
                                   style={{ height: "auto" }}
                                   src={equipment.image}
                                   alt={equipment.title}
+                                  width={300}
+                                  height={200}
                                 />
                                 <ul className="EquipmentDetails">
                                   <li>
@@ -568,7 +578,7 @@ const DashboardMain = () => {
                             ))}
                           </div>
                           <div className="text-center">
-                            <Link href="/pilot-area/equipments">
+                            <Link href="/pilot-area/equipments" legacyBehavior>
                               <a
                                 id="add-equipments"
                                 name="add-equipments"
@@ -581,7 +591,7 @@ const DashboardMain = () => {
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/pilot-area/equipments">
+                          <Link href="/pilot-area/equipments" legacyBehavior>
                             <a
                               id="add-equipments"
                               name="add-equipments"
@@ -604,7 +614,7 @@ const DashboardMain = () => {
           style={{ minHeight: "400px" }}
           className="flex-row align-items-center justify-content-between"
         >
-          <Link href="/pilot-area/build-profile">
+          <Link href="/pilot-area/build-profile" legacyBehavior>
             <a className="btn action-button" style={{ width: "auto" }}>
               Build your profile
             </a>

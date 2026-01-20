@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import useAuthContext from "../../hooks/useAuthContext";
 import useToastContext from "../../hooks/useToastContext";
 import { SERVER_URL } from "../../util/Constants";

@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import { SERVER_URL, MEDIA_BASE_URL } from "../../../util/Constants";
 import axios from "axios";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useToastContext from "../../../hooks/useToastContext";
 import { useConfirm } from "material-ui-confirm";
 import { useDispatch, useSelector } from "react-redux";
-import { DisplayAddsInDashboardPages } from "../../../util/utils";
+import { DisplayAddsInDashboardPages, getCleanImageUrl } from "../../../util/utils";
 import { getDashboardAds } from "../../../redux/HomePageSlice";
 import AddBannerComponent from "../../../components/AddBannerComponent/AddBannerComponent";
 
@@ -26,7 +27,7 @@ const PhotoGallery = () => {
   useEffect(() => {
     getAllImages();
     dispatch(getDashboardAds("pilot-photo-gallery"));
-  }, [userId]);
+  }, [getAllImages, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -77,11 +78,11 @@ const PhotoGallery = () => {
         setBottomPage2Index,
         "gallery_bottom_page2_banner_index"
       );
-      
+
     }
   }, [getDashboardAds_data]);
 
-  const getAllImages = async (showLoading) => {
+  const getAllImages = useCallback(async (showLoading) => {
     if (showLoading) {
       setIsLoading(true);
     }
@@ -104,7 +105,7 @@ const PhotoGallery = () => {
       setFullPageLoading(false);
       setIsLoading(false);
     }
-  };
+  }, [userId, accessToken]);
   const dragOver = (e) => {
     e.preventDefault();
   };
@@ -264,13 +265,13 @@ const PhotoGallery = () => {
     </div>
   ) : (
     <div className="container-fluid">
-     <AddBannerComponent
+      <AddBannerComponent
         data={getDashboardAds_data}
         status={getDashboardAds_status}
         position={above_title_positon}
         index={above_title_index}
       />
-       <AddBannerComponent
+      <AddBannerComponent
         data={getDashboardAds_data}
         status={getDashboardAds_status}
         position={above_title2_positon}
@@ -340,17 +341,17 @@ const PhotoGallery = () => {
                           Image
                         </h6>
                         <div className="dropdown no-arrow">
-                          <a
-                            className="dropdown-toggle"
-                            href="#"
-                            role="button"
+                          <button
+                            className="btn btn-link p-0 dropdown-toggle"
+                            type="button"
                             id="dropdownMenuLink"
                             data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false"
+                            style={{ textDecoration: 'none' }}
                           >
                             <i className="fas fa-ellipsis-v fa-sm fa-fw text-primary"></i>
-                          </a>
+                          </button>
                           <div
                             className="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                             aria-labelledby="dropdownMenuLink"
@@ -367,12 +368,13 @@ const PhotoGallery = () => {
                         </div>
                       </div>
                       <div className="card-body GalleryImage">
-                        <img
+                        <Image
                           className="img-fluid"
-                          src={`${MEDIA_BASE_URL}/${image.image}`}
-                          width="100%"
+                          src={`${MEDIA_BASE_URL}/${getCleanImageUrl(image.image)}`}
+                          width={300}
+                          height={200}
                           alt="gallery"
-                          style={{ maxHeight: "200px" }}
+                          style={{ maxHeight: "200px", objectFit: 'cover' }}
                         />
                       </div>
                     </div>
@@ -400,7 +402,7 @@ const PhotoGallery = () => {
         position={bottom_page_position}
         index={bottom_page_index}
       />
-         <AddBannerComponent
+      <AddBannerComponent
         data={getDashboardAds_data}
         status={getDashboardAds_status}
         position={bottom_page2_position}

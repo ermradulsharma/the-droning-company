@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Loader from "react-loader-spinner";
+import React, { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
+import Loader from "@/components/Common/Loader";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useToastContext from "../../../hooks/useToastContext";
 import { SERVER_URL } from "../../../util/Constants";
@@ -26,7 +27,7 @@ const MySubscription = () => {
   useEffect(() => {
     getSubscriptionDetail();
     dispatch(getDashboardAds("pilot-my-subscriptions"));
-  }, [userId]);
+  }, [getSubscriptionDetail, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -78,7 +79,7 @@ const MySubscription = () => {
     }
   }, [getDashboardAds_data]);
 
-  const getSubscriptionDetail = async () => {
+  const getSubscriptionDetail = useCallback(async () => {
     try {
       await fetch(`${SERVER_URL}/subscription/show/${userId}`, {
         method: "GET",
@@ -101,7 +102,7 @@ const MySubscription = () => {
     } catch (error) {
       setLoading(false);
     }
-  };
+  }, [userId, accessToken]);
 
   const handleCancelSubscription = () => {
     confirm({
@@ -217,7 +218,9 @@ const MySubscription = () => {
                     >
                       Cancel Subscription
                     </button>
-                    <a href="/update-payment" target="_blank" className="btn btn-warning btn-lg mb-3 text-black w-100">Update Debit/Credit Card</a>
+                    <Link href="/update-payment" legacyBehavior>
+                      <a target="_blank" className="btn btn-warning btn-lg mb-3 text-black w-100">Update Debit/Credit Card</a>
+                    </Link>
                   </div>
                 </div>
               </div>

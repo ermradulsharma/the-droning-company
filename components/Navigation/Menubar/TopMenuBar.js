@@ -1,5 +1,6 @@
 import React from "react";
 import Link from 'next/link';
+import Image from 'next/image';
 import useAuthContext from "../../../hooks/useAuthContext";
 import useToastContext from "../../../hooks/useToastContext";
 import { SERVER_URL } from "../../../util/Constants";
@@ -10,70 +11,70 @@ const TopMenuBar = () => {
     const { name, email, profileImage, emailVerified, userType, setVerifyEmail } = useAuthContext();
     const { showToast, hideToast, showToastSuccess, showToastError } = useToastContext();
     const resendVerificationLink = () => {
-		hideToast();
-		showToast('Sending verification link...');
-		if (!email) {
-			showToastError('Email address should not be empty');
-			return;
-		}
-		
-		axios.post(`${SERVER_URL}/resend-verification/email`, {email: email}, {
-			headers: {
-				"Content-Type": "application/json",
-				"Access-Control-Allow-Origin": "*"
-			}
-		})
-		.then((response) => {
-			hideToast();
-			if (response.status === 200) {
-				showToastSuccess('Verification link has been sent successfully');
-			}
-		})
-		.catch((error)=>{
-			console.log(error);
-		})
-	}
+        hideToast();
+        showToast('Sending verification link...');
+        if (!email) {
+            showToastError('Email address should not be empty');
+            return;
+        }
+
+        axios.post(`${SERVER_URL}/resend-verification/email`, { email: email }, {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+            .then((response) => {
+                hideToast();
+                if (response.status === 200) {
+                    showToastSuccess('Verification link has been sent successfully');
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
     return (
         <ul className="navbar-nav ml-auto">
             <li className="nav-item dropdown no-arrow d-sm-none">
-            <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i className="fas fa-search fa-fw"></i>
-            </a>
-            {/* <!-- Dropdown - Messages --> */}
-            <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                aria-labelledby="searchDropdown">
-                <form className="form-inline mr-auto w-100 navbar-search">
-                    <div className="input-group">
-                        <input type="text" className="form-control bg-light border-0 small"
-                            placeholder="Search for..." aria-label="Search"
-                            aria-describedby="basic-addon2" />
-                        <div className="input-group-append">
-                            <button className="btn btn-primary" type="button">
-                                <i className="fas fa-search fa-sm"></i>
-                            </button>
+                <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i className="fas fa-search fa-fw"></i>
+                </a>
+                {/* <!-- Dropdown - Messages --> */}
+                <div className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                    aria-labelledby="searchDropdown">
+                    <form className="form-inline mr-auto w-100 navbar-search">
+                        <div className="input-group">
+                            <input type="text" className="form-control bg-light border-0 small"
+                                placeholder="Search for..." aria-label="Search"
+                                aria-describedby="basic-addon2" />
+                            <div className="input-group-append">
+                                <button className="btn btn-primary" type="button">
+                                    <i className="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
             </li>
             {
                 userType.id === 3
-                ?
-                    emailVerified
                     ?
-                    null
+                    emailVerified
+                        ?
+                        null
+                        :
+                        <li>
+                            <div style={{ textAlign: 'center', marginTop: '22px', fontFamily: 'Avenir', color: '#fecd0e' }}>
+                                <p type="button" onClick={() => resendVerificationLink()}>(Email not verified) Resend Verification Link</p>
+                            </div>
+                        </li>
                     :
-                    <li>
-                        <div style={{textAlign:'center', marginTop:'22px', fontFamily:'Avenir', color:'#fecd0e'}}>
-                            <p type="button" onClick={()=>resendVerificationLink()}>(Email not verified) Resend Verification Link</p>
-                        </div>
-                    </li>
-                :
-                null
+                    null
             }
-            
+
             {/* <!-- Nav Item - Alerts --> */}
             {/* <li className="nav-item dropdown no-arrow mx-1">
                 <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -127,9 +128,9 @@ const TopMenuBar = () => {
             <li className="nav-item dropdown no-arrow">
                 <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span className="mr-2 d-none d-lg-inline text-gray-600 small">{ name }</span>
-                    <img className="img-profile rounded-circle" alt={name}
-                        src={profileImage ? profileImage : '/user-pilot/images/undraw_profile.svg'} />
+                    <span className="mr-2 d-none d-lg-inline text-gray-600 small">{name}</span>
+                    <Image className="img-profile rounded-circle" alt={name}
+                        src={profileImage ? profileImage : '/user-pilot/images/undraw_profile.svg'} width={32} height={32} />
                 </a>
                 {/* <!-- Dropdown - User Information --> */}
                 <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -142,7 +143,7 @@ const TopMenuBar = () => {
                         <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                         Settings
                     </a> */}
-                    <Link href="/">
+                    <Link href="/" legacyBehavior>
                         <a className="dropdown-item">
                             <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                             Web Front
@@ -168,7 +169,7 @@ const TopMenuBar = () => {
                             <div className="modal-body">Select &quot;Logout&quot; below if you are ready to end your current session.</div>
                             <div className="modal-footer">
                                 <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                <button className="btn btn-primary" onClick={()=> router.push('/logout')} type="button" data-dismiss="modal">Logout</button>
+                                <button className="btn btn-primary" onClick={() => router.push('/logout')} type="button" data-dismiss="modal">Logout</button>
                             </div>
                         </div>
                     </div>

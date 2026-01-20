@@ -17,9 +17,9 @@ import VerifyEmailSlice from "./VerifyEmailSlice";
 // });
 export const store = configureStore({
   reducer: {
-    verifyEmail: VerifyEmailSlice.reducer,
-    home: HomePageSlice.reducer,
-    profile: ProfileSlice.reducer,
+    verifyEmail: VerifyEmailSlice,
+    home: HomePageSlice,
+    profile: ProfileSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

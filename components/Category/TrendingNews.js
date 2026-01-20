@@ -2,6 +2,7 @@ import Aux from "../../hoc/Auxiliary/Auxiliary";
 import React, { useState, useEffect } from "react";
 import { SERVER_URL } from "../../util/Constants";
 import Link from "next/link";
+import Image from "next/image";
 const TrendingNews = () => {
 
     const [news, setNews] = useState([]);
@@ -30,18 +31,18 @@ const TrendingNews = () => {
                             <div className="row">
                                 {
                                     blogPost.image
-                                    ?
-                                    <div className="col-4 col-sm-4">
-                                    <Link href={`/blog/${blogPost.slug}`}>
-                                        <a href={`/blog/${blogPost.slug}`} className="SeeMore">
-                                            <img className="img-fluid" src={blogPost.image} alt="03imgarticle" />
-                                        </a>
-                                    </Link>
-                                    </div>
-                                    :
-                                    null
+                                        ?
+                                        <div className="col-4 col-sm-4">
+                                            <Link href={`/blog/${blogPost.slug}`} legacyBehavior>
+                                                <a href={`/blog/${blogPost.slug}`} className="SeeMore">
+                                                    <Image className="img-fluid" src={blogPost.image} alt="03imgarticle" width={200} height={150} />
+                                                </a>
+                                            </Link>
+                                        </div>
+                                        :
+                                        null
                                 }
-                                
+
                                 <div className={`${blogPost.image ? 'col-8 col-sm-8' : 'col-12 col-sm-12'} `}>
                                     <div className="ArticleDesc">
                                         <div className="ArticleDescH">{blogPost.title}</div>

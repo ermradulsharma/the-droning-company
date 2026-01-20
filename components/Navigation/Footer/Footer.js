@@ -1,6 +1,7 @@
 import React from 'react';
 import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import Link from 'next/link';
+import Image from 'next/image';
 import Script from "next/script";
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -23,7 +24,7 @@ const Footer = () => {
             <footer className="Footer paddngtb">
                 <div className="container">
                     <div className="FooterInn text-center">
-                        <div><img className="img-fluid FootLogo" src="/images/logo.webp" alt="logo" /></div>
+                        <div><Image className="img-fluid FootLogo" src="/images/logo.webp" alt="logo" width={200} height={50} /></div>
                         {/* <address>1111 Santa Monica Blvd. Los Angeles CA 90025</address>
                         <a href="tel:0123456789">012.345.6789</a><br>
                         <a href="mailto:info@thedroningcompany">info@thedroningcompany</a>

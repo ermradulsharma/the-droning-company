@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Link from "next/link";
+import Image from 'next/image';
 import FeaturePilot from "../components/Home/FeaturePilot";
 import FeaturePilotNew from "../components/Home/FeaturePilotNew";
 import FeatureCompany from "../components/Home/FeatureCompany";
@@ -13,7 +14,7 @@ import SearchLocationInput from "../components/SearchLocationInput/SearchLocatio
 import { useRouter } from "next/router";
 import useCommonFunctionContext from "../hooks/useCommonFunctionContext";
 import { SERVER_URL, APPLICATION_NAME } from "../util/Constants";
-import Loader from "react-loader-spinner";
+import Loader from "@/components/Common/Loader";
 import SEO from "../components/Seo/Seo";
 import AddBan from "../components/Addbanner/AddBan";
 import { useDispatch, useSelector } from "react-redux";
@@ -238,7 +239,7 @@ const Home = () => {
                     <div className="row">
                       <div className="offset-md-2 col-md-8 offset-lg-4 col-lg-4">
                         <label>Create a pilot Profile</label>
-                        <Link href="/registration">
+                        <Link href="/registration" legacyBehavior>
                           <a className="btn BtnSearch w-100">Join the team</a>
                         </Link>
                       </div>
@@ -286,7 +287,7 @@ const Home = () => {
                             {block.block_subTitle1 ? (<h3>{block.block_subTitle1}</h3>) : null}
                           </div>
                           <div className={`HomeBlockImg`}>
-                            <img className="img-fluid" src={block.block_image} alt={block.block_title} />
+                            <Image className="img-fluid" src={block.block_image} alt={block.block_title} width={300} height={200} />
                           </div>
                           <p>{block.block_description}</p>
                           <Link href={block?.block_button_link} passHref>
@@ -365,10 +366,12 @@ const Home = () => {
                       ) : null}
                     </div>
                     <div className={`HomeBlockImg`}>
-                      <img
+                      <Image
                         className="img-fluid"
                         src={block.block_image}
                         alt={block.block_title}
+                        width={300}
+                        height={200}
                       />
                     </div>
                     <p>{block.block_description}</p>
@@ -419,10 +422,12 @@ const Home = () => {
                       ) : null}
                     </div>
                     <div className={`HomeBlockImg`}>
-                      <img
+                      <Image
                         className="img-fluid"
                         src={block.block_image}
                         alt={block.block_title}
+                        width={300}
+                        height={200}
                       />
                     </div>
                     <p>{block.block_description}</p>
