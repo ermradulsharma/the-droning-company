@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import SEO from "../../components/Seo/Seo";
+import Image from "next/image";
 import { APPLICATION_NAME } from "../../util/Constants";
 import useCommonFunctionContext from "../../hooks/useCommonFunctionContext";
 import { useRouter } from "next/router";
@@ -34,7 +35,7 @@ const ContactUs = (props) => {
 
   useEffect(() => {
     dispatch(getContactUsData());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (getContactUsData_data) {
@@ -137,13 +138,6 @@ const ContactUs = (props) => {
               <div className="ContactForm">
                 <div className="row">
                   <div className="col-sm-12 form-group">
-                    {/* <iframe
-                    // src="https://ThankYou.formstack.com/forms/contact_support"
-                    src="https://media.example.com/contact-us"
-                    title="Contact Form"
-                    width="100%"
-                    height="700"
-                  ></iframe> */}
 
 
                     <iframe
@@ -179,15 +173,17 @@ const ContactUs = (props) => {
                     <div className="ContactBlock">
                       <div className="ContactInfo">
                         <div className="Icon">
-                          <img
-                            src={`/images/icon-3.png`}
+                          <Image
+                            src="/images/icon-3.png"
                             className="img-fluid"
                             alt="icon"
+                            width={50}
+                            height={50}
                           />
                         </div>
                         <h4>Mail Us</h4>
                         <ul>
-                          <li>Info: info@thedroningcompany</li>
+                          <li>Info: mradulsharma786@gmail.com</li>
                         </ul>
                       </div>
                     </div>

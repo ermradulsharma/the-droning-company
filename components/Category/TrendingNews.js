@@ -1,6 +1,7 @@
 import Aux from "../../hoc/Auxiliary/Auxiliary";
 import React, { useState, useEffect } from "react";
-import { SERVER_URL } from "../../util/Constants";
+import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
 import Link from "next/link";
 import Image from "next/image";
 const TrendingNews = () => {
@@ -35,7 +36,7 @@ const TrendingNews = () => {
                                         <div className="col-4 col-sm-4">
                                             <Link href={`/blog/${blogPost.slug}`} legacyBehavior>
                                                 <a href={`/blog/${blogPost.slug}`} className="SeeMore">
-                                                    <Image className="img-fluid" src={blogPost.image} alt="03imgarticle" width={200} height={150} />
+                                                    <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blogPost.image)}`} alt="03imgarticle" width={200} height={150} />
                                                 </a>
                                             </Link>
                                         </div>

@@ -25,7 +25,7 @@ const AwardVoting = (props) => {
 
 	useEffect(() => {
 		dispatch(getContactUsData());
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		if (getContactUsData_data) {
@@ -138,12 +138,6 @@ const AwardVoting = (props) => {
 					}}
 				></iframe>
 
-				{/* <iframe
-					src="https://media.example.com/award-voting"
-					title="Contact Form"
-					width="100%"
-					height="700"
-				></iframe> */}
 			</div>
 		</Aux>
 	);

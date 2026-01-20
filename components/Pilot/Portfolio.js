@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { SERVER_URL } from "../../util/Constants";
+import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
 import Image from "next/image";
 const Portfolio = ({ profileId }) => {
 
@@ -36,7 +37,7 @@ const Portfolio = ({ profileId }) => {
                                     {
                                         galleryOuterWarp.map((photo, index) => {
                                             return <div className="col-sm-4 col-md-4" key={'galleryInnerWarpIndex-' + index}>
-                                                <Image className="img-fluid" src={photo.image} alt="photo" width={400} height={300} />
+                                                <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(photo.image)}`} alt="photo" width={400} height={300} />
                                             </div>
                                         })
                                     }

@@ -32,14 +32,6 @@ const nextConfig = {
         protocol: "http",
         hostname: "localhost",
       },
-      {
-        protocol: "https",
-        hostname: "example.com",
-      },
-      {
-        protocol: "https",
-        hostname: "media.example.com",
-      },
     ],
     formats: ["image/webp"],
     minimumCacheTTL: 31536000,

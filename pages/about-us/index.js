@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import GetStarted from "../../components/CmsPage/GetStarted";
 import OurTeams from "../../components/CmsPage/OurTeams";
 import { APPLICATION_NAME } from "../../util/Constants";
@@ -86,7 +87,7 @@ const AboutUs = (props) => {
       window.scrollTo(0, 0);
     }
     dispatch(getAboutAdsData());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Fragment>
@@ -158,10 +159,13 @@ const AboutUs = (props) => {
             <div className="col-lg-6 col-md-12 m-b30">
               <div className="AboutDroneOne">
                 <div className="AboutDroneOneMedia">
-                  <img
+                  <Image
                     className="img-fluid slide-top"
-                    src={`/images/about-img.png`}
+                    src="/images/about-img.png"
                     alt="About Us"
+                    width={500}
+                    height={300}
+                    layout="responsive"
                   />
                 </div>
               </div>
@@ -187,12 +191,11 @@ const AboutUs = (props) => {
           <div className="justify-content-center">
             <div className="MainHeading text-left">
               <p>We do not take any commissions on the jobs pilots receive through <strong>The Droning Company</strong>, but rather charge a ten-dollar monthly administration fee for hosting your profile.</p>
-              <p>Please check out this article if you considering becoming a drone pilot: <Link href="https://example.com/blog/how-to-become-a-drone-pilot-now">How to Become a Drone Pilot Now</Link> and if you already have you Part 107 and are interested in finding out what we can do for you or are planning to sign up with us and would like to know how to create an effective profile on our page to get you more work please click here: <Link href="https://example.com/blog/how-to-find-drone-jobs">How To Find Drone Jobs</Link></p>
-              <p>If you are a company and would like us to consider featuring an article on your company, please drop our Editor in Chief Mike Molenda a line at:{" "} <Link href="mailto:mikemolenda@example.com">mikemolenda@example.com</Link></p>
+              <p>Please check out this article if you considering becoming a drone pilot: <Link href="/blog/how-to-become-a-drone-pilot-now">How to Become a Drone Pilot Now</Link> and if you already have you Part 107 and are interested in finding out what we can do for you or are planning to sign up with us and would like to know how to create an effective profile on our page to get you more work please click here: <Link href="/blog/how-to-find-drone-jobs">How To Find Drone Jobs</Link></p>
+              <p>If you are a company and would like us to consider featuring an article on your company, please drop our Editor in Chief Mike Molenda a line at:{" "} <Link href="mailto:mradulsharma786@gmail.com">mradulsharma786@gmail.com</Link></p>
               <p>If you are a manufacturer and would like our resident drone expert Chris Fravel to conduct a written and video review on your product, please contact him at:{" "}
-                <Link href="mailto:cfravel@example.com">cfravel@example.com</Link></p>
-
-              <p>If you have any questions—or if you need advice—please feel free to contact us by e-mail at:{" "} <Link href="mailto:info@example.com">info@example.com</Link></p>
+                <Link href="mailto:mradulsharma786@gmail.com">mradulsharma786@gmail.com</Link></p>
+              <p>If you have any questions—or if you need advice—please feel free to contact us by e-mail at:{" "} <Link href="mailto:mradulsharma786@gmail.com">mradulsharma786@gmail.com</Link></p>
             </div>
           </div>
         </div>

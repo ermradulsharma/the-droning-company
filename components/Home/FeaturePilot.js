@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { SERVER_URL } from "../../util/Constants";
+import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
+import { getCleanImageUrl } from "../../util/utils";
 import Link from "next/link";
 import parse from 'html-react-parser';
 import Image from "next/image";
@@ -35,7 +36,7 @@ const FeaturePilot = () => {
                         <div className="PilotImg">
                             <Link href={`/pilot/${pilot.slug}`}>
                                 <a href={`/pilot/${pilot.slug}`}>
-                                    <Image className="img-fluid" src={pilot.image} alt="pilot" width={300} height={300} />
+                                    <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilot.image)}`} alt="pilot" width={300} height={300} />
                                 </a>
                             </Link>
                             {/* {

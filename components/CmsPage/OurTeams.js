@@ -41,7 +41,7 @@ const OurTeams = (props) => {
 			name: 'Akshata',
 			slug: 'akshata',
 			designation: 'For the latest drone tech news',
-			image: `${MEDIA_BASE_URL}/${getCleanImageUrl('https://media.example.com/images/contentPage/PufrOShRxHWnKVnbeyqHDHl7nJB14Ce6pfr6Em2t.jpg')}`
+			image: `${MEDIA_BASE_URL}/${getCleanImageUrl('images/contentPage/PufrOShRxHWnKVnbeyqHDHl7nJB14Ce6pfr6Em2t.jpg')}`
 		},
 		{
 			name: 'Ron Morgan',

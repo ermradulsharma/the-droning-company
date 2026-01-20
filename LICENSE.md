@@ -20,4 +20,4 @@ Any breach of these terms will result in immediate termination of access and pot
 
 ---
 
-For inquiries regarding licensing or usage, please contact support@example.com.
+For inquiries regarding licensing or usage, please contact <mradulsharma786@gmail.com>.

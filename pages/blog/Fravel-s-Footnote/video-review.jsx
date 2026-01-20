@@ -228,7 +228,7 @@ const VideoReview = (props) => {
                   "name": "TheDroningCompany.com",
                   "logo": {
                     "@type": "ImageObject",
-                    "url": "https://www.example.com/images/logo.png",
+                    "url": "/images/logo.png",
                     "width": "",
                     "height": ""
                   }
