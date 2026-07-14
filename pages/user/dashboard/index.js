@@ -201,9 +201,7 @@ const Dashboard = () => {
                                                         {job.status}</span>
                                                     </p></td>
                                                     {/* <td>{job.job_category}</td> */}
-                                                    <td>{
-                                                        {dayjs(job.created_at).format("MM/DD/YYYY")}
-                                                    }</td>
+                                                    <td>{dayjs(job.created_at).format("MM/DD/YYYY")}</td>
                                                     <td>
                                                         <Link href={`/user/edit-job/${job.id}`} className="btn btn-outline-primary btn-sm mt-2">
                                                             <i className="far fa-edit"></i>Edit Job

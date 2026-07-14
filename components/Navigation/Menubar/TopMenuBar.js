@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Link from 'next/link';
 import Image from 'next/image';
@@ -5,7 +6,7 @@ import useAuthContext from "../../../hooks/useAuthContext";
 import useToastContext from "../../../hooks/useToastContext";
 import { SERVER_URL } from "../../../util/Constants";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 const TopMenuBar = () => {
     const router = useRouter();
     const { name, email, profileImage, emailVerified, userType, setVerifyEmail } = useAuthContext();

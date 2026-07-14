@@ -1,3 +1,4 @@
+"use client";
 import React, {useState, createContext, useMemo } from "react";
 
 const CommonFunctionContext = createContext();
@@ -48,3 +49,4 @@ export const  CommonFunctionContextProvider =({ children }) => {
     </CommonFunctionContext.Provider>
   );
 }
+

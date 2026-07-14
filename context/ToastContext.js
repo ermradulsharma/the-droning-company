@@ -1,3 +1,4 @@
+"use client";
 import React, { useCallback, createContext } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -50,3 +51,4 @@ export const  ToastContextProvider =({ children }) => {
     </ToastContext.Provider>
   );
 }
+

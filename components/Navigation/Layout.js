@@ -1,4 +1,5 @@
-import React from 'react';
+"use client";
+import React, { Suspense } from 'react';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import SideNavMenuDrawer from '../../components/Navigation/SideNavMenuDrawer/SideNavMenuDrawer';
 import TopMenuBar from '../../components/Navigation/Menubar/TopMenuBar';
@@ -105,7 +106,9 @@ const Layout = (props) => {
     :
     (
       <Aux>
-        <Header />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Header />
+        </Suspense>
         {props.children}
         <Footer />
         {/* {cookieConsentLayer} */}

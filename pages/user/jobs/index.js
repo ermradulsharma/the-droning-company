@@ -178,9 +178,7 @@ const MyJobs = () => {
                                                                             <button type="button" onClick={() => jobDetailHandler(job.id)} className="btn btn-link post-title p-0 text-left" style={{ textDecoration: 'none' }}>{job.job_title}
                                                                             </button>
                                                                             <p>{extractLocation ? extractLocation.city : ''}, {extractLocation ? extractLocation.state : ''}, {extractLocation ? extractLocation.country : ''}</p>
-                                                                            <small>Posted On: {
-                                                                                {dayjs(job.created_at).format("MM/DD/YYYY")}
-                                                                            }
+                                                                            <small>Posted On: {dayjs(job.created_at).format("MM/DD/YYYY")}
                                                                             </small>
                                                                         </div>
                                                                     </div>

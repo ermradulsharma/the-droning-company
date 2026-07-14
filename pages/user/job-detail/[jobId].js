@@ -128,9 +128,7 @@ const JobDetail = ({ match, location }) => {
 
                                         </div>
                                         <div className="card-action-right text-center">
-                                            <p><b>Posted On: {
-                                                {dayjs(jobDetailData.created_at).format("MM/DD/YYYY")}
-                                            }</b></p>
+                                            <p><b>Posted On: {dayjs(jobDetailData.created_at).format("MM/DD/YYYY")}</b></p>
                                         </div>
                                     </div>
                                 </div>

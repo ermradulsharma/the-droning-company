@@ -1,16 +1,18 @@
+"use client";
 import React, { useState, useEffect, Fragment } from "react";
 import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import Link from "next/link";
 import Image from "next/image";
 import useAuthContext from '../../../hooks/useAuthContext';
 import Script from 'next/script';
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { SERVER_URL } from "../../../util/Constants";
 const Header = () => {
     const { authTokens, accessToken, userType } = useAuthContext();
 
     let history = useRouter();
-    const slug = history.query.categorySlug;
+    const searchParams = useSearchParams();
+    const slug = searchParams?.get('categorySlug') || '';
     const [searchKeyword, setSearchKeyword] = useState(slug);
     const onSearchCompany = () => {
         history.push(`/company-directory/${searchKeyword}`);
