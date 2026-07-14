@@ -34,7 +34,7 @@ export default function RootLayout({
         
         {/* Essential Global Scripts */}
         <Script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" strategy="beforeInteractive" />
-        <Script strategy="lazyOnload" src={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`} />
+        <Script strategy="lazyOnload" src={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places&loading=async`} />
       </body>
     </html>
   )

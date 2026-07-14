@@ -154,7 +154,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 // strategy="afterInteractive"
                 id="googleMaps"
                 strategy="lazyOnload"
-                src={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`}
+                src={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places&loading=async`}
             />
             <Script
                 id="meta-pixel"
