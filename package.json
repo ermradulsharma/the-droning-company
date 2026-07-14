@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Frontend for The Droning Company platform, built with Next.js and React.",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
