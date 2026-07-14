@@ -9,7 +9,7 @@ export const getHomePageAdsData = createAsyncThunk(
             let res = await axiosInstance.get("/get-banner/home-page");
             return res?.data;
         } catch (e) {
-            console.log(e);
+            
         }
     }
 );
@@ -21,7 +21,7 @@ export const getNewsPageAdsData = createAsyncThunk(
             let res = await axiosInstance.get("/get-banner/blog-list");
             return res?.data;
         } catch (e) {
-            console.log(e);
+            
         }
     }
 );
@@ -33,7 +33,7 @@ export const getBlogDetailsPageAdsData = createAsyncThunk(
             let res = await axiosInstance.get("/get-banner/blog-details");
             return res?.data;
         } catch (e) {
-            console.log(e);
+            
         }
     }
 );
@@ -45,7 +45,7 @@ export const getJobPageAdsData = createAsyncThunk(
             let res = await axiosInstance.get("/get-banner/job-list");
             return res?.data;
         } catch (e) {
-            console.log(e);
+            
         }
     }
 );
@@ -54,7 +54,7 @@ export const getAboutAdsData = createAsyncThunk("getAboutAdsData", async () => {
         let res = await axiosInstance.get("/get-banner/about-us");
         return res?.data;
     } catch (e) {
-        console.log(e);
+        
     }
 });
 
@@ -65,7 +65,7 @@ export const getGearReviewsData = createAsyncThunk(
             let res = await axiosInstance.get("/get-banner/gear-reviews");
             return res?.data;
         } catch (e) {
-            console.log(e);
+            
         }
     }
 );
@@ -77,7 +77,7 @@ export const getContactUsData = createAsyncThunk(
             let res = await axiosInstance.get("/get-banner/contact-us");
             return res?.data;
         } catch (e) {
-            console.log(e);
+            
         }
     }
 );
@@ -86,7 +86,7 @@ export const getFaqData = createAsyncThunk("getFaqData", async () => {
         let res = await axiosInstance.get("/get-banner/faq");
         return res?.data;
     } catch (e) {
-        console.log(e);
+        
     }
 });
 
@@ -97,7 +97,7 @@ export const getDashboardAds = createAsyncThunk(
             let res = await axiosInstance.get(`/get-banner/${url}`);
             return res?.data;
         } catch (e) {
-            console.log(e);
+            
         }
     }
 );
@@ -109,7 +109,7 @@ export const getDashboardSidebarAds = createAsyncThunk(
             let res = await axiosInstance.get(`/get-banner/${url}`);
             return res?.data;
         } catch (e) {
-            console.log(e);
+            
         }
     }
 );

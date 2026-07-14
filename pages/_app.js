@@ -27,35 +27,35 @@ import "../styles/cookieconsent.css";
 import { GOOGLE_API_KEY } from "../util/Constants";
 
 function MyApp({ Component, pageProps }) {
-  const router = useRouter();
-  useEffect(() => {
-    const handleRouteChange = (url) => {
-      gtag.pageview(url);
-    };
-    router.events.on("routeChangeComplete", handleRouteChange);
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
-  }, [router.events]);
+    const router = useRouter();
+    useEffect(() => {
+        const handleRouteChange = (url) => {
+            gtag.pageview(url);
+        };
+        router.events.on("routeChangeComplete", handleRouteChange);
+        return () => {
+            router.events.off("routeChangeComplete", handleRouteChange);
+        };
+    }, [router.events]);
 
-  /* useEffect(() => {
-    import("bootstrap/dist/js/bootstrap");
-  }, []); */
-  return (
-    <Provider store={store}>
-      {" "}
-      <Head>
-        <meta
-          name="facebook-domain-verification"
-          content="3t3ty9zswecwk98ceg4o7bu1lz3zsi"
-        />
-        <meta name="google-adsense-account" content="ca-pub-8937256325792237" />
-      </Head>
-      <Script
-        id="schema-org"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: `
+    /* useEffect(() => {
+      import("bootstrap/dist/js/bootstrap");
+    }, []); */
+    return (
+        <Provider store={store}>
+            {" "}
+            <Head>
+                <meta
+                    name="facebook-domain-verification"
+                    content="3t3ty9zswecwk98ceg4o7bu1lz3zsi"
+                />
+                <meta name="google-adsense-account" content="ca-pub-8937256325792237" />
+            </Head>
+            <Script
+                id="schema-org"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: `
             {
               "@context": "https://schema.org",
               "@type": "Organization",
@@ -79,15 +79,15 @@ function MyApp({ Component, pageProps }) {
               ]
             }
             `,
-        }}
-      ></Script>
+                }}
+            ></Script>
 
-      <Script
-        id="taboola-analytics"
-        type="text/plain"
-        data-cookiecategory="analytics"
-        dangerouslySetInnerHTML={{
-          __html: `
+            <Script
+                id="taboola-analytics"
+                type="text/plain"
+                data-cookiecategory="analytics"
+                dangerouslySetInnerHTML={{
+                    __html: `
             window._tfa = window._tfa || [];
             window._tfa.push({notify: 'event', name: 'page_view', id: 1567833});
             !function (t, f, a, x) {
@@ -99,22 +99,22 @@ function MyApp({ Component, pageProps }) {
             '//cdn.taboola.com/libtrc/unip/1567833/tfa.js',
             'tb_tfa_script');
             `,
-        }}
-      ></Script>
-      {/* Global Site Tag (gtag.js) - Google Analytics */}
-      <Script
-        // strategy="afterInteractive"
-        strategy="lazyOnload"
-        type="text/plain"
-        data-cookiecategory="analytics"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-      />
-      <Script
-        id="gtag-init"
-        // strategy="afterInteractive"
-        strategy="lazyOnload"
-        dangerouslySetInnerHTML={{
-          __html: `
+                }}
+            ></Script>
+            {/* Global Site Tag (gtag.js) - Google Analytics */}
+            <Script
+                // strategy="afterInteractive"
+                strategy="lazyOnload"
+                type="text/plain"
+                data-cookiecategory="analytics"
+                src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+            />
+            <Script
+                id="gtag-init"
+                // strategy="afterInteractive"
+                strategy="lazyOnload"
+                dangerouslySetInnerHTML={{
+                    __html: `
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
@@ -122,14 +122,14 @@ function MyApp({ Component, pageProps }) {
           page_path: window.location.pathname,
         });
       `,
-        }}
-      />
-      {/* end google analytics */}
-      {/* Meta Pixel Code */}
-      <Script
-        id="meta-pixel"
-        dangerouslySetInnerHTML={{
-          __html: `
+                }}
+            />
+            {/* end google analytics */}
+            {/* Meta Pixel Code */}
+            <Script
+                id="meta-pixel"
+                dangerouslySetInnerHTML={{
+                    __html: `
       !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -141,24 +141,24 @@ function MyApp({ Component, pageProps }) {
   fbq('init', '744131293231822');
   fbq('track', 'PageView');
       `,
-        }}
-      />
-      <noscript
-        dangerouslySetInnerHTML={{
-          __html: `<img height="1" width="1" style="display:none"
+                }}
+            />
+            <noscript
+                dangerouslySetInnerHTML={{
+                    __html: `<img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=744131293231822&ev=PageView&noscript=1" />`,
-        }}
-      />
-      <Script
-        // strategy="afterInteractive"
-        id="googleMaps"
-        strategy="lazyOnload"
-        src={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`}
-      />
-      <Script
-        id="meta-pixel"
-        dangerouslySetInnerHTML={{
-          __html: `
+                }}
+            />
+            <Script
+                // strategy="afterInteractive"
+                id="googleMaps"
+                strategy="lazyOnload"
+                src={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`}
+            />
+            <Script
+                id="meta-pixel"
+                dangerouslySetInnerHTML={{
+                    __html: `
       !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -170,34 +170,34 @@ function MyApp({ Component, pageProps }) {
   fbq('init', '327731249272380');
   fbq('track', 'PageView');
       `,
-        }}
-      />
-      <noscript
-        dangerouslySetInnerHTML={{
-          __html: `<img height="1" width="1" style="display:none"
+                }}
+            />
+            <noscript
+                dangerouslySetInnerHTML={{
+                    __html: `<img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=327731249272380&ev=PageView&noscript=1" />`,
-        }}
-      />
-      <Script
-        src={`https://code.jquery.com/jquery-3.2.1.slim.min.js`}
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossOrigin="anonymous"
-      />
-      {/* End Meta Pixel Code */}
-      <CommonFunctionContextProvider>
-        <ToastContextProvider>
-          <UserContextProvider>
-            <AuthContextProvider>
-              <ConfirmProvider>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </ConfirmProvider>
-            </AuthContextProvider>
-          </UserContextProvider>
-        </ToastContextProvider>
-      </CommonFunctionContextProvider>
-      {/* <Script
+                }}
+            />
+            <Script
+                src={`https://code.jquery.com/jquery-3.2.1.slim.min.js`}
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                crossOrigin="anonymous"
+            />
+            {/* End Meta Pixel Code */}
+            <CommonFunctionContextProvider>
+                <ToastContextProvider>
+                    <UserContextProvider>
+                        <AuthContextProvider>
+                            <ConfirmProvider>
+                                <Layout>
+                                    <Component {...pageProps} />
+                                </Layout>
+                            </ConfirmProvider>
+                        </AuthContextProvider>
+                    </UserContextProvider>
+                </ToastContextProvider>
+            </CommonFunctionContextProvider>
+            {/* <Script
         src={`https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js`}
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"
@@ -207,7 +207,7 @@ function MyApp({ Component, pageProps }) {
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"
       /> */}
-    </Provider>
-  );
+        </Provider>
+    );
 }
 export default MyApp;

@@ -19,7 +19,8 @@ const Reel = ({ profileId }) => {
                     setPilotReel(response);
                     setReelExist(true)
                 }
-            });
+            })
+            .catch(() => console.warn("API Fetch Error (backend offline)"));
     }, []);
 
     let main_url = '';

@@ -24,10 +24,6 @@ const MySubscription = () => {
   let history = useRouter();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getSubscriptionDetail();
-    dispatch(getDashboardAds("pilot-my-subscriptions"));
-  }, [getSubscriptionDetail, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -91,10 +87,10 @@ const MySubscription = () => {
       })
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          
           setLoading(false);
           if (response.statusCode === 200) {
-            console.log(response.data);
+            
             setSubscriptionData(response.data.subscriptions);
             setSubscriptionHistory(response.data.invoices);
           }
@@ -103,6 +99,10 @@ const MySubscription = () => {
       setLoading(false);
     }
   }, [userId, accessToken]);
+  useEffect(() => {
+    getSubscriptionDetail();
+    dispatch(getDashboardAds("pilot-my-subscriptions"));
+  }, [getSubscriptionDetail, dispatch]);
 
   const handleCancelSubscription = () => {
     confirm({
@@ -119,7 +119,7 @@ const MySubscription = () => {
             },
           })
           .then((response) => {
-            console.log(response);
+            
             setLoading(false);
             hideToast();
             if (response.status === 200) {
@@ -137,11 +137,11 @@ const MySubscription = () => {
               showToastError(error.response.statusText);
             }
 
-            console.log(error.response);
+            
           });
       })
       .catch(() => {
-        console.log("not deleted");
+        
       });
   };
 
@@ -218,8 +218,12 @@ const MySubscription = () => {
                     >
                       Cancel Subscription
                     </button>
-                    <Link href="/update-payment" legacyBehavior>
-                      <a target="_blank" rel="noreferrer" className="btn btn-warning btn-lg mb-3 text-black w-100">Update Debit/Credit Card</a>
+                    <Link
+                      href="/update-payment"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-warning btn-lg mb-3 text-black w-100">
+                      Update Debit/Credit Card
                     </Link>
                   </div>
                 </div>

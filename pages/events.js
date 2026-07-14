@@ -11,7 +11,8 @@ import { getHomePageAdsData } from "../redux/HomePageSlice";
 import { generateRandomBannerIndex, randomRangeIndex } from "../util/utils";
 import AddBannerComponent from "../components/AddBannerComponent/AddBannerComponent";
 
-import Calendar from "../components/Event/calendar.tsx";
+import dynamic from "next/dynamic";
+const Calendar = dynamic(() => import("../components/Event/calendar"), { ssr: false });
 
 const Home = () => {
   const router = useRouter();
@@ -128,7 +129,7 @@ const Home = () => {
         <div className="container">
           <div className="communityNewsSection">
             <h3 style={{ backgroundColor: '#fecd0e', textAlign: 'center', padding: 5, borderRadius: 4, color: '#000', fontWeight: '600' }}>Community News</h3>
-            <Calendar />
+            <div><Calendar /></div>
             <div className="row mt-3">
               <div className="col-md-9">
                 <RecentEventsBlock />

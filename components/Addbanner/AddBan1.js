@@ -5,7 +5,7 @@ export default function AddBan({ src, href }) {
     <>
       <a href={href} rel="nofollow noreferrer" target="_blank" className="bannerAdds">
         <figure>
-          <Image src={src} alt={src} width={1140} height={200} />
+          <Image src={src || '/images/no-image.png'} alt={(src) || 'image'} width={1140} height={200} />
           {/* <img src="/images/02imgarticle.jpg" alt=""/> */}
         </figure>
       </a>

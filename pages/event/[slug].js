@@ -214,7 +214,6 @@ const BlogDetail = (props) => {
                 />
             </Head>
             <div className="Banner d-none d-sm-block"></div>
-
             {eventDetailData?.length > 0 || Object.keys(eventDetailData)?.length ? (
                 <div className="container">
                     <div className="row">
@@ -228,7 +227,7 @@ const BlogDetail = (props) => {
                                 </li>
                                 <li className="breadcrumb-item active" aria-current="page">
                                     <Link href={`/event/${slug}`}>
-                                        <a>{eventDetailData?.title}</a>
+                                        {eventDetailData?.title}
                                     </Link>
                                 </li>
                             </ol>
@@ -238,7 +237,6 @@ const BlogDetail = (props) => {
             ) : (
                 ""
             )}
-
             <div className="BlogMain paddngb">
                 <div className="container">
                     <div className="row">
@@ -449,7 +447,6 @@ export async function getServerSideProps(context) {
                     layout: "normal",
                 },
             };
-        });
-}
+        }).catch(() => ({ notFound: true }));}
 
 export default BlogDetail;

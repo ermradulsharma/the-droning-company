@@ -24,6 +24,32 @@ const MySubscription = () => {
   let history = useRouter();
   const dispatch = useDispatch();
 
+  const getSubscriptionDetail = useCallback(async () => {
+    try {
+      await fetch(`${SERVER_URL}/subscription/show/${userId}`, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((res) => res.json())
+        .then((response) => {
+          
+          setLoading(false);
+          if (response.statusCode === 200) {
+            
+            setSubscriptionData(response.data.subscriptions);
+            setSubscriptionHistory(response.data.invoices);
+          }
+        })
+        .catch(() => console.warn("API Fetch Error"));
+    } catch (error) {
+      setLoading(false);
+    }
+  }, [userId, accessToken]);
+
   useEffect(() => {
     getSubscriptionDetail();
     dispatch(getDashboardAds("pilot-my-subscriptions"));
@@ -79,31 +105,6 @@ const MySubscription = () => {
     }
   }, [getDashboardAds_data]);
 
-  const getSubscriptionDetail = useCallback(async () => {
-    try {
-      await fetch(`${SERVER_URL}/subscription/show/${userId}`, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-        .then((res) => res.json())
-        .then((response) => {
-          console.log(response);
-          setLoading(false);
-          if (response.statusCode === 200) {
-            console.log(response.data);
-            setSubscriptionData(response.data.subscriptions);
-            setSubscriptionHistory(response.data.invoices);
-          }
-        });
-    } catch (error) {
-      setLoading(false);
-    }
-  }, [userId, accessToken]);
-
   const handleCancelSubscription = () => {
     confirm({
       description: "You want to cancel your subscription",
@@ -119,7 +120,7 @@ const MySubscription = () => {
             },
           })
           .then((response) => {
-            console.log(response);
+            
             setLoading(false);
             hideToast();
             if (response.status === 200) {
@@ -137,11 +138,11 @@ const MySubscription = () => {
               showToastError(error.response.statusText);
             }
 
-            console.log(error.response);
+            
           });
       })
       .catch(() => {
-        console.log("not deleted");
+        
       });
   };
 
@@ -218,8 +219,11 @@ const MySubscription = () => {
                     >
                       Cancel Subscription
                     </button>
-                    <Link href="/update-payment" legacyBehavior>
-                      <a target="_blank" className="btn btn-warning btn-lg mb-3 text-black w-100">Update Debit/Credit Card</a>
+                    <Link
+                      href="/update-payment"
+                      target="_blank"
+                      className="btn btn-warning btn-lg mb-3 text-black w-100">
+                      Update Debit/Credit Card
                     </Link>
                   </div>
                 </div>

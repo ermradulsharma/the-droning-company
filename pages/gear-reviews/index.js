@@ -98,7 +98,8 @@ const GearReviews = (props) => {
         if (response.statusCode === 200) {
           setGear(response.data);
         }
-      });
+      })
+      .catch(() => console.warn("API Fetch Error (backend offline)"));
     dispatch(getGearReviewsData());
   }, []);
 
@@ -219,6 +220,15 @@ export async function getServerSideProps(context) {
           },
         };
       }
+    })
+    .catch(() => {
+        return {
+          props: {
+            gear: [],
+            currentUrl: currentURL,
+            ...metaInfo.gear_review,
+          },
+        };
     });
 }
 export default GearReviews;

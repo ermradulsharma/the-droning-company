@@ -19,15 +19,6 @@ const Sitemap = () => {
     const hostPilotBaseURL = SERVER_BASE_URL + '/pilot';
     const hostJobBaseURL = SERVER_BASE_URL + '/job';
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            window.scrollTo(0, 0);
-        }
-        getBlogUrl();
-        getBlogCategoryUrl();
-        getPilotsProfileUrl();
-        getJobsUrl();
-    }, []);
 
     const getBlogUrl = async () => {
         try {
@@ -96,6 +87,15 @@ const Sitemap = () => {
             setLoading(false);
         }
     }
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            window.scrollTo(0, 0);
+        }
+        getBlogUrl();
+        getBlogCategoryUrl();
+        getPilotsProfileUrl();
+        getJobsUrl();
+    }, []);
 
     return (
         <Aux>
@@ -136,11 +136,11 @@ const Sitemap = () => {
                                                                 </div>
                                                                 <div className="col-sm-4 form-group">
                                                                     <h3><i className="fas fa-list"></i> <Link href="/about-us">About Us</Link></h3>
-                                                                    <Link legacyBehavior href="/our-team/stuart-smith"><a><i className="fas fa-link"></i> Stuart Smith</a></Link>
-                                                                    <Link legacyBehavior href="/our-team/archie-galbraith"><a><i className="fas fa-link"></i> Archie Galbraith</a></Link>
-                                                                    <Link legacyBehavior href="/our-team/michael-molenda"><a><i className="fas fa-link"></i> Michael Molenda</a></Link>
-                                                                    <Link legacyBehavior href="/our-team/michael-keeper"><a><i className="fas fa-link"></i> Michael Keeper</a></Link>
-                                                                    <Link legacyBehavior href="/our-team/ben-behrooz"><a><i className="fas fa-link"></i> Ben Behrooz</a></Link>
+                                                                    <Link href="/our-team/stuart-smith"><i className="fas fa-link"></i>Stuart Smith</Link>
+                                                                    <Link href="/our-team/archie-galbraith"><i className="fas fa-link"></i>Archie Galbraith</Link>
+                                                                    <Link href="/our-team/michael-molenda"><i className="fas fa-link"></i>Michael Molenda</Link>
+                                                                    <Link href="/our-team/michael-keeper"><i className="fas fa-link"></i>Michael Keeper</Link>
+                                                                    <Link href="/our-team/ben-behrooz"><i className="fas fa-link"></i>Ben Behrooz</Link>
                                                                 </div>
                                                                 <div className="col-sm-4 form-group">
                                                                     <h3><i className="fas fa-list"></i> <Link href="/gear-reviews">Gear Reviews</Link></h3>
@@ -234,7 +234,6 @@ const Sitemap = () => {
                 </div>
             </div>
         </Aux>
-
     );
 };
 export default Sitemap;

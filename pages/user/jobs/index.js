@@ -37,9 +37,6 @@ const MyJobs = () => {
         }
 
     }
-    useEffect(() => {
-        getUserCreatedJob()
-    }, [getUserCreatedJob]);
     const getUserCreatedJob = useCallback(async () => {
         setLoading(true)
         try {
@@ -53,7 +50,7 @@ const MyJobs = () => {
             })
                 .then((res) => res.json())
                 .then((response) => {
-                    console.log(response);
+                    
                     if (response.statusCode === 200) {
                         setMyJob(response.data);
                         setTotalJobCount(response.no_of_jobs);
@@ -70,6 +67,9 @@ const MyJobs = () => {
         }
         setLoading(false);
     }, [userId, jobFilter, currentPage, accessToken, searchKeyword]);
+    useEffect(() => {
+        getUserCreatedJob()
+    }, [getUserCreatedJob]);
 
     const onPageChangeHandler = (pageNum) => {
         setCurrentPage(pageNum)
@@ -89,15 +89,14 @@ const MyJobs = () => {
                     <div className="col-sm-6">
                         <ul id="tabs" className="mt-4 nav nav-tabs d-flex justify-content-end">
                             <li className="nav-item">
-                                <Link href="/user/create-job" legacyBehavior>
-                                    <a className="nav-link active">Create Job</a>
+                                <Link href="/user/create-job" className="nav-link active">
+                                    Create Job
                                 </Link>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-
             <div className="row">
                 <div className="col-12 text-left mb-3">
                     <div className="card px-0 pb-0">
@@ -238,7 +237,7 @@ const MyJobs = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default MyJobs;

@@ -21,12 +21,12 @@ const NewSection = () => {
             })
                 .then((res) => res.json())
                 .then((response) => {
-                    console.log(response);
+                    
                     setLoadingNews(false);
                     if (response.statusCode === 200) {
                         setNews(response.data);
                     }
-                });
+                }).catch(() => console.warn('API Offline'));
         } catch (error) {
             setLoadingNews(false);
         }
@@ -50,7 +50,6 @@ const NewSection = () => {
     }
 
     return (
-
         <div className="MainArticles paddngtb">
             <div className="container">
                 <div className="row">
@@ -77,16 +76,16 @@ const NewSection = () => {
                                         :
                                         null
                                 }
-                                <Link href={`/blog/${news.category_1_title_slug}`} legacyBehavior>
-                                    <a><Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(news.category_1_image)}`} alt="Trending News" onLoad={() => setLoadingImage(false)} width={800} height={450} /></a>
+                                <Link href={`/blog/${news.category_1_title_slug}`}>
+                                    <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(news.category_1_image)}`} alt="Trending News" onLoad={() => setLoadingImage(false)} width={800} height={450} />
                                 </Link>
 
 
                                 <div className="ArticleDesc">
                                     <div className="ArticleDescH fixHeight">{news.category_1_title}</div>
                                     <p className="fixHeight">{news.category_1_short_descrption}</p>
-                                    <Link href={`/blog/${news.category_1_title_slug}`}>
-                                        <a href={`/blog/${news.category_1_title_slug}`} className="SeeMore">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
+                                    <Link href={`/blog/${news.category_1_title_slug}`} className="SeeMore">
+                                        Read More <i className="fas fa-long-arrow-alt-right"></i>
                                     </Link>
                                 </div>
                             </div>
@@ -105,35 +104,37 @@ const NewSection = () => {
                                 </div>
                                 :
                                 news.category_1_blogs && news.category_1_blogs.map((blog_new, index) => {
-                                    return < div className="ArticleInn" key={`blog-new-${index}`}>
-                                        <div className="row">
-                                            {
-                                                blog_new.image
-                                                    ?
-                                                    <div className="col-4 col-sm-4">
-                                                        <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new.image)}`} alt="03imgarticle" width={200} height={150} />
-                                                    </div>
-                                                    :
-                                                    null
-                                            }
+                                    return (
+                                        < div className="ArticleInn" key={`blog-new-${index}`}>
+                                            <div className="row">
+                                                {
+                                                    blog_new.image
+                                                        ?
+                                                        <div className="col-4 col-sm-4">
+                                                            <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new.image)}`} alt="03imgarticle" width={200} height={150} />
+                                                        </div>
+                                                        :
+                                                        null
+                                                }
 
-                                            <div className={`${blog_new.image ? 'col-8 col-sm-8' : 'col-12 col-sm-12'}`}>
-                                                <div className="ArticleDesc">
-                                                    <div className="ArticleDescH">{blog_new.title}</div>
-                                                    {
-                                                        blog_new.excerpt
-                                                            ?
-                                                            <p>{parse(blog_new.excerpt)}</p>
-                                                            :
-                                                            null
-                                                    }
-                                                    <Link href={`/blog/${blog_new.slug}`} legacyBehavior>
-                                                        <a className="SeeMore">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
-                                                    </Link>
+                                                <div className={`${blog_new.image ? 'col-8 col-sm-8' : 'col-12 col-sm-12'}`}>
+                                                    <div className="ArticleDesc">
+                                                        <div className="ArticleDescH">{blog_new.title}</div>
+                                                        {
+                                                            blog_new.excerpt
+                                                                ?
+                                                                <p>{parse(blog_new.excerpt)}</p>
+                                                                :
+                                                                null
+                                                        }
+                                                        <Link href={`/blog/${blog_new.slug}`} className="SeeMore">
+                                                            Read More <i className="fas fa-long-arrow-alt-right"></i>
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    );
                                 })}
                         <div className="ArticleBox ArticleBoxLatestJobs" style={{ borderBottom: 0, paddingBottom: 0, marginBottom: 0 }}>
                             <div className="ArticleTitle">
@@ -159,8 +160,8 @@ const NewSection = () => {
                                         null
                                 }
 
-                                <Link href={`/job-list`} legacyBehavior>
-                                    <a><Image className="img-fluid" src={`/images/jobHome.jpg`} alt="Trending News" onLoad={() => setLoadingImage(false)} width={800} height={450} /></a>
+                                <Link href={`/job-list`}>
+                                    <Image className="img-fluid" src={`/images/jobHome.jpg`} alt="Trending News" onLoad={() => setLoadingImage(false)} width={800} height={450} />
                                 </Link>
 
                                 {/* <div className="ArticleDesc PilotInfo PilotJobInfo">
@@ -185,49 +186,51 @@ const NewSection = () => {
                                 </div>
                                 :
                                 news.category_3_blogs && news.category_3_blogs.map((blog_new, index) => {
-                                    return < div className="ArticleInn" key={`blog-new-${index}`}>
-                                        <div className="row">
-                                            {
-                                                blog_new.hasOwnProperty('image') && blog_new.image
-                                                    ?
-                                                    <div className="col-4 col-sm-4">
-                                                        <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new.image)}`} alt="03imgarticle" width={200} height={150} />
-                                                    </div>
-                                                    :
-                                                    null
-                                            }
+                                    return (
+                                        < div className="ArticleInn" key={`blog-new-${index}`}>
+                                            <div className="row">
+                                                {
+                                                    blog_new.hasOwnProperty('image') && blog_new.image
+                                                        ?
+                                                        <div className="col-4 col-sm-4">
+                                                            <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new.image)}`} alt="03imgarticle" width={200} height={150} />
+                                                        </div>
+                                                        :
+                                                        null
+                                                }
 
-                                            <div className={`${blog_new.image ? 'col-8 col-sm-8' : 'col-12 col-sm-12'}`}>
-                                                <div className="ArticleDescH">{blog_new.job_title}</div>
-                                                <div className="PilotInfo PilotJobInfo">
-                                                    <ul>
+                                                <div className={`${blog_new.image ? 'col-8 col-sm-8' : 'col-12 col-sm-12'}`}>
+                                                    <div className="ArticleDescH">{blog_new.job_title}</div>
+                                                    <div className="PilotInfo PilotJobInfo">
+                                                        <ul>
+                                                            {
+                                                                listJobLocations(blog_new.location)
+                                                            }
+                                                            {
+                                                                blog_new.location.length > 5
+                                                                    ?
+                                                                    <li style={{ backgroundColor: '#fff' }}><span style={{ cursor: 'pointer', }} onClick={() => changeLimitLabel(limitNumber, blog_new.location.length)}>{limitLabel}</span></li>
+                                                                    :
+                                                                    null
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                    <div className="ArticleDesc">
                                                         {
-                                                            listJobLocations(blog_new.location)
-                                                        }
-                                                        {
-                                                            blog_new.location.length > 5
+                                                            blog_new.job_description
                                                                 ?
-                                                                <li style={{ backgroundColor: '#fff' }}><span style={{ cursor: 'pointer', }} onClick={() => changeLimitLabel(limitNumber, blog_new.location.length)}>{limitLabel}</span></li>
+                                                                <p>{parse(blog_new.job_description.substr(0, 100))}...</p>
                                                                 :
                                                                 null
                                                         }
-                                                    </ul>
-                                                </div>
-                                                <div className="ArticleDesc">
-                                                    {
-                                                        blog_new.job_description
-                                                            ?
-                                                            <p>{parse(blog_new.job_description.substr(0, 100))}...</p>
-                                                            :
-                                                            null
-                                                    }
-                                                    <Link href={`/job/${blog_new.id}/${blog_new.slug}`} legacyBehavior>
-                                                        <a className="SeeMore">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
-                                                    </Link>
+                                                        <Link href={`/job/${blog_new.id}/${blog_new.slug}`} className="SeeMore">
+                                                            Read More <i className="fas fa-long-arrow-alt-right"></i>
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    );
                                 })}
                     </div>
 
@@ -254,16 +257,16 @@ const NewSection = () => {
                                         :
                                         null
                                 }
-                                <Link href={`/blog/${news.category_2_title_slug}`} legacyBehavior>
-                                    <a><Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(news.category_2_image)}`} onLoad={() => setLoadingImage(false)} alt="Video Reel of the Week" width={800} height={450} /></a>
+                                <Link href={`/blog/${news.category_2_title_slug}`}>
+                                    <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(news.category_2_image)}`} onLoad={() => setLoadingImage(false)} alt="Video Reel of the Week" width={800} height={450} />
                                 </Link>
 
 
                                 <div className="ArticleDesc">
                                     <div className="ArticleDescH fixHeight">{news.category_2_title}</div>
                                     <p className="fixHeight">{news.category_2_short_descrption} </p>
-                                    <Link href={`/blog/${news.category_2_title_slug}`}>
-                                        <a href={`/blog/${news.category_2_title_slug}`} className="SeeMore">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
+                                    <Link href={`/blog/${news.category_2_title_slug}`} className="SeeMore">
+                                        Read More <i className="fas fa-long-arrow-alt-right"></i>
                                     </Link>
                                 </div>
                             </div>
@@ -283,35 +286,37 @@ const NewSection = () => {
                                 </div>
                                 :
                                 news.category_2_blogs && news.category_2_blogs.map((blog_new_2, index) => {
-                                    return < div className="ArticleInn" key={`${blog_new_2.title}-${index}`}>
-                                        <div className="row">
-                                            {
-                                                blog_new_2.image
-                                                    ?
-                                                    <div className="col-4 col-sm-4">
-                                                        <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new_2.image)}`} alt="03imgarticle" width={200} height={150} />
-                                                    </div>
-                                                    :
-                                                    null
-                                            }
+                                    return (
+                                        < div className="ArticleInn" key={`${blog_new_2.title}-${index}`}>
+                                            <div className="row">
+                                                {
+                                                    blog_new_2.image
+                                                        ?
+                                                        <div className="col-4 col-sm-4">
+                                                            <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new_2.image)}`} alt="03imgarticle" width={200} height={150} />
+                                                        </div>
+                                                        :
+                                                        null
+                                                }
 
-                                            <div className={`${blog_new_2.image ? 'col-8 col-sm-8' : 'col-12 col-sm-12'}`}>
-                                                <div className="ArticleDesc">
-                                                    <div className="ArticleDescH">{blog_new_2.title}</div>
-                                                    {
-                                                        blog_new_2.excerpt
-                                                            ?
-                                                            <p>{parse(blog_new_2.excerpt)}</p>
-                                                            :
-                                                            null
-                                                    }
-                                                    <Link href={`/blog/${blog_new_2.slug}`} legacyBehavior>
-                                                        <a className="SeeMore">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
-                                                    </Link>
+                                                <div className={`${blog_new_2.image ? 'col-8 col-sm-8' : 'col-12 col-sm-12'}`}>
+                                                    <div className="ArticleDesc">
+                                                        <div className="ArticleDescH">{blog_new_2.title}</div>
+                                                        {
+                                                            blog_new_2.excerpt
+                                                                ?
+                                                                <p>{parse(blog_new_2.excerpt)}</p>
+                                                                :
+                                                                null
+                                                        }
+                                                        <Link href={`/blog/${blog_new_2.slug}`} className="SeeMore">
+                                                            Read More <i className="fas fa-long-arrow-alt-right"></i>
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    );
                                 })}
                         <div className="ArticleBox">
                             <div className="ArticleTitle">
@@ -335,16 +340,16 @@ const NewSection = () => {
                                         :
                                         null
                                 }
-                                <Link href={`/blog/${news.category_4_title_slug}`} legacyBehavior>
-                                    <a><Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(news.category_4_image)}`} onLoad={() => setLoadingImage(false)} alt="Video Reel of the Week" width={800} height={450} /></a>
+                                <Link href={`/blog/${news.category_4_title_slug}`}>
+                                    <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(news.category_4_image)}`} onLoad={() => setLoadingImage(false)} alt="Video Reel of the Week" width={800} height={450} />
                                 </Link>
 
 
                                 <div className="ArticleDesc">
                                     <div className="ArticleDescH fixHeight">{news.category_4_title}</div>
                                     <p className="fixHeight">{news.category_4_short_descrption} </p>
-                                    <Link href={`/blog/${news.category_4_title_slug}`}>
-                                        <a href={`/blog/${news.category_4_title_slug}`} className="SeeMore">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
+                                    <Link href={`/blog/${news.category_4_title_slug}`} className="SeeMore">
+                                        Read More <i className="fas fa-long-arrow-alt-right"></i>
                                     </Link>
                                 </div>
                             </div>
@@ -363,35 +368,37 @@ const NewSection = () => {
                                 </div>
                                 :
                                 news.category_4_blogs && news.category_4_blogs.map((blog_new, index) => {
-                                    return < div className="ArticleInn" key={`blog-new-${index}`}>
-                                        <div className="row">
-                                            {
-                                                blog_new.hasOwnProperty('image') && blog_new.image
-                                                    ?
-                                                    <div className="col-4 col-sm-4">
-                                                        <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new.image)}`} alt={blog_new.title} width={200} height={150} />
-                                                    </div>
-                                                    :
-                                                    null
-                                            }
+                                    return (
+                                        < div className="ArticleInn" key={`blog-new-${index}`}>
+                                            <div className="row">
+                                                {
+                                                    blog_new.hasOwnProperty('image') && blog_new.image
+                                                        ?
+                                                        <div className="col-4 col-sm-4">
+                                                            <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new.image)}`} alt={(blog_new.title) || 'image'} width={200} height={150} />
+                                                        </div>
+                                                        :
+                                                        null
+                                                }
 
-                                            <div className={`${blog_new.image ? 'col-8 col-sm-8' : 'col-12 col-sm-12'}`}>
-                                                <div className="ArticleDesc">
-                                                    <div className="ArticleDescH">{blog_new.title}</div>
-                                                    {
-                                                        blog_new.excerpt
-                                                            ?
-                                                            <p>{parse(blog_new.excerpt)}</p>
-                                                            :
-                                                            null
-                                                    }
-                                                    <Link href={`/blog/${blog_new.slug}`} legacyBehavior>
-                                                        <a className="SeeMore">Read More <i className="fas fa-long-arrow-alt-right"></i></a>
-                                                    </Link>
+                                                <div className={`${blog_new.image ? 'col-8 col-sm-8' : 'col-12 col-sm-12'}`}>
+                                                    <div className="ArticleDesc">
+                                                        <div className="ArticleDescH">{blog_new.title}</div>
+                                                        {
+                                                            blog_new.excerpt
+                                                                ?
+                                                                <p>{parse(blog_new.excerpt)}</p>
+                                                                :
+                                                                null
+                                                        }
+                                                        <Link href={`/blog/${blog_new.slug}`} className="SeeMore">
+                                                            Read More <i className="fas fa-long-arrow-alt-right"></i>
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    );
                                 })}
                     </div>
                 </div>

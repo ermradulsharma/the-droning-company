@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
 import Link from "next/link";
 import parse from 'html-react-parser';
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Image from 'next/image';
 
 const FeaturePilot = () => {
@@ -24,41 +24,43 @@ const FeaturePilot = () => {
                 }
             })
             .catch((error) => {
-                console.error("Error fetching featured company:", error);
+                console.warn("Failed to fetch featured company (is backend running?)");
             });
     }, []);
     return (
         <>
             {
                 homefeaturePilotData.map((company, index) => {
-                    return <div key={'homeFeatureCompany-' + index} className="col-item company" style={{ backgroundImage: "url(/images/imgDrone.jpg)" }}>
-                        <div className="BandBox">
-                            <div className="BandBoxhead">
-                                <h2>Featured Company Profile</h2>
-                                <h3>{company.name}</h3>
+                    return (
+                        <div key={'homeFeatureCompany-' + index} className="col-item company" style={{ backgroundImage: "url(/images/imgDrone.jpg)" }}>
+                            <div className="BandBox">
+                                <div className="BandBoxhead">
+                                    <h2>Featured Company Profile</h2>
+                                    <h3>{company.name}</h3>
+                                </div>
+                                <div className={`HomeBlockImg`}>
+                                    {/* <img className="img-fluid" src={company.image} alt={(company.name) || 'image'} /> */}
+                                    <Image
+                                        src={getImageSrc(company.image)}
+                                        alt={(company.name) || 'image'}
+                                        className="img-fluid"
+                                        onLoad={() => setLoadingImage(false)}
+                                        width={120}
+                                        height={120}
+                                        priority={true}
+                                    />
+                                </div>
+                                <p>{company.title}</p>
+                                <Link href={`/company/${company.slug}`} className="btn BtnLearn">
+                                    See Profile
+                                </Link>
                             </div>
-                            <div className={`HomeBlockImg`}>
-                                {/* <img className="img-fluid" src={company.image} alt={company.name} /> */}
-                                <Image
-                                    src={`${MEDIA_BASE_URL}/${getCleanImageUrl(company.image)}`}
-                                    alt={company.name}
-                                    className="img-fluid"
-                                    onLoad={() => setLoadingImage(false)}
-                                    width={120}
-                                    height={120}
-                                    priority={true}
-                                />
-                            </div>
-                            <p>{company.title}</p>
-                            <Link href={`/company/${company.slug}`} legacyBehavior>
-                                <a className="btn BtnLearn">See Profile</a>
-                            </Link>
                         </div>
-                    </div>
+                    );
                 })
             }
         </>
-    )
+    );
 
 }
 

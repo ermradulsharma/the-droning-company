@@ -28,13 +28,6 @@ const CategoryPilot = () => {
   const [skillCategories, setSkillCategories] = useState([]);
   const [limitSkillNumber, setLimitSkillNumber] = useState(5);
   const [limitSkillLabel, setLimitSkillLabel] = useState("Show more");
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo(0, 0);
-    }
-    getFeaturedProfile();
-    getCompanyServices();
-  }, [location, locationCity, currentPage, skillId]);
 
   const getFeaturedProfile = async () => {
     setLoading(true)
@@ -44,7 +37,7 @@ const CategoryPilot = () => {
       })
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          
           if (response.statusCode === 200) {
             setProfiles(response.data);
             setPerPageCount(4);
@@ -77,6 +70,13 @@ const CategoryPilot = () => {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
+    getFeaturedProfile();
+    getCompanyServices();
+  }, [location, locationCity, currentPage, skillId]);
 
   const onPageChangeHandler = (pageNum) => {
     setCurrentPage(pageNum);
@@ -194,7 +194,6 @@ const CategoryPilot = () => {
           </div>
         </div>
       </div>
-
       <div className="FeatruedPilotArea">
         <div className="container">
           <div className="row">
@@ -224,10 +223,10 @@ const CategoryPilot = () => {
                         <div className="row PilotBox" key={`profile-${index}`}>
                           <div className="col-4 col-sm-4">
                             <div className="CompanyLogo">
-                              <Link legacyBehavior href={`/company/${profile.slug}`}>
-                                <a className="SeeMore" href={`/company/${profile.slug}`}>
-                                  <img className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(profile.logo)}`} alt={profile.name} style={{ border: '1px solid #ccc', padding: 3 }} />
-                                </a>
+                              <Link href={`/company/${profile.slug}`} className="SeeMore">
+
+                                <img className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(profile.logo)}`} alt={profile.name} style={{ border: '1px solid #ccc', padding: 3 }} />
+
                               </Link>
                             </div>
                           </div>
@@ -266,13 +265,10 @@ const CategoryPilot = () => {
                                   {parse(`${profile.description}`)}{" "}
                                 </div>
                               ) : null}
-                              <Link legacyBehavior href={`/company/${profile.slug}`}>
-                                <a
-                                  className="SeeMore"
-                                  href={`/company/${profile.slug}`}
-                                >
+                              <Link href={`/company/${profile.slug}`} className="SeeMore">
+                                
                                   View Profile &gt;
-                                </a>
+                                
                               </Link>
                             </div>
                           </div>
@@ -357,7 +353,7 @@ const CategoryPilot = () => {
                     </div>
                   </div>
                 </div>
-                <Link href="/registration">
+                <Link legacyBehavior href="/registration">
                   <a className="btn BtnGetStarted">Get Started</a>
                 </Link> */}
                 <TrendingNews />
@@ -366,11 +362,8 @@ const CategoryPilot = () => {
           </div>
         </div>
       </div>
-
       <div className="clearfix"></div>
-
       {/* <GearReview /> */}
-
       <div className="SignUpBox paddngtb signupBackground">
         <div className="container">
           <div className="row">

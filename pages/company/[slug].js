@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import parse from "html-react-parser";
 import { SERVER_URL, MEDIA_BASE_URL } from "../../util/Constants";
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Loader from "@/components/Common/Loader";
 import Portfolio from "../../components/Company/Portfolio";
 import Reel from "../../components/Company/Reel";
@@ -37,9 +37,6 @@ const Pilot = (props) => {
     pilotData?.profile?.metadescription
   );
 
-  useEffect(() => {
-    getProfile();
-  }, [slug]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -49,7 +46,7 @@ const Pilot = (props) => {
 
   const getProfile = async () => {
     try {
-      await fetch(`${SERVER_URL}/company-profile/${slug}`, {
+      await fetch(`${SERVER_URL} /company-profile/${slug} `, {
         method: "GET",
       })
         .then((res) => res.json())
@@ -63,7 +60,7 @@ const Pilot = (props) => {
           }
         });
     } catch (error) {
-      console.log(error);
+      
       setProfileLoading(false);
     }
   };
@@ -96,7 +93,7 @@ const Pilot = (props) => {
       return skillArray
         .filter((value, index) => index < limitSkillNumber)
         .map((skill, index) => (
-          <li key={`profile-skill-${index}`}>
+          <li key={`profile - skill - ${index} `}>
             <span className="badge badge-warning cr-pointer">{skill}</span>
           </li>
         ));
@@ -113,6 +110,9 @@ const Pilot = (props) => {
   }
 
   const [show, setShow] = useState(false);
+  useEffect(() => {
+    getProfile();
+  }, [slug]);
   const [modalContent, setModalContent] = useState();
   const handleClose = () => setShow(false);
   const handleShow = async (type) => {
@@ -199,7 +199,7 @@ const Pilot = (props) => {
                       <a target='_blank' rel="noreferrer" href={hero_link}>
                         <img
                           className="img-fluid"
-                          src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.featured_image)}`}
+                          src={getImageSrc(pilotData.profile && pilotData.profile.featured_image)}
                           alt={pilotData.profile && pilotData.profile.title}
                           style={{ width: "100%", height: "400px", objectFit: 'cover', border: "1px solid #000" }}
                         />
@@ -211,7 +211,7 @@ const Pilot = (props) => {
                       <a target='_blank' rel="noreferrer" href={hero_link}>
                         <img
                           className="img-fluid"
-                          src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.logo)}`}
+                          src={getImageSrc(pilotData.profile && pilotData.profile.logo)}
                           alt={pilotData.profile && pilotData.profile.title}
                           style={{ border: '1px solid #ccc', padding: 3 }}
                         />
@@ -221,7 +221,7 @@ const Pilot = (props) => {
                         <span className="BadageImg">
                           <img
                             className="img-fluid"
-                            src={`/images/badage.png`}
+                            src={`/ images / badage.png`}
                             alt="badage"
                           />
                         </span>
@@ -296,7 +296,7 @@ const Pilot = (props) => {
                     {/* {
                         pilotData.profile && pilotData.profile.is_insured
                         ?
-                        <img className="img-fluid PilotVerified" style={{marginBottom: '-140px', height:'200px', position:'relative'}} src={`/user-pilot/droneinsuredicon.png`} alt="verified" />
+                        <img className="img-fluid PilotVerified" style={{marginBottom: '-140px', height:'200px', position:'relative'}} src={`/ user - pilot / droneinsuredicon.png`} alt="verified" />
                         :
                         null
                     } */}
@@ -315,7 +315,7 @@ const Pilot = (props) => {
                         <p style={{ marginBottom: 5 }}>
                           <i className="fas fa-phone" title="Contact Phone"></i> &nbsp; {" "}
                           {pilotData.profile.mobile ? (
-                            <a href={`tel:${pilotData.profile.mobile}`}>
+                            <a href={`tel:${pilotData.profile.mobile} `}>
                               {" "}
                               {pilotData.profile.mobile}
                             </a>
@@ -326,7 +326,7 @@ const Pilot = (props) => {
                         <p style={{ marginBottom: 5 }}>
                           <i className="fas fa-envelope" title="Contact Email"></i> &nbsp; {" "}
                           {pilotData.profile.email ? (
-                            <a href={`mailto:${pilotData.profile.email}`}>
+                            <a href={`mailto:${pilotData.profile.email} `}>
                               {pilotData.profile.email}
                             </a>
                           ) : (
@@ -355,7 +355,7 @@ const Pilot = (props) => {
             <div className="AboutInfo">
               <div className="NormalHeading">Highlights:</div>
               <p style={{ whiteSpace: 'break-spaces' }}>
-                {pilotData.profile && parse(rep(`${pilotData.profile.short_description}`))}
+                {pilotData.profile && parse(rep(`${pilotData.profile.short_description} `))}
               </p>
             </div>
 
@@ -364,7 +364,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_1)}`}
+                      src={getImageSrc(pilotData.profile && pilotData.profile.profile_img_1)}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />
@@ -382,7 +382,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_2)}`}
+                      src={getImageSrc(pilotData.profile && pilotData.profile.profile_img_2)}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />
@@ -397,7 +397,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_3)}`}
+                      src={getImageSrc(pilotData.profile && pilotData.profile.profile_img_3)}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />
@@ -412,7 +412,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_4)}`}
+                      src={getImageSrc(pilotData.profile && pilotData.profile.profile_img_4)}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />
@@ -427,7 +427,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_5)}`}
+                      src={getImageSrc(pilotData.profile && pilotData.profile.profile_img_5)}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />
@@ -442,7 +442,7 @@ const Pilot = (props) => {
                 <div className="col-md-4 mb-4">
                   <div className="CompanyLogo">
                     <img className="img-fluid"
-                      src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.profile_img_6)}`}
+                      src={getImageSrc(pilotData.profile && pilotData.profile.profile_img_6)}
                       alt={pilotData.profile && pilotData.profile.title}
                       style={{ width: "100%", height: "250px", objectFit: 'cover', border: "1px solid #000" }}
                     />
@@ -457,7 +457,7 @@ const Pilot = (props) => {
             <div className="AboutInfo">
               <div className="NormalHeading">About:</div>
               <p style={{ whiteSpace: 'break-spaces' }}>
-                {pilotData.profile && parse(rep(`${pilotData.profile.description}`))}
+                {pilotData.profile && parse(rep(`${pilotData.profile.description} `))}
               </p>
             </div>
 
@@ -469,7 +469,7 @@ const Pilot = (props) => {
                   <div><i title="Press Release Date" className="fas fa-calendar"></i> {pilotData.profile.press_release_1.date}</div>
                   <hr></hr>
                   <p style={{ whiteSpace: "break-spaces" }}>
-                    {pilotData.profile && parse(rep(`${pilotData.profile.press_release_1.content}`))}
+                    {pilotData.profile && parse(rep(`${pilotData.profile.press_release_1.content} `))}
                   </p>
                 </div>
               ) : ("")}
@@ -479,7 +479,7 @@ const Pilot = (props) => {
                   <div><i title="Press Release Date" className="fas fa-calendar"></i> {pilotData.profile.press_release_2.date}</div>
                   <hr></hr>
                   <p style={{ whiteSpace: "break-spaces" }}>
-                    {pilotData.profile && parse(rep(`${pilotData.profile.press_release_2.content}`))}
+                    {pilotData.profile && parse(rep(`${pilotData.profile.press_release_2.content} `))}
                   </p>
                 </div>
               ) : ("")}
@@ -489,7 +489,7 @@ const Pilot = (props) => {
                   <div><i title="Press Release Date" className="fas fa-calendar"></i> {pilotData.profile.press_release_3.date}</div>
                   <hr></hr>
                   <p style={{ whiteSpace: "break-spaces" }}>
-                    {pilotData.profile && parse(rep(`${pilotData.profile.press_release_3.content}`))}
+                    {pilotData.profile && parse(rep(`${pilotData.profile.press_release_3.content} `))}
                   </p>
                 </div>
               ) : ("")}
@@ -526,7 +526,7 @@ const Pilot = (props) => {
             <div className="AboutInfo">
               <div className="NormalHeading">Working Hours:</div>
               <p style={{ whiteSpace: 'break-spaces' }}>
-                {pilotData.profile && parse(`${pilotData.profile.working_hours}`)}
+                {pilotData.profile && parse(`${pilotData.profile.working_hours} `)}
               </p>
             </div>
           </div>
@@ -542,7 +542,7 @@ export async function getServerSideProps(context) {
   const slug = context.params.slug;
 
   try {
-    return await fetch(`${SERVER_URL}/company-profile/${slug}`, {
+    return await fetch(`${SERVER_URL} /company-profile/${slug} `, {
       method: "GET",
     })
       .then((res) => res.json())

@@ -30,9 +30,6 @@ const EditProfile = () => {
         "email": "",
         "mobile": ""
     });
-    useEffect(() => {
-        getUserDetail()
-    }, [getUserDetail]);
 
     const getUserDetail = useCallback(async () => {
         setLoading(true);
@@ -57,6 +54,9 @@ const EditProfile = () => {
             setLoading(false);
         }
     }, [userId, accessToken, setUserProfileImage]);
+    useEffect(() => {
+        getUserDetail()
+    }, [getUserDetail]);
 
     const profilePictureSelected = () => {
         if (profileInputRef.current.files.length) {
@@ -70,7 +70,7 @@ const EditProfile = () => {
 
     const handleFiles = async (files) => {
         const base64 = await convertBase64(files[0]);
-        console.log(base64);
+        
         setUserProfileImage(base64);
         /* if (props.onSetTeamImage) {
             props.onSetTeamImage(base64);
@@ -163,7 +163,7 @@ const EditProfile = () => {
                         fields.state = location.state;
                         fields.country = location.country;
 
-                        console.log(fields);
+                        
                         await axios.post(`${SERVER_URL}/profile/update`, fields, {
                             headers: {
                                 'Authorization': 'Bearer ' + accessToken,
@@ -177,7 +177,7 @@ const EditProfile = () => {
                             })
                             .catch((error) => {
                                 hideToast();
-                                console.log(error)
+                                
                                 //showToastError(error.response.data.message)
                             })
                     }}

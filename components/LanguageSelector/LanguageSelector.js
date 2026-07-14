@@ -6,7 +6,7 @@ const LanguageSelector = (props) => {
     const selectedCountry = localStorage.getItem('selected-country') ? localStorage.getItem('selected-country') : 'US';
     const [userCountry, setUserCountry] = useState(selectedCountry);
     const onSelectFlag = (countryCode) => {
-        console.log(countryCode);
+        
         let languageCode = countryCode;
         if (countryCode === 'US') {
             languageCode = 'EN';

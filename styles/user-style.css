@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap');
+
 @font-face {
     font-family: 'Avenir';
     src: url('/fonts/Avenir-Black.eot');
@@ -44,8 +46,6 @@
     font-style: normal;
 
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap');
 
 
 body{font-family: 'Sen', sans-serif;}

@@ -27,12 +27,6 @@ const BlogSearch = (props) => {
   const [metaKeyword, setMetaKeyword] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-        window.scrollTo(0, 0);
-    }
-    getBlogPostsByKeword()
-  }, [keyword, currentPage]);
   const getBlogPostsByKeword = async () => {
     setLoading(true)
     try {
@@ -41,7 +35,7 @@ const BlogSearch = (props) => {
       })
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          
           if (response.statusCode === 200) {
             setBlogPosts(response.data.data);
             setPerPageCount(response.data.per_page);
@@ -53,9 +47,15 @@ const BlogSearch = (props) => {
     }
     setLoading(false);
   }
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+        window.scrollTo(0, 0);
+    }
+    getBlogPostsByKeword()
+  }, [keyword, currentPage]);
 
   const onSearchBlog = () => {
-    console.log(searchKeyword);
+    
     history.push(`/news/${searchKeyword}`)
   }
 
@@ -285,6 +285,5 @@ export async function getServerSideProps(context) {
         }
       }
     }
-  });
-}
+  }).catch(() => ({ notFound: true }));}
 export default BlogSearch;

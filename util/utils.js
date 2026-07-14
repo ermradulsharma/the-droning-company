@@ -1,45 +1,47 @@
+import { MEDIA_BASE_URL } from "./Constants";
+
 // generate random number from 0 to max
 export function random(max) {
-  return Math.floor(Math.random() * max);
+    return Math.floor(Math.random() * max);
 }
 // generate random number from min to max
 export function randomRangeIndex(length) {
-  let x = Math.floor(Math.random() * length);
+    let x = Math.floor(Math.random() * length);
 
-  return x;
+    return x;
 }
 
 //checking token exist or not
 export function checkTokenExist() {
-  if (typeof window !== "undefined") {
-    const token = window.localStorage.getItem("tokens");
+    if (typeof window !== "undefined") {
+        const token = window.localStorage.getItem("tokens");
 
-    if (token !== undefined && token !== null) {
-      return true;
-    } else {
-      return false;
+        if (token !== undefined && token !== null) {
+            return true;
+        } else {
+            return false;
+        }
     }
-  }
 }
 
 //function for generate random banner index
 export const generateRandomBannerIndex = (key, length) => {
-  if (typeof window !== "undefined") {
-    let local = localStorage.getItem(key);
-    if (local === null || local === undefined || local >= length) {
-      localStorage.setItem(key, 0);
-      return 0;
-    } else {
-      let x = parseInt(local);
-      if (x + 1 >= length) {
-        localStorage.setItem(key, 0);
-        return 0;
-      } else {
-        localStorage.setItem(key, x + 1);
-        return x + 1;
-      }
+    if (typeof window !== "undefined") {
+        let local = localStorage.getItem(key);
+        if (local === null || local === undefined || local >= length) {
+            localStorage.setItem(key, 0);
+            return 0;
+        } else {
+            let x = parseInt(local);
+            if (x + 1 >= length) {
+                localStorage.setItem(key, 0);
+                return 0;
+            } else {
+                localStorage.setItem(key, x + 1);
+                return x + 1;
+            }
+        }
     }
-  }
 };
 
 // FUNCTION FOR DISPLAYING 2 ADDS IN THE DASHBOARD SECTION ONLY
@@ -54,69 +56,84 @@ export const generateRandomBannerIndex = (key, length) => {
  * @param local_storage_name - This is the name of the local storage key.
  */
 export const DisplayAddsInDashboardPages = (
-  data,
-  slug_name,
-  position_state,
-  index_state,
-  local_storage_name
+    data,
+    slug_name,
+    position_state,
+    index_state,
+    local_storage_name
 ) => {
-  if (typeof window !== "undefined") {
-    let _index = data?.findIndex(
-      (item) => item?.section_name_slug === slug_name
-    );
+    if (typeof window !== "undefined") {
+        let _index = data?.findIndex(
+            (item) => item?.section_name_slug === slug_name
+        );
 
-    position_state(_index);
-    index_state(
-      generateRandomBannerIndex(
-        local_storage_name,
-        data[_index]?.banner?.length
-      )
-    );
-  }
+        position_state(_index);
+        index_state(
+            generateRandomBannerIndex(
+                local_storage_name,
+                data[_index]?.banner?.length
+            )
+        );
+    }
 };
 
 export const GetFavBoxData = (data, slug) => {
-  if (data?.length > 0) {
-    let item = data?.find((_item) => _item?.slug === slug);
+    if (data?.length > 0) {
+        let item = data?.find((_item) => _item?.slug === slug);
 
-    return item;
-  }
+        return item;
+    }
 
-  return null;
+    return null;
 };
 
 export const extractVedioId = (vedio_url) => {
-  if (vedio_url?.length) {
-    let get_id = vedio_url?.split("v=");
+    if (vedio_url?.length) {
+        let get_id = vedio_url?.split("v=");
 
-    if (get_id?.length > 1) {
-      let get_id_includes_andSign = get_id[1]?.split("&");
+        if (get_id?.length > 1) {
+            let get_id_includes_andSign = get_id[1]?.split("&");
 
-      if (get_id_includes_andSign?.length > 0) {
-        return `https://www.youtube.com/embed/${get_id_includes_andSign[0]}`;
-      }
+            if (get_id_includes_andSign?.length > 0) {
+                return `https://www.youtube.com/embed/${get_id_includes_andSign[0]}`;
+            }
 
-      return `https://www.youtube.com/embed/${get_id[1]}`;
+            return `https://www.youtube.com/embed/${get_id[1]}`;
+        }
     }
-  }
-  // src={}
-  return "";
+    // src={}
+    return "";
 };
 
 export const trancateStr = (str, length) => {
-  return str.substring(0, length) + "...";
+    return str.substring(0, length) + "...";
 };
 
 export const getCleanImageUrl = (url) => {
-  if (!url) return "";
-  if (typeof url !== 'string') return url;
-  if (url.startsWith('http')) {
-    try {
-      const urlObj = new URL(url);
-      return urlObj.pathname.replace(/^\//, "");
-    } catch (e) {
-      return url.replace(/^https?:\/\/[^\/]+\//, "").replace(/^\//, "");
+    if (!url) return "/images/no-image.png";
+    if (typeof url !== 'string') return url;
+
+    // If it's already a local path, return it as is (Next.js will handle /images/ accurately)
+    if (url.startsWith('images/') || url.startsWith('/images/')) {
+        return url.startsWith('/') ? url : `/${url}`;
     }
-  }
-  return url.replace(/^\//, ""); // Remove leading slash if any
+
+    if (url.startsWith('http')) {
+        try {
+            const urlObj = new URL(url);
+            return urlObj.pathname.replace(/^\//, "");
+        } catch (e) {
+            return url.replace(/^https?:\/\/[^\/]+\//, "").replace(/^\//, "");
+        }
+    }
+    return url.replace(/^\//, ""); // Remove leading slash if any
+};
+
+export const getImageSrc = (url) => {
+    if (!url) return "/images/no-image.png";
+    const cleanedPath = getCleanImageUrl(url);
+    if (cleanedPath.startsWith('/')) {
+        return cleanedPath;
+    }
+    return `${MEDIA_BASE_URL}/${cleanedPath}`;
 };

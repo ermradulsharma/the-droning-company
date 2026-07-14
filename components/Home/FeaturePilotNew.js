@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
 import Link from "next/link";
 import parse from 'html-react-parser';
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Image from 'next/image';
 
 const FeaturePilot = () => {
@@ -17,41 +17,46 @@ const FeaturePilot = () => {
                 if (response.statusCode === 200) {
                     sethomefeaturePilotData(response.data);
                 }
+            })
+            .catch((error) => {
+                console.warn("Failed to fetch featured pilot (is backend running?)");
             });
     }, []);
     return (
         <>
             {
                 homefeaturePilotData.map((pilot, index) => {
-                    return <div key={'homeFeaturePilot-' + index} className="col-item" style={{ backgroundImage: "url(" + `${MEDIA_BASE_URL}/${getCleanImageUrl(pilot.image)}` + ")" }}>
-                        <div className="BandBox">
-                            <div className="BandBoxhead">
-                                <h2>Featured Pilot of the Week</h2>
-                                <h3>{pilot.name}</h3>
+                    return (
+                        <div key={'homeFeaturePilot-' + index} className="col-item" style={{ backgroundImage: "url(" + getImageSrc(pilot.image) + ")" }}>
+                            <div className="BandBox">
+                                <div className="BandBoxhead">
+                                    <h2>Featured Pilot of the Week</h2>
+                                    <h3>{pilot.name}</h3>
+                                </div>
+                                <div className={`HomeBlockImg`}>
+                                    {/* <img className="img-fluid" src={pilot.image} alt={(pilot.name) || 'image'} /> */}
+                                    <Image
+                                        src={getImageSrc(pilot.image)}
+                                        alt={(pilot.name) || 'image'}
+                                        className="img-fluid"
+                                        onLoad={() => setLoadingImage(false)}
+                                        width={120}
+                                        height={120}
+                                        priority={true}
+                                    />
+                                </div>
+                                <p>{pilot.title}</p>
+                                <Link href={`/pilot/${pilot.slug}`} className="btn BtnLearn">
+                                    See Profile
+                                </Link>
+                                {/* <Link className="SeeMore" href={`/pilot-list`}>See More Pilots &gt;</Link> */}
                             </div>
-                            <div className={`HomeBlockImg`}>
-                                {/* <img className="img-fluid" src={pilot.image} alt={pilot.name} /> */}
-                                <Image
-                                    src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilot.image)}`}
-                                    alt={pilot.name}
-                                    className="img-fluid"
-                                    onLoad={() => setLoadingImage(false)}
-                                    width={120}
-                                    height={120}
-                                    priority={true}
-                                />
-                            </div>
-                            <p>{pilot.title}</p>
-                            <Link href={`/pilot/${pilot.slug}`} legacyBehavior>
-                                <a className="btn BtnLearn">See Profile</a>
-                            </Link>
-                            {/* <Link className="SeeMore" href={`/pilot-list`}>See More Pilots &gt;</Link> */}
                         </div>
-                    </div>
+                    );
                 })
             }
         </>
-    )
+    );
 
 }
 

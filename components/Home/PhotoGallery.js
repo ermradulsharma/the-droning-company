@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Loader from "@/components/Common/Loader";
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
@@ -36,88 +36,47 @@ const PhotoGallery = () => {
                         }
                         setPhotoArray(arr);
                     }
+                })
+                .catch((err) => {
+                    setLoadingGallery(false);
+                    console.warn("Failed to fetch photo gallery (is backend running?)");
                 });
         } catch (error) {
             setLoadingGallery(false);
-            console.log(error);
+            
         }
 
     }, []);
-    return (<div className="PhotoPortfolio">
-        <div className="container">
-            <div className="NormalHeading">Photo Gallery</div>
-        </div>
-
-        <div id="demo" className="carousel slide" data-ride="carousel">
-            {isOpen && (
-                <Lightbox
-                    imageCaption={photoArray[photoIndex].image_text}
-                    imageTitle={<a style={{ color: '#fecd0e' }} href={photoArray[photoIndex].image_link} target="_blank" rel="noopener noreferrer" alt={photoArray[photoIndex].image_text}>Visit the link...</a>}/* {photoArray[photoIndex].image_text}  */
-                    mainSrc={`${MEDIA_BASE_URL}/${getCleanImageUrl(photoArray[photoIndex].image)}`}
-                    nextSrc={`${MEDIA_BASE_URL}/${getCleanImageUrl(photoArray[(photoIndex + 1) % photoArray.length].image)}`}
-                    prevSrc={`${MEDIA_BASE_URL}/${getCleanImageUrl(photoArray[(photoIndex + photoArray.length - 1) % photoArray.length].image)}`}
-                    onCloseRequest={() => setIsOpen(false)}
-                    onMovePrevRequest={() => setPhotoIndex((photoIndex + photoArray.length - 1) % photoArray.length)
-                    }
-                    onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % photoArray.length)
-                    }
-                />
-            )}
-            {/* <Carousel>
-                {
-                    gallery.map((galleryOuterWarp, index) => {
-                        index = index * 3;
-                        return <div key={'galleryOuterWarpIndex-' + index} className={'carousel-item ' + (index == 0 ? 'active' : '')}>
-                            {
-                                galleryOuterWarp.map((photo, i) => {
-                                    let imagePhotoIndex = index + i;
-                                    return <div onClick={() => { setIsOpen(true); setPhotoIndex(imagePhotoIndex)}} className="col-sm-4 col-md-4" key={'galleryInnerWarpIndex-' + i}>
-                                        <img className="img-fluid" src={photo.image} alt="photo" />
-                                    </div>
-                                })
-                            }
-
-                        </div>
-
-
-                    })
-                }
-                <Carousel.Item>
-                    <img
-                    className="d-block w-100"
-                    src="holder.js/800x400?text=First slide&bg=373940"
-                    alt="First slide"
+    return (
+        <div className="PhotoPortfolio">
+            <div className="container">
+                <div className="NormalHeading">Photo Gallery</div>
+            </div>
+            <div id="demo" className="carousel slide" data-ride="carousel">
+                {isOpen && (
+                    <Lightbox
+                        imageCaption={photoArray[photoIndex].image_text}
+                        imageTitle={<a style={{ color: '#fecd0e' }} href={photoArray[photoIndex].image_link} target="_blank" rel="noopener noreferrer" alt={(photoArray[photoIndex].image_text) || 'image'}>Visit the link...</a>}/* {photoArray[photoIndex].image_text}  */
+                        mainSrc={getImageSrc(photoArray[photoIndex].image)}
+                        nextSrc={getImageSrc(photoArray[(photoIndex + 1) % photoArray.length].image)}
+                        prevSrc={getImageSrc(photoArray[(photoIndex + photoArray.length - 1) % photoArray.length].image)}
+                        onCloseRequest={() => setIsOpen(false)}
+                        onMovePrevRequest={() => setPhotoIndex((photoIndex + photoArray.length - 1) % photoArray.length)
+                        }
+                        onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % photoArray.length)
+                        }
                     />
-                    <Carousel.Caption>
-                    <h3>First slide label</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-            
-            </Carousel> */}
-            {/* <!-- The slideshow --> */}
-            <div className="container carousel-inner no-padding">
-                {
-                    loadingGallery
-                        ?
-                        <div className="col-sm-12 text-center justify-content-between" style={{ textAlign: 'center' }}>
-                            <Loader
-                                type="ThreeDots"
-                                color="#ffcc0e"
-                                height={100}
-                                width={100}
-                                visible={loadingGallery}
-                            />
-                        </div>
-                        :
+                )}
+                {/* <Carousel>
+                    {
                         gallery.map((galleryOuterWarp, index) => {
                             index = index * 3;
                             return <div key={'galleryOuterWarpIndex-' + index} className={'carousel-item ' + (index == 0 ? 'active' : '')}>
                                 {
                                     galleryOuterWarp.map((photo, i) => {
                                         let imagePhotoIndex = index + i;
-                                        return <div onClick={() => { setIsOpen(true); setPhotoIndex(imagePhotoIndex) }} className="col-sm-4 col-md-4" key={'galleryInnerWarpIndex-' + i}>
-                                            <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(photo.image)}`} alt="photo" width={400} height={300} />
+                                        return <div onClick={() => { setIsOpen(true); setPhotoIndex(imagePhotoIndex)}} className="col-sm-4 col-md-4" key={'galleryInnerWarpIndex-' + i}>
+                                            <img className="img-fluid" src={photo.image} alt="photo" />
                                         </div>
                                     })
                                 }
@@ -126,22 +85,68 @@ const PhotoGallery = () => {
 
 
                         })
-                }
-            </div>
+                    }
+                    <Carousel.Item>
+                        <img
+                        className="d-block w-100"
+                        src="holder.js/800x400?text=First slide&bg=373940"
+                        alt="First slide"
+                        />
+                        <Carousel.Caption>
+                        <h3>First slide label</h3>
+                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                
+                </Carousel> */}
+                {/* <!-- The slideshow --> */}
+                <div className="container carousel-inner no-padding">
+                    {
+                        loadingGallery
+                            ?
+                            <div className="col-sm-12 text-center justify-content-between" style={{ textAlign: 'center' }}>
+                                <Loader
+                                    type="ThreeDots"
+                                    color="#ffcc0e"
+                                    height={100}
+                                    width={100}
+                                    visible={loadingGallery}
+                                />
+                            </div>
+                            :
+                            gallery.map((galleryOuterWarp, index) => {
+                                index = index * 3;
+                                return <div key={'galleryOuterWarpIndex-' + index} className={'carousel-item ' + (index == 0 ? 'active' : '')}>
+                                    {
+                                        galleryOuterWarp.map((photo, i) => {
+                                            let imagePhotoIndex = index + i;
+                                            return <div onClick={() => { setIsOpen(true); setPhotoIndex(imagePhotoIndex) }} className="col-sm-4 col-md-4" key={'galleryInnerWarpIndex-' + i}>
+                                                <Image className="img-fluid" src={getImageSrc(photo.image)} alt="photo" width={400} height={300} />
+                                            </div>
+                                        })
+                                    }
 
-            {/* <!-- Left and right controls --> */}
-            <Link href="#demo" legacyBehavior>
-                <a className="carousel-control-prev" href="#demo" data-slide="prev">
+                                </div>
+
+
+                            })
+                    }
+                </div>
+
+                {/* <!-- Left and right controls --> */}
+                <Link href="#demo" className="carousel-control-prev" data-slide="prev">
+
                     <Image className="img-fluid" src={`/images/arrow-left.png`} alt="arrow" width={30} height={30} />
-                </a>
-            </Link>
-            <Link href="#demo" legacyBehavior>
-                <a className="carousel-control-next" href="#demo" data-slide="next">
+
+                </Link>
+                <Link href="#demo" className="carousel-control-next" data-slide="next">
+
                     <Image className="img-fluid" src={`/images/arrow-right.png`} alt="arrow" width={30} height={30} />
-                </a>
-            </Link>
+
+                </Link>
+            </div>
         </div>
-    </div>)
+    );
 
 }
 

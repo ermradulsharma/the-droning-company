@@ -238,32 +238,30 @@ const VideoReview = (props) => {
         />
       </Head>
       <div className="Banner d-none d-sm-block"></div>
-
       <div className="container">
         <div className="row">
           <nav aria-label="Breadcrumb navigation" role="navigation">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <Link href="/" legacyBehavior>Home</Link>
+                <Link href="/">Home</Link>
               </li>
               <li className="breadcrumb-item">
-                <Link href="/news" legacyBehavior>Blogs</Link>
+                <Link href="/news">Blogs</Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                <Link href={`/blog/Fravel-s-Footnote`} legacyBehavior>
-                  <a>Fravel-s-Footnote</a>
+                <Link href={`/blog/Fravel-s-Footnote`}>
+                  Fravel-s-Footnote
                 </Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                <Link href={`/blog/Fravel-s-Footnote/video-review`} legacyBehavior>
-                  <a>video-review</a>
+                <Link href={`/blog/Fravel-s-Footnote/video-review`}>
+                  video-review
                 </Link>
               </li>
             </ol>
           </nav>
         </div>
       </div>
-
       <div className="BlogMain paddngb">
         <div className="container">
           <div className="row">
@@ -320,7 +318,7 @@ const VideoReview = (props) => {
                     <div key={item?.title} className="ArticleDesc mt-2">
                       <div className="ArticleDescH fixHeight">{item.title}</div>
 
-                      <Link href={`/${item?.page_video_link}`}>
+                      <Link legacyBehavior href={`/${item?.page_video_link}`}>
                         <a
                           href={`/${item?.page_video_link}`}
                           className="SeeMore"
@@ -339,13 +337,9 @@ const VideoReview = (props) => {
                     reviewed autel robotics evo lite
                   </div>
 
-                  <Link href={`/blog/reviewed-autel-robotics-evo-lite-`} legacyBehavior>
-                    <a
-                      href={`/blog/reviewed-autel-robotics-evo-lite-`}
-                      className="SeeMore"
-                    >
-                      Read More <i className="fas fa-long-arrow-alt-right"></i>
-                    </a>
+                  <Link href={`/blog/reviewed-autel-robotics-evo-lite-`} className="SeeMore">
+                    Read More <i className="fas fa-long-arrow-alt-right"></i>
+
                   </Link>
                   <hr />
                 </div>
@@ -385,18 +379,14 @@ const VideoReview = (props) => {
                                             <Image
                                               className="img-fluid"
                                               src={blog.image}
-                                              alt={parse(blog.title)}
+                                              alt={(parse(blog.title)) || 'image'}
                                               width={300}
                                               height={200}
                                             />
                                           ) : null}
                                           <h2 className="RelatedPostheading">
-                                            <Link
-                                              href={`/blog/${blog.slug}`}
-                                              target="_self"
-                                              legacyBehavior
-                                            >
-                                              <a>{parse(blog.title)}</a>
+                                            <Link href={`/blog/${blog.slug}`} target="_self">
+                                              {parse(blog.title)}
                                             </Link>
                                           </h2>
                                           <p>
@@ -409,13 +399,8 @@ const VideoReview = (props) => {
                                               )
                                               : ""}
                                           </p>
-                                          <Link
-                                            className="SeeMore"
-                                            href={`/blog/${blog.slug}`}
-                                            target="_self"
-                                            legacyBehavior
-                                          >
-                                            <a className="SeeMore">Read More</a>
+                                          <Link className="SeeMore" href={`/blog/${blog.slug}`} target="_self">
+                                            Read More
                                           </Link>
                                         </div>
                                       </div>
@@ -560,8 +545,7 @@ export async function getServerSideProps(context) {
           currentUrl: currentURL,
         },
       };
-    });
-}
+    }).catch(() => ({ notFound: true }));}
 
 
 export default VideoReview;

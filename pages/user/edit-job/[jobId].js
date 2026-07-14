@@ -32,10 +32,6 @@ const EditJob = () => {
     const [contactVia, setContactVia] = useState([]);
 
 
-    useEffect(() => {
-        getSkillCategories();
-        getJobDetail();
-    }, [jobId, getSkillCategories, getJobDetail]);
 
     const getJobDetail = useCallback(async () => {
         try {
@@ -49,7 +45,7 @@ const EditJob = () => {
             })
                 .then((res) => res.json())
                 .then((response) => {
-                    console.log(response);
+                    
                     setLoading(false);
                     if (response.statusCode === 200) {
                         let contactArray = [];
@@ -61,7 +57,7 @@ const EditJob = () => {
                         }
                         setContactVia(contactArray);
                         let locationArray = [];
-                        console.log(response.data.location)
+                        
 
                         for (let i = 0; i < response.data.location.length; i++) {
                             //locationArray.push(response.data.location[i].city+' ,'+response.data.location[i].state+' ,'+response.data.location[i].country)
@@ -79,7 +75,7 @@ const EditJob = () => {
     }, [jobId, accessToken]);
 
     const validateFile = (file) => {
-        console.log(file);
+        
         const validTypes = [
             'text/csv',
             'application/vnd.ms-excel',
@@ -104,6 +100,10 @@ const EditJob = () => {
         } catch (error) {
         }
     }, []);
+    useEffect(() => {
+        getSkillCategories();
+        getJobDetail();
+    }, [jobId, getSkillCategories, getJobDetail]);
 
     const onSelectCategory = (selectedList, selectedItem, setFieldValue) => {
         setSelectedCategories([...selectedCategories, selectedItem]);
@@ -134,7 +134,7 @@ const EditJob = () => {
         setFieldValue('jobLocation', JSON.stringify(selectedLocation.concat(location)));
     }
 
-    console.log(jobDetailData)
+    
     return (
         loading
             ?
@@ -227,16 +227,16 @@ const EditJob = () => {
                                             "Access-Control-Allow-Origin": "*"
                                         }
                                     }).then(response => {
-                                        console.log(response.data);
+                                        
                                         hideToast();
                                         showToastSuccess('Your job has been updated successfully');
                                         history.push(`/user/job-detail/${jobDetailData.id}`);
                                     }).catch(error => {
-                                        console.log(error.response);
+                                        
                                         showToastError(error.response.message)
-                                        console.log(error.response)
+                                        
                                     })
-                                    console.log(fields);
+                                    
                                 }}
                                 render={({ errors, values, touched, handleChange, isSubmitting, setFieldValue }) => (
                                     <Form id="msform" name="create-job" className="msform DashForm">

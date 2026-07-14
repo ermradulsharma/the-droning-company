@@ -17,7 +17,8 @@ const Portfolio = ({ profileId }) => {
                     setPilotPortfolio(response.data);
                     setPortfolioExist(true);
                 }
-            });
+            })
+            .catch(() => console.warn("API Fetch Error (backend offline)"));
     }, [profileId]);
 
     return (

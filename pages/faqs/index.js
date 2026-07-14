@@ -84,22 +84,22 @@ const Faqs = (props) => {
     if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
     }
-    try {
       fetch(`${SERVER_URL}/faqs`, {
         method: "GET",
       })
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          
           setLoadingFaqs(false);
 
           if (response.statusCode === 200) {
             setFaqs(response.data);
           }
+        })
+        .catch(() => {
+            setLoadingFaqs(false);
+            console.warn("API Fetch Error (backend offline)");
         });
-    } catch (error) {
-      setLoadingFaqs(false);
-    }
     dispatch(getFaqData());
   }, []);
 
@@ -234,6 +234,14 @@ export async function getServerSideProps(context) {
           },
         };
       }
+    })
+    .catch(() => {
+        return {
+          props: {
+            faqs: [],
+            currentUrl: currentURL,
+          },
+        };
     });
 }
 export default Faqs;

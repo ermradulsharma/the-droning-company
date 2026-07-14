@@ -24,10 +24,6 @@ const PhotoGallery = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getAllImages();
-    dispatch(getDashboardAds("pilot-photo-gallery"));
-  }, [getAllImages, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -106,6 +102,10 @@ const PhotoGallery = () => {
       setIsLoading(false);
     }
   }, [userId, accessToken]);
+  useEffect(() => {
+    getAllImages();
+    dispatch(getDashboardAds("pilot-photo-gallery"));
+  }, [getAllImages, dispatch]);
   const dragOver = (e) => {
     e.preventDefault();
   };
@@ -192,7 +192,7 @@ const PhotoGallery = () => {
       .catch((error) => {
         // if there's an error, log it
         hideToast();
-        console.log(error);
+        
         /* if (error.response) {
                 const errorCode = error.response.status;
                 const errorMessage = error.response.statusText;
@@ -241,11 +241,11 @@ const PhotoGallery = () => {
           })
           .catch((error) => {
             setFullPageLoading(false);
-            console.log(error);
+            
           });
       })
       .catch(() => {
-        console.log("not deleted");
+        
       });
   };
   return fullPageLoading ? (

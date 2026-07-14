@@ -22,7 +22,8 @@ import AddBannerComponent from "../components/AddBannerComponent/AddBannerCompon
 import Aux from '../hoc/Auxiliary/Auxiliary';
 import useAuthContext from '../hooks/useAuthContext';
 
-import Calendar from "../components/Event/calendar.tsx";
+import dynamic from "next/dynamic";
+const Calendar = dynamic(() => import("../components/Event/calendar"), { ssr: false });
 import Image from 'next/image';
 
 /*import AddBan from "../components/Addbanner/AddBan";
@@ -87,13 +88,6 @@ const Home = () => {
         router.push(`/pilot-list/${city}`);
     };
 
-    useEffect(() => {
-        getFreeTrainingBlocks();
-        getThreeBlocks();
-        getThreeBlocksTwo();
-        getThreeBlocksThree();
-        dispatch(getHomePageAdsData());
-    }, [dispatch]);
 
     const getFreeTrainingBlocks = async () => {
         try {
@@ -106,7 +100,7 @@ const Home = () => {
                     if (response.statusCode === 200) {
                         setFreeTrainingBlocks(response.data);
                     }
-                });
+                }).catch(() => console.warn('API Offline'));
         } catch (error) {
             setLoadingFreeTraining(false);
         }
@@ -123,7 +117,7 @@ const Home = () => {
                     if (response.statusCode === 200) {
                         setThreeBlocks(response.data?.reverse());
                     }
-                });
+                }).catch(() => console.warn('API Offline'));
         } catch (error) {
             setLoadingThreeBlocks(false);
         }
@@ -140,7 +134,7 @@ const Home = () => {
                     if (response.statusCode === 200) {
                         setThreeBlocksTwo(response.data);
                     }
-                });
+                }).catch(() => console.warn('API Offline'));
         } catch (error) {
             setLoadingThreeBlocksTwo(false);
         }
@@ -157,13 +151,20 @@ const Home = () => {
                     if (response.statusCode === 200) {
                         setThreeBlocksThree(response.data);
                     }
-                });
+                }).catch(() => console.warn('API Offline'));
         } catch (error) {
             setLoadingThreeBlocksThree(false);
         }
     };
 
     const [ABOVE_GALLERY_Index, setABOVE_GALLERY_Index] = useState(0);
+    useEffect(() => {
+        getFreeTrainingBlocks();
+        getThreeBlocks();
+        getThreeBlocksTwo();
+        getThreeBlocksThree();
+        dispatch(getHomePageAdsData());
+    }, [dispatch]);
     const [UNDER_BANNER, setUNDER_BANNER] = useState(0);
     const [ABOVE_GEAR_REVIEW_Index, setABOVE_GEAR_REVIEW_Index] = useState(0);
     const [UNDER_GEAR_REVIEW_Index, setUNDER_GEAR_REVIEW_Index] = useState(0);
@@ -273,8 +274,8 @@ const Home = () => {
                                         <div className="row">
                                             <div className="offset-md-2 col-md-8 offset-lg-4 col-lg-4">
                                                 <label>Create a pilot Profile</label>
-                                                <Link href="/registration" legacyBehavior>
-                                                    <a className="btn BtnSearch w-100">Join the team</a>
+                                                <Link href="/registration" className="btn BtnSearch w-100">
+                                                    Join the team
                                                 </Link>
                                             </div>
                                         </div>
@@ -312,7 +313,6 @@ const Home = () => {
                 position={UNDER_BANNER}
                 index={homeBannerTopIndex}
             />
-
             {<NewSectionNew />}
             <AddBannerComponent
                 data={getHomePageAdsData_data}
@@ -320,8 +320,6 @@ const Home = () => {
                 position={ABOVE_GALLERY_Index}
                 index={homeBannerBottomIndex}
             />
-
-
             <div className="BandArea text-left paddngtb four_featured_boxes">
                 <div className="container">
                     <div className="row row-item">
@@ -364,18 +362,18 @@ const Home = () => {
                             <div className="card no-border-radius">
                                 <div className="card-header">Company Directory</div>
                                 <div className="card-body company">
-                                    <Link href={`/company-directory`} legacyBehavior>
-                                        <a style={{ textAlign: "center" }}>
-                                            <Image
-                                                src={'/images/Company-Directory-Icon.png'}
-                                                alt="Company Directory"
-                                                className="img-fluid"
-                                                onLoad={() => setLoadingImage(false)}
-                                                width={200}
-                                                height={200}
-                                                priority={true}
-                                            />
-                                        </a>
+                                    <Link href={`/company-directory`} style={{ textAlign: "center" }}>
+
+                                        <Image
+                                            src={'/images/Company-Directory-Icon.png'}
+                                            alt="Company Directory"
+                                            className="img-fluid"
+                                            onLoad={() => setLoadingImage(false)}
+                                            width={200}
+                                            height={200}
+                                            priority={true}
+                                        />
+
                                     </Link>
                                 </div>
                             </div>
@@ -384,18 +382,18 @@ const Home = () => {
                             <div className="card no-border-radius">
                                 <div className="card-header">Pilots</div>
                                 <div className="card-body pilots">
-                                    <Link href={`/pilot-list`} legacyBehavior>
-                                        <a style={{ textAlign: "center" }}>
-                                            <Image
-                                                src={'/images/drone-pilot-icon.png'}
-                                                alt="Pilots"
-                                                className="img-fluid"
-                                                onLoad={() => setLoadingImage(false)}
-                                                width={200}
-                                                height={200}
-                                                priority={true}
-                                            />
-                                        </a>
+                                    <Link href={`/pilot-list`} style={{ textAlign: "center" }}>
+
+                                        <Image
+                                            src={'/images/drone-pilot-icon.png'}
+                                            alt="Pilots"
+                                            className="img-fluid"
+                                            onLoad={() => setLoadingImage(false)}
+                                            width={200}
+                                            height={200}
+                                            priority={true}
+                                        />
+
                                     </Link>
                                 </div>
                             </div>
@@ -436,20 +434,20 @@ const Home = () => {
                     <div className="social_box_lg">
                         <fieldset>
                             <legend>Store</legend>
-                            <Link href="/store" legacyBehavior>
-                                <a>
-                                    <h2>Drones <span className="text-sep">---</span> Accessories <span className="text-sep">---</span> And More</h2>
-                                    {/* <img className="img-fluid" src={'images/Drones-Accessories-And-More.jpg'} alt="Drones Accessories And More" /> */}
-                                    <Image
-                                        src={'/images/Drones-Accessories-And-More.jpg'}
-                                        alt="Drones Accessories And More"
-                                        className="img-fluid"
-                                        onLoad={() => setLoadingImage(false)}
-                                        width={1102}
-                                        height={284}
-                                        priority={true}
-                                    />
-                                </a>
+                            <Link href="/store">
+
+                                <h2>Drones <span className="text-sep">---</span> Accessories <span className="text-sep">---</span> And More</h2>
+                                {/* <img className="img-fluid" src={'images/Drones-Accessories-And-More.jpg'} alt="Drones Accessories And More" /> */}
+                                <Image
+                                    src={'/images/Drones-Accessories-And-More.jpg'}
+                                    alt="Drones Accessories And More"
+                                    className="img-fluid"
+                                    onLoad={() => setLoadingImage(false)}
+                                    width={1102}
+                                    height={284}
+                                    priority={true}
+                                />
+
                             </Link>
                         </fieldset>
                     </div>
@@ -497,7 +495,7 @@ const Home = () => {
                         <div className="row">
                             <div className="col-md-9">
                                 <h3 style={{ backgroundColor: '#fecd0e', textAlign: 'center', padding: 5, borderRadius: 4, color: '#000', fontWeight: '600' }}>Community Events</h3>
-                                <Calendar />
+                                <div><Calendar /></div>
                                 <div className="row mt-3">
                                     <div className="col-md-9">
                                         <RecentEventsBlock limit={10} skip={0} />
@@ -507,12 +505,12 @@ const Home = () => {
                                             <h2>Submit an Event</h2>
                                             <p>If you or someone you know wants to have a local droning event, list it here!</p>
                                             <div className="row">
-                                                <div className="col-md-6"><Link href="/event-submission" legacyBehavior><a className="btn Btnblock w-100">Read More</a></Link></div>
+                                                <div className="col-md-6"><Link href="/event-submission" className="btn Btnblock w-100">Read More</Link></div>
                                                 <div className="col-md-6">
                                                     {authTokens && accessToken ?
-                                                        <Link href="/event/submit-event" legacyBehavior><a className="btn Btnblock w-100">Post Your Event</a></Link>
+                                                        <Link href="/event/submit-event" className="btn Btnblock w-100">Post Your Event</Link>
                                                         :
-                                                        <Link href="/login" legacyBehavior><a className="btn Btnblock w-100">Post Your Event</a></Link>
+                                                        <Link href="/login" className="btn Btnblock w-100">Post Your Event</Link>
                                                     }
                                                 </div>
                                             </div>
@@ -631,7 +629,6 @@ const Home = () => {
 
                 </div>
             </div>
-
         </Fragment >
     );
 };

@@ -23,21 +23,21 @@ const SideNavMenuDrawer = (props) => {
             <ul className={`navbar-nav bg-gradient-primary sidebar sidebar-dark accordion ${drawerCollapsed ? 'toggled' : null}`} id="accordionSidebar">
 
                 {/* <!-- Sidebar - Brand --> */}
-                <Link href="/" legacyBehavior>
-                    <a className="sidebar-brand d-flex align-items-center justify-content-center">
-                        <Image className="img-fluid" src="/images/logo.png" alt="logo" width={60} height={60} />
-                    </a>
+                <Link href="/" className="sidebar-brand d-flex align-items-center justify-content-center">
+
+                    <Image className="img-fluid" src="/images/logo.png" alt="logo" width={60} height={60} />
+
                 </Link>
                 {/*  <!-- Divider --> */}
                 <hr className="sidebar-divider my-0" />
 
                 {/* <!--Nav Item - Dashboard --> */}
                 <li className="nav-item">
-                    <Link href={`${userType.id === 3 ? "/pilot-area/dashboard" : "/user/dashboard"}`}>
-                        <a className="nav-link">
-                            <i className="fas fa-fw fa-tachometer-alt"></i>
-                            <span>Dashboard</span>
-                        </a>
+                    <Link href={`${userType.id === 3 ? "/pilot-area/dashboard" : "/user/dashboard"}`} className="nav-link">
+
+                        <i className="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+
                     </Link>
                 </li>
 
@@ -54,21 +54,21 @@ const SideNavMenuDrawer = (props) => {
                         <Aux>
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
                             <li className="nav-item">
-                                <Link href="/user/jobs">
-                                    <a className="nav-link">
-                                        <i className="fas fa-list-alt"></i>
-                                        <span>My Jobs</span>
-                                    </a>
+                                <Link href="/user/jobs" className="nav-link">
+
+                                    <i className="fas fa-list-alt"></i>
+                                    <span>My Jobs</span>
+
                                 </Link>
                             </li>
 
                             {/* <!-- Nav Item - Pages Collapse Menu --> */}
                             <li className="nav-item">
-                                <Link href="/user/create-job">
-                                    <a className="nav-link collapsed">
-                                        <i className="fas fa-file-signature"></i>
-                                        <span>Create Job</span>
-                                    </a>
+                                <Link href="/user/create-job" className="nav-link collapsed">
+
+                                    <i className="fas fa-file-signature"></i>
+                                    <span>Create Job</span>
+
                                 </Link>
                             </li>
 
@@ -87,53 +87,53 @@ const SideNavMenuDrawer = (props) => {
                         :
                         <Aux>
                             <li className="nav-item">
-                                <Link href="/pilot-area/build-profile">
-                                    <a className="nav-link">
-                                        <i className="fas fa-money-check-alt"></i>
-                                        <span>Build Profile</span>
-                                    </a>
+                                <Link href="/pilot-area/build-profile" className="nav-link">
+
+                                    <i className="fas fa-money-check-alt"></i>
+                                    <span>Build Profile</span>
+
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link href="/pilot-area/subscriptions">
-                                    <a className="nav-link">
-                                        <i className="fas fa-money-check-alt"></i>
-                                        <span>My Subscriptions</span>
-                                    </a>
+                                <Link href="/pilot-area/subscriptions" className="nav-link">
+
+                                    <i className="fas fa-money-check-alt"></i>
+                                    <span>My Subscriptions</span>
+
                                 </Link>
                             </li>
                             { /* add below more menus for pilot */}
 
                             <li className="nav-item">
-                                <Link href="/pilot-area/service-location">
-                                    <a className="nav-link">
-                                        <i className="fas fa-location-arrow"></i>
-                                        <span>Service Locations</span>
-                                    </a>
+                                <Link href="/pilot-area/service-location" className="nav-link">
+
+                                    <i className="fas fa-location-arrow"></i>
+                                    <span>Service Locations</span>
+
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link href="/pilot-area/gallery">
-                                    <a className="nav-link">
-                                        <i className="fas fa-images"></i>
-                                        <span>Photo Gallery</span>
-                                    </a>
+                                <Link href="/pilot-area/gallery" className="nav-link">
+
+                                    <i className="fas fa-images"></i>
+                                    <span>Photo Gallery</span>
+
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link href="/pilot-area/videos">
-                                    <a className="nav-link">
-                                        <i className="fas fa-video"></i>
-                                        <span>Video Gallery</span>
-                                    </a>
+                                <Link href="/pilot-area/videos" className="nav-link">
+
+                                    <i className="fas fa-video"></i>
+                                    <span>Video Gallery</span>
+
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link href="/pilot-area/equipments">
-                                    <a className="nav-link">
-                                        <i className="fas fa-toolbox"></i>
-                                        <span>My Equipment</span>
-                                    </a>
+                                <Link href="/pilot-area/equipments" className="nav-link">
+
+                                    <i className="fas fa-toolbox"></i>
+                                    <span>My Equipment</span>
+
                                 </Link>
                             </li>
                         </Aux>
@@ -151,8 +151,8 @@ const SideNavMenuDrawer = (props) => {
                     <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
                         data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
-                            <Link href={`${userType.id === 3 ? "/pilot-area/edit-profile" : "/user/edit-profile"}`}><a className="collapse-item">Edit Profile</a></Link>
-                            <Link href={`${userType.id === 3 ? "/pilot-area/change-password" : "/user/change-password"}`}><a className="collapse-item">Change Password</a></Link>
+                            <Link href={`${userType.id === 3 ? "/pilot-area/edit-profile" : "/user/edit-profile"}`} className="collapse-item">Edit Profile</Link>
+                            <Link href={`${userType.id === 3 ? "/pilot-area/change-password" : "/user/change-password"}`} className="collapse-item">Change Password</Link>
                         </div>
                     </div>
                 </li>

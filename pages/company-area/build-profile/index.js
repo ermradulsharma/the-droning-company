@@ -180,7 +180,7 @@ const BuildProfile = () => {
           }
         });
     } catch (error) {
-      console.log(error);
+      
       setFullPageLoading(false);
     }
   }, [userId, accessToken, setUserProfileImage, showToastError]);
@@ -390,7 +390,7 @@ const BuildProfile = () => {
     } catch (error) {
       setRemoveLicensePic(false);
       setRemoveProfilePic(false);
-      console.log(error);
+      
     }
   };
 
@@ -749,7 +749,7 @@ const BuildProfile = () => {
                         );
                       })
                       .catch((error) => {
-                        console.log(error);
+                        
                         //showToastError(error.response.message)
                       });
                   }}

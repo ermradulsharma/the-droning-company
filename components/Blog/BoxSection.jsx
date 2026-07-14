@@ -81,8 +81,8 @@ const BoxSection = () => {
           if (response.statusCode === 200) {
             setNews(response.data);
           }
-        });
-    } catch (error) {
+        }).catch(() => console.warn('API Offline'));
+        } catch (error) {
       setLoadingNews(false);
     }
     getFavelBoxData();
@@ -120,19 +120,19 @@ const BoxSection = () => {
                 <div className="ArticleTitle">{article_data?.box_name}</div>
                 <div className="d-sm-block" style={{ position: "relative" }}>
                   <div>
-                    <Link href="/blog/Fravel-s-Footnote/article" passHref legacyBehavior>
-                      <a>
-                        {article_data?.image_full_path ? (
-                          <Image
-                            className="img-fluid"
-                            src={article_data?.image_full_path}
-                            onLoad={() => setLoadingImage(false)}
-                            alt="Video Reel of the Week"
-                            width={400}
-                            height={300}
-                          />
-                        ) : null}
-                      </a>
+                    <Link href="/blog/Fravel-s-Footnote/article">
+
+                      {article_data?.image_full_path ? (
+                        <Image
+                          className="img-fluid"
+                          src={article_data?.image_full_path}
+                          onLoad={() => setLoadingImage(false)}
+                          alt="Video Reel of the Week"
+                          width={400}
+                          height={300}
+                        />
+                      ) : null}
+
                     </Link>
                   </div>
                 </div>
@@ -217,7 +217,6 @@ const BoxSection = () => {
           </div>
         </div>
       )}
-
       <DroneGeekModal
         open={open}
         handleClose={handleClose}
@@ -228,13 +227,11 @@ const BoxSection = () => {
         handleClose={() => setinterviewmodal(false)}
         vedioData={interviews_data?.favel_box_details}
       />
-
       <VideoReviewModal
         open={open_video_modal}
         handleClose={() => setvideomodal(false)}
         vedioData={video_reviews_data?.favel_box_details}
       />
-
       {/* <ArticleModal
         open={open_article}
         handleClose={handleClose_open_article}
@@ -248,11 +245,9 @@ const Text = ({ title, link }) => {
   return (
     <div key={title} className="ArticleDesc mt-2">
       <div className="ArticleDescH fixHeight">{title}</div>
+      <Link href={`/blog/${link}`} className="SeeMore">
+        Read More <i className="fas fa-long-arrow-alt-right"></i>
 
-      <Link href={`/blog/${link}`} legacyBehavior>
-        <a href={`/blog/${link}`} className="SeeMore">
-          Read More <i className="fas fa-long-arrow-alt-right"></i>
-        </a>
       </Link>
       <hr />
     </div>

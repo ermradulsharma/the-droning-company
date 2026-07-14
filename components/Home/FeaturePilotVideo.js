@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
 import Link from "next/link";
 import parse from 'html-react-parser';
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Image from 'next/image';
 
 const FeaturePilotVideo = () => {
@@ -17,13 +17,16 @@ const FeaturePilotVideo = () => {
                 if (response.statusCode === 200) {
                     sethomefeaturePilotData(response.data);
                 }
+            })
+            .catch((error) => {
+                console.warn("Failed to fetch featured pilot (is backend running?)");
             });
     }, []);
     return (
         <>
             {
                 homefeaturePilotData.map((pilot, index) => {
-                    return <div key={'homeFeaturePilot-' + index} className="col-item" style={{ backgroundImage: "url(" + `${MEDIA_BASE_URL}/${getCleanImageUrl(pilot.image)}` + ")" }}>
+                    return <div key={'homeFeaturePilot-' + index} className="col-item" style={{ backgroundImage: "url(" + getImageSrc(pilot.image) + ")" }}>
                         <div className="BandBox">
                             <div className="BandBoxhead">
                                 <h2>Featured Pilot&apos;s Video</h2>

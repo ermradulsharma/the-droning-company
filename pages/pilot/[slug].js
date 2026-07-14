@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import parse from "html-react-parser";
 import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Loader from "@/components/Common/Loader";
 import Portfolio from "../../components/Pilot/Portfolio";
 import Reel from "../../components/Pilot/Reel";
@@ -49,7 +49,7 @@ const Pilot = (props) => {
           }
         });
     } catch (error) {
-      console.log(error);
+      
       setProfileLoading(false);
     }
   }, [slug]);
@@ -173,7 +173,7 @@ const Pilot = (props) => {
                     <div className="PilotImg">
                       <Image
                         className="img-fluid"
-                        src={`${MEDIA_BASE_URL}/${getCleanImageUrl(pilotData.profile && pilotData.profile.image)}`}
+                        src={getImageSrc(pilotData.profile && pilotData.profile.image)}
                         alt="pilot"
                         width={300}
                         height={300}
@@ -305,7 +305,7 @@ const Pilot = (props) => {
                             <div className="EqpDetail">
                               <Image
                                 className="img-fluid"
-                                src={`${MEDIA_BASE_URL}/${getCleanImageUrl(equip.image)}`}
+                                src={getImageSrc(equip.image)}
                                 alt="eqp"
                                 width={300}
                                 height={200}
@@ -377,6 +377,5 @@ export async function getServerSideProps(context) {
           currentUrl: currentURL,
         },
       };
-    });
-}
+    }).catch(() => ({ notFound: true }));}
 export default Pilot;

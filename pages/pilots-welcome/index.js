@@ -8,12 +8,6 @@ const PilotsWelcome = () => {
     const [aboutTitle, setAboutTitle] = useState("");
 	const [aboutDescription, setAboutDescription] = useState("");
 	const [aboutExcerpt, setAboutExcerpt] = useState("");
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-		    window.scrollTo(0, 0);
-        }
-        getPilotsWelcomeDetail();
-	}, []);
 
     const getPilotsWelcomeDetail = async() => {
 		fetch(`${SERVER_URL}/cms/pilots-welcome`, {
@@ -21,14 +15,21 @@ const PilotsWelcome = () => {
         })
             .then((res) => res.json())
             .then((response) => {
-				console.log(response);
+				
                 if (response.statusCode === 200) {
                     setAboutTitle(response.data[0].title)
                     setAboutDescription(response.data[0].page_text)
 					setAboutExcerpt(response.data[0].excerpt)
                 }
-            });
+            })
+            .catch(() => console.warn("API Fetch Error (backend offline)"));
 	}
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+		    window.scrollTo(0, 0);
+        }
+        getPilotsWelcomeDetail();
+	}, []);
     
     return (
         <Aux>

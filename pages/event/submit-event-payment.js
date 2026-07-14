@@ -24,7 +24,7 @@ const EventPayment = () => {
 		if (typeof window !== 'undefined') {
 			window.scrollTo(0, 0);
 		}
-		console.log(tempUserSubscriptionData);
+		
 		setCouponPlan(tempUserSubscriptionData.plans ? tempUserSubscriptionData.plans : []);
 		setSubscriptionPlanId(tempUserSubscriptionData.plans ? tempUserSubscriptionData.plans : []);
 		setPlanAmount(25);
@@ -62,7 +62,7 @@ const EventPayment = () => {
 
 			})
 			.catch((error) => {
-				console.log(error.response);
+				
 				hideToast();
 				setCouponCode('');
 				setCouponApplied(false);

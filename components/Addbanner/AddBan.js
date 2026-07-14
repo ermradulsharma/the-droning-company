@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { MEDIA_BASE_URL } from "../../util/Constants";
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 export default function AddBan({ src, href, resolution }) {
   const resolutionArray = resolution?.split(" x ");
   const [loadingImage, setLoadingImage] = useState(true);
@@ -21,7 +21,7 @@ export default function AddBan({ src, href, resolution }) {
           {resolutionArray && src ? (
             <Image
               src={`${MEDIA_BASE_URL}/${getCleanImageUrl(src)}`}
-              alt={src}
+              alt={(src) || 'image'}
               onLoad={() => setLoadingImage(false)}
               width={parseInt(resolutionArray[0])}
               height={parseInt(resolutionArray[1])}
@@ -30,7 +30,7 @@ export default function AddBan({ src, href, resolution }) {
           ) : src ? (
             <Image
               src={`${MEDIA_BASE_URL}/${getCleanImageUrl(src)}`}
-              alt={src}
+              alt={(src) || 'image'}
               onLoad={() => setLoadingImage(false)}
               width={1140}
               height={200}

@@ -77,7 +77,7 @@ const DashboardMain = () => {
     })
       .then((response) => {
         setFullPageLoading(false);
-        console.log(response.data.data);
+        
         if (response.data.statusCode === 200) {
           setDashboardData(response.data.data);
           setProfileBuild(true);
@@ -87,7 +87,7 @@ const DashboardMain = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        
         setFullPageLoading(false);
         setProfileBuild(false);
       });
@@ -213,15 +213,15 @@ const DashboardMain = () => {
           <i className="far fa-arrow-alt-circle-right"></i> Dashboard
         </h1>
         {isProfileBuild ? (
-          <Link href={`/pilot/${dashboardData.basic_profile.slug}`} legacyBehavior>
-            <a
-              rel="noreferrer"
-              name="view-profile"
-              className="m-0 btn action-button float-right"
-              target="_blank"
-            >
+          <Link
+            href={`/pilot/${dashboardData.basic_profile.slug}`}
+            rel="noreferrer"
+            name="view-profile"
+            className="m-0 btn action-button float-right"
+            target="_blank">
+            
               View Profile
-            </a>
+            
           </Link>
         ) : null}
       </div>
@@ -236,7 +236,7 @@ const DashboardMain = () => {
                     <Image
                       className="img-fluid"
                       src={dashboardData.basic_profile.profile_image}
-                      alt={dashboardData.basic_profile.title}
+                      alt={(dashboardData.basic_profile.title) || 'image'}
                       width={200}
                       height={200}
                     />
@@ -382,27 +382,27 @@ const DashboardMain = () => {
                             })}
                           </div>
                           <div className="text-center">
-                            <Link href="/pilot-area/videos" legacyBehavior>
-                              <a
-                                id="add-video"
-                                name="add-video"
-                                className="btn action-button"
-                              >
+                            <Link
+                              href="/pilot-area/videos"
+                              id="add-video"
+                              name="add-video"
+                              className="btn action-button">
+                              
                                 Check All
-                              </a>
+                              
                             </Link>
                           </div>
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/pilot-area/videos" legacyBehavior>
-                            <a
-                              id="add-video"
-                              name="add-video"
-                              className="btn action-button"
-                            >
+                          <Link
+                            href="/pilot-area/videos"
+                            id="add-video"
+                            name="add-video"
+                            className="btn action-button">
+                            
                               Add Video
-                            </a>
+                            
                           </Link>
                         </div>
                       )}
@@ -441,27 +441,27 @@ const DashboardMain = () => {
                             })}
                           </div>
                           <div className="text-center">
-                            <Link href="/pilot-area/gallery" legacyBehavior>
-                              <a
-                                id="photo-gallery"
-                                name="photo-gallery"
-                                className="btn action-button"
-                              >
+                            <Link
+                              href="/pilot-area/gallery"
+                              id="photo-gallery"
+                              name="photo-gallery"
+                              className="btn action-button">
+                              
                                 Check All
-                              </a>
+                              
                             </Link>
                           </div>
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/pilot-area/gallery" legacyBehavior>
-                            <a
-                              id="add-photo"
-                              name="add-photo"
-                              className="btn action-button"
-                            >
+                          <Link
+                            href="/pilot-area/gallery"
+                            id="add-photo"
+                            name="add-photo"
+                            className="btn action-button">
+                            
                               Add Photo
-                            </a>
+                            
                           </Link>
                         </div>
                       )}
@@ -514,27 +514,27 @@ const DashboardMain = () => {
                             </table>
                           </div>
                           <div className="text-center">
-                            <Link href="/pilot-area/service-location" legacyBehavior>
-                              <a
-                                id="add-location"
-                                name="add-location"
-                                className="btn action-button"
-                              >
+                            <Link
+                              href="/pilot-area/service-location"
+                              id="add-location"
+                              name="add-location"
+                              className="btn action-button">
+                              
                                 Check All
-                              </a>
+                              
                             </Link>
                           </div>
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/pilot-area/service-location" legacyBehavior>
-                            <a
-                              id="add-location"
-                              name="add-location"
-                              className="btn action-button"
-                            >
+                          <Link
+                            href="/pilot-area/service-location"
+                            id="add-location"
+                            name="add-location"
+                            className="btn action-button">
+                            
                               Add Location
-                            </a>
+                            
                           </Link>
                         </div>
                       )}
@@ -564,7 +564,7 @@ const DashboardMain = () => {
                                   className="img-fluid DashEqualImg"
                                   style={{ height: "auto" }}
                                   src={equipment.image}
-                                  alt={equipment.title}
+                                  alt={(equipment.title) || 'image'}
                                   width={300}
                                   height={200}
                                 />
@@ -578,27 +578,27 @@ const DashboardMain = () => {
                             ))}
                           </div>
                           <div className="text-center">
-                            <Link href="/pilot-area/equipments" legacyBehavior>
-                              <a
-                                id="add-equipments"
-                                name="add-equipments"
-                                className="btn action-button"
-                              >
+                            <Link
+                              href="/pilot-area/equipments"
+                              id="add-equipments"
+                              name="add-equipments"
+                              className="btn action-button">
+                              
                                 Check All
-                              </a>
+                              
                             </Link>
                           </div>
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/pilot-area/equipments" legacyBehavior>
-                            <a
-                              id="add-equipments"
-                              name="add-equipments"
-                              className="btn action-button"
-                            >
+                          <Link
+                            href="/pilot-area/equipments"
+                            id="add-equipments"
+                            name="add-equipments"
+                            className="btn action-button">
+                            
                               Add Equipments
-                            </a>
+                            
                           </Link>
                         </div>
                       )}
@@ -614,10 +614,13 @@ const DashboardMain = () => {
           style={{ minHeight: "400px" }}
           className="flex-row align-items-center justify-content-between"
         >
-          <Link href="/pilot-area/build-profile" legacyBehavior>
-            <a className="btn action-button" style={{ width: "auto" }}>
+          <Link
+            href="/pilot-area/build-profile"
+            className="btn action-button"
+            style={{ width: "auto" }}>
+            
               Build your profile
-            </a>
+            
           </Link>
         </div>
 

@@ -328,7 +328,7 @@ const SubmitEvent = () => {
                         history.push('/event/submit-event-payment');
                       })
                       .catch((error) => {
-                        console.log(error);
+                        
                         //showToastError(error.response.message)
                       });
                   }}

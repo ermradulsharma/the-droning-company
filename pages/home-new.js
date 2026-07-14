@@ -67,13 +67,6 @@ const Home = () => {
     router.push(`/pilot-list/${city}`);
   };
 
-  useEffect(() => {
-    getFreeTrainingBlocks();
-    getThreeBlocks();
-    getThreeBlocksTwo();
-    getThreeBlocksThree();
-    dispatch(getHomePageAdsData());
-  }, []);
 
   const getFreeTrainingBlocks = async () => {
     try {
@@ -86,8 +79,8 @@ const Home = () => {
           if (response.statusCode === 200) {
             setFreeTrainingBlocks(response.data);
           }
-        });
-    } catch (error) {
+        }).catch(() => console.warn('API Offline'));
+        } catch (error) {
       setLoadingFreeTraining(false);
     }
   };
@@ -103,8 +96,8 @@ const Home = () => {
           if (response.statusCode === 200) {
             setThreeBlocks(response.data?.reverse());
           }
-        });
-    } catch (error) {
+        }).catch(() => console.warn('API Offline'));
+        } catch (error) {
       setLoadingThreeBlocks(false);
     }
   };
@@ -120,8 +113,8 @@ const Home = () => {
           if (response.statusCode === 200) {
             setThreeBlocksTwo(response.data);
           }
-        });
-    } catch (error) {
+        }).catch(() => console.warn('API Offline'));
+        } catch (error) {
       setLoadingThreeBlocksTwo(false);
     }
   };
@@ -137,13 +130,20 @@ const Home = () => {
           if (response.statusCode === 200) {
             setThreeBlocksThree(response.data);
           }
-        });
-    } catch (error) {
+        }).catch(() => console.warn('API Offline'));
+        } catch (error) {
       setLoadingThreeBlocksThree(false);
     }
   };
 
   const [ABOVE_GALLERY_Index, setABOVE_GALLERY_Index] = useState(0);
+  useEffect(() => {
+    getFreeTrainingBlocks();
+    getThreeBlocks();
+    getThreeBlocksTwo();
+    getThreeBlocksThree();
+    dispatch(getHomePageAdsData());
+  }, []);
   const [UNDER_BANNER, setUNDER_BANNER] = useState(0);
   const [ABOVE_GEAR_REVIEW_Index, setABOVE_GEAR_REVIEW_Index] = useState(0);
   const [UNDER_GEAR_REVIEW_Index, setUNDER_GEAR_REVIEW_Index] = useState(0);
@@ -239,8 +239,8 @@ const Home = () => {
                     <div className="row">
                       <div className="offset-md-2 col-md-8 offset-lg-4 col-lg-4">
                         <label>Create a pilot Profile</label>
-                        <Link href="/registration" legacyBehavior>
-                          <a className="btn BtnSearch w-100">Join the team</a>
+                        <Link href="/registration" className="btn BtnSearch w-100">
+                          Join the team
                         </Link>
                       </div>
                     </div>
@@ -258,7 +258,6 @@ const Home = () => {
         position={UNDER_BANNER}
         index={homeBannerTopIndex}
       />
-
       {<NewSectionNew />}
       <AddBannerComponent
         data={getHomePageAdsData_data}
@@ -266,8 +265,6 @@ const Home = () => {
         position={ABOVE_GALLERY_Index}
         index={homeBannerBottomIndex}
       />
-
-
       <div className="BandArea text-left paddngtb four_featured_boxes">
         <div className="container">
           <div className="row row-item">
@@ -287,11 +284,11 @@ const Home = () => {
                             {block.block_subTitle1 ? (<h3>{block.block_subTitle1}</h3>) : null}
                           </div>
                           <div className={`HomeBlockImg`}>
-                            <Image className="img-fluid" src={block.block_image} alt={block.block_title} width={300} height={200} />
+                            <Image className="img-fluid" src={block.block_image || '/images/no-image.png'} alt={(block.block_title) || 'image'} width={300} height={200} />
                           </div>
                           <p>{block.block_description}</p>
-                          <Link href={block?.block_button_link} passHref>
-                            <a className="btn BtnLearn">LEARN MORE</a>
+                          <Link href={block?.block_button_link} className="btn BtnLearn">
+                            LEARN MORE
                           </Link>
                         </div>
                       </div>
@@ -321,7 +318,6 @@ const Home = () => {
 
         </div>
       </div>
-
       {<FourNewsBlock category={'Featured News'} limit={4} />}
       <AddBannerComponent
         data={getHomePageAdsData_data}
@@ -329,10 +325,6 @@ const Home = () => {
         position={ABOVE_GALLERY_Index}
         index={homeBannerBottomIndex}
       />
-
-
-
-
       <div className={`BandArea text-left paddngtb three_featured_boxes first`}>
         <div className="container">
 
@@ -368,16 +360,16 @@ const Home = () => {
                     <div className={`HomeBlockImg`}>
                       <Image
                         className="img-fluid"
-                        src={block.block_image}
-                        alt={block.block_title}
+                        src={block.block_image || '/images/no-image.png'}
+                        alt={(block.block_title) || 'image'}
                         width={300}
                         height={200}
                       />
                     </div>
                     <p>{block.block_description}</p>
 
-                    <Link href={block?.block_button_link} passHref>
-                      <a className="btn BtnLearn">LEARN MORE</a>
+                    <Link href={block?.block_button_link} className="btn BtnLearn">
+                      LEARN MORE
                     </Link>
                   </div>
                 </div>
@@ -424,16 +416,16 @@ const Home = () => {
                     <div className={`HomeBlockImg`}>
                       <Image
                         className="img-fluid"
-                        src={block.block_image}
-                        alt={block.block_title}
+                        src={block.block_image || '/images/no-image.png'}
+                        alt={(block.block_title) || 'image'}
                         width={300}
                         height={200}
                       />
                     </div>
                     <p>{block.block_description}</p>
 
-                    <Link href={block?.block_button_link} passHref>
-                      <a className="btn BtnLearn">LEARN MORE</a>
+                    <Link href={block?.block_button_link} className="btn BtnLearn">
+                      LEARN MORE
                     </Link>
                   </div>
                 </div>
@@ -449,8 +441,6 @@ const Home = () => {
           />
         </div>
       </div>
-
-
       {<ThreeNewsBlock category={'Military'} limit={3} />}
       <AddBannerComponent
         data={getHomePageAdsData_data}
@@ -458,12 +448,8 @@ const Home = () => {
         position={ABOVE_GALLERY_Index}
         index={homeBannerBottomIndex}
       />
-
       {<FourNewsBlock category={'Drone Education'} limit={4} />}
-
       {<ThreeNewsBlock category={'Skills Training, Drone Racing Video'} limit={3} />}
-
-
       {/* {<PhotoGallery />}
       <AddBannerComponent
         data={getHomePageAdsData_data}
@@ -510,15 +496,15 @@ const Home = () => {
                       <div className="FreeTraningBox">
                         <img
                           className="img-fluid"
-                          src={block.block_image}
-                          alt={block.block_title}
+                          src={block.block_image || '/images/no-image.png'}
+                          alt={(block.block_title) || 'image'}
                         />
                         <div className="TraningTitle">{block.block_title}</div>
                         <p>{block.block_description}</p>
                         <div className="clear">&nbsp;</div>
                         <div className="clear">&nbsp;</div>
                         <div className="clear">&nbsp;</div>
-                        <Link href={block?.block_button_link} passHref>
+                        <Link legacyBehavior href={block?.block_button_link} passHref>
                           <a className="btn BtnLearn">LEARN MORE</a>
                         </Link>
                       </div>
@@ -530,10 +516,6 @@ const Home = () => {
           </div>
         </div>
       ) : null} */}
-
-
-
-
       {/* <div className="DroneVideoArea text-left d-block d-sm-none">
         <iframe
           height="600"
@@ -557,8 +539,6 @@ const Home = () => {
           </div>
         </div>
       </div> */}
-
-
       {/* <div className="FeatruedPilotArea">
         <div className="container">
           <div className="row">
@@ -633,7 +613,6 @@ const Home = () => {
           </div>
         </div>
       </div> */}
-
       {/* { loadingThreeBlocks ? (
         <div className="row">
           <div
@@ -668,13 +647,13 @@ const Home = () => {
                     <div className={`HomeBlockImg`}>
                       <img
                         className="img-fluid"
-                        src={block.block_image}
-                        alt={block.block_title}
+                        src={block.block_image || '/images/no-image.png'}
+                        alt={(block.block_title) || 'image'}
                       />
                     </div>
                     <p>{block.block_description}</p>
 
-                    <Link href={block?.block_button_link} passHref>
+                    <Link legacyBehavior href={block?.block_button_link} passHref>
                       <a className="btn BtnLearn">LEARN MORE</a>
                     </Link>
                   </div>
@@ -684,7 +663,6 @@ const Home = () => {
           </div>
         </div>
       ) : null} */}
-
     </Fragment>
   );
 };

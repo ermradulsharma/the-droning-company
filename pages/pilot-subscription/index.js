@@ -68,7 +68,7 @@ const Subscription = () => {
 			
 		})
 		.catch((error) => {
-			console.log(error.response);
+			
 			hideToast();
 			setCouponCode('');
 			showToastError(error.response.data.message);

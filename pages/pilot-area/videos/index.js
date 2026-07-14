@@ -121,11 +121,11 @@ const VideoGallery = () => {
             getAllVideos();
           })
           .catch((error) => {
-            console.log(error);
+            
           });
       })
       .catch(() => {
-        console.log("not deleted");
+        
       });
   };
 
@@ -143,7 +143,7 @@ const VideoGallery = () => {
         getAllVideos();
       })
       .catch((error) => {
-        console.log(error);
+        
       });
   };
 
@@ -256,7 +256,7 @@ const VideoGallery = () => {
                             }
                           )
                           .then((response) => {
-                            console.log(response.data);
+                            
                             resetForm();
                             hideToast();
                             //setVideoGallery([...videoGallery, ...data.service_area])

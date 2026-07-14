@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Link from "next/link";
 import Image from "next/image";
 import Loader from "@/components/Common/Loader";
@@ -20,11 +20,15 @@ const FourNewsBlock = ({ category, limit }) => {
       })
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          
           setLoadingNews(false);
           if (response.statusCode === 200) {
             setNews(response.data);
           }
+        })
+        .catch((err) => {
+          setLoadingNews(false);
+          console.warn("Failed to fetch four news block (is backend running?)");
         });
     } catch (error) {
       setLoadingNews(false);
@@ -59,7 +63,7 @@ const FourNewsBlock = ({ category, limit }) => {
                         <div className="col-4 col-sm-4">
                           <Image
                             className="img-fluid"
-                            src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new.image)}`}
+                            src={getImageSrc(blog_new.image)}
                             alt="03imgarticle"
                             width={200}
                             height={150}
@@ -76,14 +80,10 @@ const FourNewsBlock = ({ category, limit }) => {
                           {blog_new.excerpt ? (
                             <p>{parse(blog_new.excerpt)}</p>
                           ) : null}
-                          <Link href={`/blog/${blog_new.slug}`} legacyBehavior>
-                            <a
-                              href={`/blog/${blog_new.slug}`}
-                              className="SeeMore"
-                            >
-                              Read More{" "}
-                              <i className="fas fa-long-arrow-alt-right"></i>
-                            </a>
+                          <Link href={`/blog/${blog_new.slug}`} className="SeeMore">
+                            Read More{" "}
+                            <i className="fas fa-long-arrow-alt-right"></i>
+
                           </Link>
                         </div>
                       </div>

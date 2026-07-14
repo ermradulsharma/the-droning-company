@@ -15,7 +15,8 @@ const GearReview = () => {
                 if (response.statusCode === 200) {
                     setGear(response.data);
                 }
-            });
+            })
+            .catch(() => console.warn("API Fetch Error (backend offline)"));
     }, []);
     return (
         <Aux>

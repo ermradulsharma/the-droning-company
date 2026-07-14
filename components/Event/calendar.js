@@ -13,7 +13,7 @@ const Calendar = () => {
     const [events, setEvents] = useState([]);
     // const SERVER_URL = "http://127.0.0.1:8000/api/v1";
     var background_colors = Array('green', 'red', 'blue', 'pink', 'orange', 'purple');
-    const allEvents: any[] = [];
+    const allEvents = [];
     useEffect(() => {
         fetch(`${SERVER_URL}/recent-events?past=true`, {
             method: "GET",
@@ -34,7 +34,8 @@ const Calendar = () => {
                     ));
                     setEvents(allEvents);
                 }
-            });
+            })
+            .catch(() => console.warn("API Fetch Error (backend offline)"));
     }, []);
 
     const toTimestamp = (strDate) => {
@@ -48,13 +49,13 @@ const Calendar = () => {
             <FullCalendar
                 nowIndicator={true}
                 eventClick={
-                    (info: any) => {
+                    (info) => {
                         //console.log(info.event.extendedProps, info.event.title);
                         router.push('/event/' + info.event.extendedProps.slug);
                     }
                 }
                 /*eventContent={
-                    (info: any) => {
+                    (info) => {
                         return (
                             <>
                                 <b>{info.timeText}</b>

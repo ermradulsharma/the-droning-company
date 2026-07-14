@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Pagination from "../../components/UI/Pagination/Pagination";
 import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Loader from "@/components/Common/Loader";
 import parse from "html-react-parser";
 import useCommonFunctionContext from "../../hooks/useCommonFunctionContext";
@@ -29,13 +29,6 @@ const CategoryPilot = () => {
   const [skillCategories, setSkillCategories] = useState([]);
   const [limitSkillNumber, setLimitSkillNumber] = useState(5);
   const [limitSkillLabel, setLimitSkillLabel] = useState("Show more");
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo(0, 0);
-    }
-    getFeaturedProfile();
-    getPilotSkills();
-  }, [getFeaturedProfile, getPilotSkills]);
   //console.log(locationCity)
   // const getFeaturedProfile = async () => {
   //   setLoading(true);
@@ -84,7 +77,7 @@ const CategoryPilot = () => {
       })
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          
           if (response.statusCode === 200) {
             setProfiles(response.data);
             setPerPageCount(4);
@@ -117,6 +110,13 @@ const CategoryPilot = () => {
       setLoading(false);
     }
   }, []);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
+    getFeaturedProfile();
+    getPilotSkills();
+  }, [getFeaturedProfile, getPilotSkills]);
 
   const onPageChangeHandler = (pageNum) => {
     setCurrentPage(pageNum);
@@ -233,7 +233,6 @@ const CategoryPilot = () => {
           </div>
         </div>
       </div>
-
       <div className="FeatruedPilotArea">
         <div className="container">
           <div className="row">
@@ -267,8 +266,8 @@ const CategoryPilot = () => {
                         <div className="row PilotBox" key={`profile-${index}`}>
                           <div className="col-4 col-sm-4">
                             <div className="PilotImg">
-                              <Link legacyBehavior href={`/pilot/${profile.slug}`}>
-                                <a href={`/pilot/${profile.slug}`}><Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(profile.image)}`} alt="pilot" width={300} height={300} /></a>
+                              <Link href={`/pilot/${profile.slug}`}>
+                                <Image className="img-fluid" src={getImageSrc(profile.image)} alt="pilot" width={300} height={300} />
                               </Link>
                             </div>
                           </div>
@@ -305,13 +304,10 @@ const CategoryPilot = () => {
                                   {parse(`${profile.description}`)}{" "}
                                 </div>
                               ) : null}
-                              <Link legacyBehavior href={`/pilot/${profile.slug}`}>
-                                <a
-                                  className="SeeMore"
-                                  href={`/pilot/${profile.slug}`}
-                                >
+                              <Link href={`/pilot/${profile.slug}`} className="SeeMore">
+                                
                                   View Profile &gt;
-                                </a>
+                                
                               </Link>
                             </div>
                           </div>
@@ -323,11 +319,10 @@ const CategoryPilot = () => {
                       <div className="BannerTitle" style={{ color: "#fecd0e" }}>
                         Not finding the perfect match?
                       </div>
-                      <Link legacyBehavior href="/find-drone-pilot">
-                        <a className="btn btnRegister">
-                          Click here to request a drone pilot in your area
-                          <i className="fas fa-arrow-right"></i>
-                        </a>
+                      <Link href="/find-drone-pilot" className="btn btnRegister">
+                        Click here to request a drone pilot in your area
+                                                  <i className="fas fa-arrow-right"></i>
+
                       </Link>
                     </div>
                   )}
@@ -341,13 +336,10 @@ const CategoryPilot = () => {
                         >
                           Not finding the perfect match?
                         </div>
-                        <Link legacyBehavior href="/find-drone-pilot">
-                          <a
-                            className="btn btnRegister"
-                          >
-                            Click here to request a drone pilot in your area
-                            <i className="fas fa-arrow-right"></i>
-                          </a>
+                        <Link href="/find-drone-pilot" className="btn btnRegister">
+                          Click here to request a drone pilot in your area
+                                                      <i className="fas fa-arrow-right"></i>
+
                         </Link>
                       </div>
                       <nav aria-label="Page navigation example">
@@ -423,8 +415,8 @@ const CategoryPilot = () => {
                     </div>
                   </div>
                 </div>
-                <Link legacyBehavior href="/registration">
-                  <a className="btn BtnGetStarted">Get Started</a>
+                <Link href="/registration" className="btn BtnGetStarted">
+                  Get Started
                 </Link>
                 <TrendingNews />
               </div>
@@ -432,11 +424,8 @@ const CategoryPilot = () => {
           </div>
         </div>
       </div>
-
       <div className="clearfix"></div>
-
       <GearReview />
-
       <div className="SignUpBox paddngtb signupBackground">
         <div className="container">
           <div className="row">

@@ -66,10 +66,6 @@ const EditProfile = () => {
     mobile: "",
   });
 
-  useEffect(() => {
-    getUserDetail();
-    dispatch(getDashboardAds("pilot-edit-profile"));
-  }, [getUserDetail, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -144,6 +140,10 @@ const EditProfile = () => {
       setLoading(false);
     }
   }, [userId, accessToken, setUserProfileImage]);
+  useEffect(() => {
+    getUserDetail();
+    dispatch(getDashboardAds("pilot-edit-profile"));
+  }, [getUserDetail, dispatch]);
 
   const profilePictureSelected = () => {
     if (profileInputRef.current.files.length) {
@@ -157,7 +157,7 @@ const EditProfile = () => {
 
   const handleFiles = async (files) => {
     const base64 = await convertBase64(files[0]);
-    console.log(base64);
+    
     setUserProfileImage(base64);
     /* if (props.onSetTeamImage) {
             props.onSetTeamImage(base64);
@@ -180,7 +180,7 @@ const EditProfile = () => {
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   const handleDeactivateAccount = () => {
-    console.log(userId);
+    
     dispatch(DeactivateAccount(userId));
   };
 
@@ -282,7 +282,7 @@ const EditProfile = () => {
           fields.state = location.state;
           fields.country = location.country;
 
-          console.log(fields);
+          
           await axios
             .post(`${SERVER_URL}/profile/update`, fields, {
               headers: {

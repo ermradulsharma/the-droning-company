@@ -235,32 +235,30 @@ const Article = (props) => {
                 />
             </Head>
             <div className="Banner d-none d-sm-block"></div>
-
             <div className="container">
                 <div className="row">
                     <nav aria-label="Breadcrumb navigation" role="navigation">
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item">
-                                <Link href="/" legacyBehavior>Home</Link>
+                                <Link href="/">Home</Link>
                             </li>
                             <li className="breadcrumb-item">
-                                <Link href="/news" legacyBehavior>Blogs</Link>
+                                <Link href="/news">Blogs</Link>
                             </li>
                             <li className="breadcrumb-item active" aria-current="page">
-                                <Link href={`/blog/Fravel-s-Footnote`} legacyBehavior>
-                                    <a>Fravel-s-Footnote</a>
+                                <Link href={`/blog/Fravel-s-Footnote`}>
+                                    Fravel-s-Footnote
                                 </Link>
                             </li>
                             <li className="breadcrumb-item active" aria-current="page">
-                                <Link href={`/blog/Fravel-s-Footnote/article`} legacyBehavior>
-                                    <a>Article</a>
+                                <Link href={`/blog/Fravel-s-Footnote/article`}>
+                                    Article
                                 </Link>
                             </li>
                         </ol>
                     </nav>
                 </div>
             </div>
-
             {getBlogDetailsPageAdsData_status === "loading" ||
                 getBlogDetailsPageAdsData_data === null ? (
                 <div className="row">
@@ -298,7 +296,6 @@ const Article = (props) => {
                     )}
                 </div>
             )}
-
             <div className="BlogMain paddngb">
                 <div className="container">
                     <div className="row">
@@ -317,7 +314,7 @@ const Article = (props) => {
                                         <div key={item?.title} className="col-12 col-md-6">
                                             <div className="ArticleDesc  mt-2">
                                                 <Image
-                                                    alt={item?.title}
+                                                    alt={(item?.title) || 'image'}
                                                     width={400}
                                                     height={400}
                                                     src={item?.image_full_path}
@@ -328,14 +325,10 @@ const Article = (props) => {
 
                                                 <p className="text-black"> {trancateStr(item?.description, 100)}</p>
 
-                                                <Link href={`/${item?.page_video_link}`} legacyBehavior>
-                                                    <a
-                                                        href={`/${item?.page_video_link}`}
-                                                        className="SeeMore"
-                                                    >
-                                                        Read More{" "}
-                                                        <i className="fas fa-long-arrow-alt-right"></i>
-                                                    </a>
+                                                <Link href={`/${item?.page_video_link}`} className="SeeMore">
+                                                    Read More{" "}
+                                                    <i className="fas fa-long-arrow-alt-right"></i>
+
                                                 </Link>
                                                 <hr />
                                             </div>
@@ -379,18 +372,14 @@ const Article = (props) => {
                                                                                     <Image
                                                                                         className="img-fluid"
                                                                                         src={blog.image}
-                                                                                        alt={parse(blog.title)}
+                                                                                        alt={(parse(blog.title)) || 'image'}
                                                                                         width={300}
                                                                                         height={200}
                                                                                     />
                                                                                 ) : null}
                                                                                 <h2 className="RelatedPostheading">
-                                                                                    <Link
-                                                                                        href={`/blog/${blog.slug}`}
-                                                                                        target="_self"
-                                                                                        legacyBehavior
-                                                                                    >
-                                                                                        <a>{parse(blog.title)}</a>
+                                                                                    <Link href={`/blog/${blog.slug}`} target="_self">
+                                                                                        {parse(blog.title)}
                                                                                     </Link>
                                                                                 </h2>
                                                                                 <p>
@@ -403,13 +392,8 @@ const Article = (props) => {
                                                                                         )
                                                                                         : ""}
                                                                                 </p>
-                                                                                <Link
-                                                                                    className="SeeMore"
-                                                                                    href={`/blog/${blog.slug}`}
-                                                                                    target="_self"
-                                                                                    legacyBehavior
-                                                                                >
-                                                                                    <a className="SeeMore">Read More</a>
+                                                                                <Link className="SeeMore" href={`/blog/${blog.slug}`} target="_self">
+                                                                                    Read More
                                                                                 </Link>
                                                                             </div>
                                                                         </div>
@@ -554,7 +538,6 @@ export async function getServerSideProps(context) {
                     currentUrl: currentURL,
                 },
             };
-        });
-}
+        }).catch(() => ({ notFound: true }));}
 
 export default Article;

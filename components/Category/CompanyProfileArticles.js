@@ -13,33 +13,38 @@ const CompanyProfileArticles = ({ title, articles }) => {
                 </div>
                 {
                     articles.map((blogPost, index) => {
-                        return <div className="BestarticleBox form-group" key={blogPost.id}>
-                            <div className="row">
-                                {
-                                    blogPost.image
-                                        ?
-                                        <div className="col-2 col-sm-2">
-                                            <Link href={`/blog/${blogPost.slug}`} legacyBehavior>
-                                                <a className="SeeMore">
-                                                    <Image className="img-fluid" src={blogPost.image} alt={blogPost.title} width={400} height={300} />
-                                                </a>
+                        return (
+                            <div className="BestarticleBox form-group" key={blogPost.id}>
+                                <div className="row">
+                                    {
+                                        blogPost.image
+                                            ?
+                                            <div className="col-2 col-sm-2">
+                                                <Link href={`/blog/${blogPost.slug}`} className="SeeMore">
+
+                                                    <Image className="img-fluid" src={blogPost.image || '/images/no-image.png'} alt={(blogPost.title) || 'image'} width={400} height={300} />
+
+                                                </Link>
+                                            </div>
+                                            :
+                                            null
+                                    }
+
+                                    <div className={`${blogPost.image ? 'col-10 col-sm-10' : 'col-12 col-sm-12'} `}>
+                                        <div className="ArticleDesc">
+                                            <div className="ArticleDescH">{blogPost.title}</div>
+                                            <p>{blogPost.excerpt}</p>
+                                            <Link
+                                                href={`/blog/${blogPost.slug}`}
+                                                className="BtnSearch"
+                                                style={{ padding: "4px 15px", borderRadius: "4px", height: "auto" }}>
+                                                Read More
                                             </Link>
                                         </div>
-                                        :
-                                        null
-                                }
-
-                                <div className={`${blogPost.image ? 'col-10 col-sm-10' : 'col-12 col-sm-12'} `}>
-                                    <div className="ArticleDesc">
-                                        <div className="ArticleDescH">{blogPost.title}</div>
-                                        <p>{blogPost.excerpt}</p>
-                                        <Link href={`/blog/${blogPost.slug}`} legacyBehavior>
-                                            <a className="BtnSearch" style={{ padding: "4px 15px", borderRadius: "4px", height: "auto" }}>Read More</a>
-                                        </Link>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        );
                     })
                 }
             </div>

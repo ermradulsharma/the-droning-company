@@ -38,14 +38,6 @@ const JobList = () => {
     getJobPageAdsData_error,
   } = useSelector((state) => state?.home ?? {});
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo(0, 0);
-    }
-    getJobs();
-    dispatch(getJobPageAdsData());
-    //getPilotSkills();
-  }, [currentPage, jobLocation]);
 
   const getJobs = async () => {
     setLoading(true);
@@ -58,7 +50,7 @@ const JobList = () => {
       )
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          
           if (response.statusCode === 200) {
             setJobs(response.data);
             setPerPageCount(4);
@@ -82,7 +74,7 @@ const JobList = () => {
             })
                 .then((res) => res.json())
                 .then((response) => {
-                    console.log(response);
+                    
                     if (response.statusCode === 200) {
                         setSkillCategories(response.data);
                     }                    
@@ -110,7 +102,7 @@ const JobList = () => {
   };
 
   const jobLocationSelectHandler = (location) => {
-    console.log(location);
+    
     if (!location) {
       setJobLocation("");
     }
@@ -142,6 +134,14 @@ const JobList = () => {
   };
 
   const [topbannerIndex, setTopbannerIndex] = useState(0);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
+    getJobs();
+    dispatch(getJobPageAdsData());
+    //getPilotSkills();
+  }, [currentPage, jobLocation]);
   const [bottombannerIndex, setBottombannerIndex] = useState(0);
   const [above_footer_bannerIndex, setAbove_footer_bannerIndex] = useState(0);
   const [above_gear_reviews_index, setabove_gear_reviews_index] = useState(0);
@@ -232,7 +232,6 @@ const JobList = () => {
           </div>
         </div>
       </div>
-
       <div className="FilterArea">
         <div className="container">
           <div className="row">
@@ -247,7 +246,6 @@ const JobList = () => {
           </div>
         </div>
       </div>
-
       <div className="FeatruedPilotArea">
         <div className="container">
           <div className="row">
@@ -379,8 +377,8 @@ const JobList = () => {
                     </div>
                   </div>
                 </div>
-                <Link href="/registration">
-                  <a className="btn BtnGetStarted">Get Started</a>
+                <Link href="/registration" className="btn BtnGetStarted">
+                  Get Started
                 </Link>
                 <TrendingNews />
               </div>
@@ -388,7 +386,6 @@ const JobList = () => {
           </div>
         </div>
       </div>
-
       <div className="clearfix"></div>
       {getJobPageAdsData_status === "loading" ||
         getJobPageAdsData_data === null ? (
@@ -427,7 +424,6 @@ const JobList = () => {
           )}
         </div>
       )}
-
       <GearReview>
         {getJobPageAdsData_status === "loading" ||
           getJobPageAdsData_data === null ? (
@@ -467,7 +463,6 @@ const JobList = () => {
           </div>
         )}
       </GearReview>
-
       {getJobPageAdsData_status === "loading" ||
         getJobPageAdsData_data === null ? (
         <div className="row">
@@ -505,7 +500,6 @@ const JobList = () => {
           )}
         </div>
       )}
-
       <div className="SignUpBox paddngtb signupBackground">
         <div className="container">
           <div className="row">

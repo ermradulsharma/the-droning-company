@@ -14,24 +14,26 @@ const BlogCategories = () => {
                 if (response.statusCode === 200) {
                     setblogCategories(response.data);
                 }
-            });
+            })
+            .catch(() => console.warn("API Fetch Error (backend offline)"));
     }, []);
 
     return (
-
         <ul id="blog-cat">
             {
                 blogCategories.map((category, index) => {
-                    return <li key={`categories-${index}`} className="cat-item cat-item-16 paddingBottomBlogCat">
-                        <Link href={`/news/categories/${category.slug}`} title={category.title} legacyBehavior>
-                            <a>{category.title}</a>
-                        </Link>
-                        {/* ({category.post_count}) */}
-                    </li>
+                    return (
+                        <li key={`categories-${index}`} className="cat-item cat-item-16 paddingBottomBlogCat">
+                            <Link href={`/news/categories/${category.slug}`} title={category.title}>
+                                {category.title}
+                            </Link>
+                            {/* ({category.post_count}) */}
+                        </li>
+                    );
                 })
             }
         </ul>
-    )
+    );
 }
 
 export default BlogCategories;

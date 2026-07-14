@@ -49,11 +49,9 @@ const ArticleModal = ({ open, handleClose, _data }) => {
               return (
                 <div key={item?.title} className="ArticleDesc mt-2">
                   <div className="ArticleDescH fixHeight">{item.title}</div>
+                  <Link href={`/${item?.page_video_link}`} className="SeeMore">
+                    Read More <i className="fas fa-long-arrow-alt-right"></i>
 
-                  <Link href={`/${item?.page_video_link}`} legacyBehavior>
-                    <a href={`/${item?.page_video_link}`} className="SeeMore">
-                      Read More <i className="fas fa-long-arrow-alt-right"></i>
-                    </a>
                   </Link>
                   <hr />
                 </div>

@@ -60,7 +60,7 @@ const VerifyEmail = ({ match }) => {
           }
         });
     } catch (error) {
-      console.log(error);
+      
     }
   };
 
@@ -69,7 +69,6 @@ const VerifyEmail = ({ match }) => {
   }, [])
   return (
     <div className="SignupForm paddngtb">
-
       <div className="container">
         <div className="row no-gutters row-item">
           <div className="offset-sm-2 col-sm-8 col-item">
@@ -107,8 +106,8 @@ const VerifyEmail = ({ match }) => {
                         </h2>
 
                         <center>
-                          <Link href={`${userType.id === 3 ? "/pilot-area/dashboard" : (userType.id === 4 ? "/company-area/dashboard" : (userType.id === 5 ? "/event/submit-event" : "/user/dashboard"))}`}>
-                            <a className="btn btnRegister" href={`${userType.id === 3 ? "/pilot-area/dashboard" : (userType.id === 4 ? "/company-area/dashboard" : (userType.id === 5 ? "/event/submit-event" : "/user/dashboard"))}`}>{(userType.id === 5 ? "Submit Event" : "Go To Dashboard")}</a>
+                          <Link href={`${userType.id === 3 ? "/pilot-area/dashboard" : (userType.id === 4 ? "/company-area/dashboard" : (userType.id === 5 ? "/event/submit-event" : "/user/dashboard"))}`} className="btn btnRegister">
+                            {(userType.id === 5 ? "Submit Event" : "Go To Dashboard")}
                           </Link>
                         </center>
                       </div>
@@ -125,15 +124,12 @@ const VerifyEmail = ({ match }) => {
                         </h2>
 
                         <center>
-                          <Link
-                            href="/login"
+                          <Link href="/login"
+                            className="btn btnRegister"
                           >
-                            <a
-                              className="btn btnRegister"
-
-                            >
+                            
                               Log in
-                            </a>
+                            
                           </Link>
                         </center>
                       </div>

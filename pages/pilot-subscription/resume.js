@@ -26,7 +26,7 @@ const ResumeSubscription = () => {
             }
         })
         .then((response)=>{      
-            console.log(response.data);      
+                  
             hideToast();
             if (response.status === 200) {
                 showToastSuccess('Your subscription has been resumed successfully');
@@ -37,7 +37,7 @@ const ResumeSubscription = () => {
         .catch((error)=>{
             hideToast();
             showToastError(error.response.data.message)     
-            console.log(error.response);
+            
         })
     }
 

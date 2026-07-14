@@ -16,13 +16,6 @@ const CmsPage = (props) => {
     const [metaKeyword, setMetaKeyword] = useState(props.metaKeyword);
     const [metaDescription, setMetaDescription] = useState(props.metaDescription);
 
-    useEffect(() => {      
-        setLoading(true);
-        if (typeof window !== 'undefined') {
-          window.scrollTo(0, 0);
-        }
-        getPageDetail();
-      }, [pageName]);
 
     const getPageDetail = async() => {
         try {
@@ -38,11 +31,18 @@ const CmsPage = (props) => {
                   setMetaKeyword(response.data[0].hasOwnProperty('meta_keywords') ? response.data[0].meta_keywords : '');
                   setMetaDescription(response.data[0].hasOwnProperty('meta_description') ? response.data[0].meta_description : '');
               }
-          });
+          }).catch(() => console.warn('API Offline'));
         } catch (error) {
             setLoading(false);
         }
     }
+    useEffect(() => {      
+        setLoading(true);
+        if (typeof window !== 'undefined') {
+          window.scrollTo(0, 0);
+        }
+        getPageDetail();
+      }, [pageName]);
 
     if (props.errorCode) {
         return <Error statusCode={'404'} />
@@ -141,6 +141,5 @@ export async function getServerSideProps(context) {
           }
         }
       }
-    });
-  }
+    }).catch(() => ({ notFound: true }));}
 export default CmsPage;

@@ -12,7 +12,7 @@ export const DeactivateAccount = createAsyncThunk(
       );
       return res?.data;
     } catch (e) {
-      console.log(e);
+      
     }
   }
 );

@@ -48,7 +48,7 @@ const Blog = (props) => {
       })
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          
           if (response.statusCode === 200) {
             setBlogPosts(response.data.data);
             setPerPageCount(response.data.per_page);
@@ -446,6 +446,15 @@ export async function getServerSideProps(context) {
           },
         };
       }
+    })
+    .catch(() => {
+        return {
+          props: {
+            blogPosts: [],
+            perPageCount: "",
+            totalPostCount: "",
+          },
+        };
     });
 }
 export default Blog;

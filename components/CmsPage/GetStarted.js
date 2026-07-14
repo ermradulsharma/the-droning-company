@@ -6,14 +6,14 @@ import Image from "next/image";
 const GetStarted = () => {
 
 	return (
-		<Aux>
-			<div className="MainHeading">
+        <Aux>
+            <div className="MainHeading">
 				<h1>Meet the best Pilots for your needs and budget</h1>
 				<p>We&apos;re about Quality and Trust.</p>
 				<br />
 				<br />
 			</div>
-			<div className="row text-center">
+            <div className="row text-center">
 				<div className="col-sm-4">
 					<div className="row BestPilotBox">
 						<div className="col-12 col-sm-12">
@@ -54,11 +54,11 @@ const GetStarted = () => {
 					</div>
 				</div>
 			</div>
-			<div className="text-center autoWidthBtn">
-				<Link href="/registration" legacyBehavior><a className="btn BtnGetStarted" title="Get Started">Get Started</a></Link>
+            <div className="text-center autoWidthBtn">
+				<Link href="/registration" className="btn BtnGetStarted" title="Get Started">Get Started</Link>
 			</div>
-		</Aux>
-	);
+        </Aux>
+    );
 };
 
 export default GetStarted;

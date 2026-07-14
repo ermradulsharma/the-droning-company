@@ -97,7 +97,7 @@ const UserRegistration = () => {
 												history.push('/registration/user-registration-successfull');
 											})
 											.catch((error) => {
-												console.log(error.response);
+												
 												hideToast();
 												showToastError(error.response.data.message)
 												setLoading(false);

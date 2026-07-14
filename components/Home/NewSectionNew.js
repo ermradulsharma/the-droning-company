@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Link from "next/link";
 import Loader from "../Common/Loader";
 import parse from "html-react-parser";
@@ -33,7 +33,7 @@ const NewSection = () => {
         })
         .catch((error) => {
           setLoadingNews(false);
-          console.error("Error fetching news:", error);
+          console.warn("Failed to fetch news (is backend running?)");
         });
     } catch (error) {
       setLoadingNews(false);
@@ -89,27 +89,25 @@ const NewSection = () => {
                     </div>
                   </div>
                 ) : null}
-                <Link legacyBehavior href={`/blog/${news.category_1_title_slug}`}>
-                  <a href={`/blog/${news.category_1_title_slug}`}>
-                    {/* <img
-                      className="img-fluid"
-                      src={news.category_1_image}
-                      alt="Trending News"
+                <Link href={`/blog/${news.category_1_title_slug}`}>
+
+                  {/* <img
+                    className="img-fluid"
+                    src={news.category_1_image}
+                    alt="Trending News"
+                    onLoad={() => setLoadingImage(false)}
+                  /> */}
+                  {news.category_1_image ? (
+                    <Image
+                      src={getImageSrc(news.category_1_image)}
+                      alt="Picture of the author"
                       onLoad={() => setLoadingImage(false)}
-                    /> */}
+                      width={562}
+                      height={400}
+                      priority={true}
+                    />
+                  ) : null}
 
-                    {news.category_1_image ? (
-                      <Image
-                        src={`${MEDIA_BASE_URL}/${getCleanImageUrl(news.category_1_image)}`}
-                        alt="Picture of the author"
-                        onLoad={() => setLoadingImage(false)}
-                        width={562}
-                        height={400}
-                        priority={true}
-                      />
-                    ) : null}
-
-                  </a>
                 </Link>
 
                 <div className="ArticleDesc">
@@ -119,13 +117,9 @@ const NewSection = () => {
                   <p className="fixHeight">
                     {news.category_1_short_descrption}
                   </p>
-                  <Link legacyBehavior href={`/blog/${news.category_1_title_slug}`}>
-                    <a
-                      href={`/blog/${news.category_1_title_slug}`}
-                      className="SeeMore"
-                    >
-                      Read More <i className="fas fa-long-arrow-alt-right"></i>
-                    </a>
+                  <Link href={`/blog/${news.category_1_title_slug}`} className="SeeMore">
+                    Read More <i className="fas fa-long-arrow-alt-right"></i>
+
                   </Link>
                 </div>
               </div>
@@ -160,9 +154,9 @@ const NewSection = () => {
 
                           {blog_new.image ? (
                             <Image
-                              src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new.image)}`}
+                              src={getImageSrc(blog_new.image)}
                               className="img-fluid"
-                              alt={blog_new.title}
+                              alt={(blog_new.title) || 'image'}
                               onLoad={() => setLoadingImage(false)}
                               width={180}
                               height={180}
@@ -182,14 +176,10 @@ const NewSection = () => {
                           {blog_new.excerpt ? (
                             <p>{parse(blog_new.excerpt)}</p>
                           ) : null}
-                          <Link legacyBehavior href={`/blog/${blog_new.slug}`}>
-                            <a
-                              href={`/blog/${blog_new.slug}`}
-                              className="SeeMore"
-                            >
-                              Read More{" "}
-                              <i className="fas fa-long-arrow-alt-right"></i>
-                            </a>
+                          <Link href={`/blog/${blog_new.slug}`} className="SeeMore">
+                            Read More{" "}
+                            <i className="fas fa-long-arrow-alt-right"></i>
+
                           </Link>
                         </div>
                       </div>
@@ -224,26 +214,25 @@ const NewSection = () => {
                     </div>
                   </div>
                 ) : null}
-                <Link legacyBehavior href={`/blog/${news.category_2_title_slug}`}>
-                  <a href={`/blog/${news.category_2_title_slug}`}>
-                    {/* <img
-                      className="img-fluid"
-                      src={news.category_2_image}
-                      onLoad={() => setLoadingImage(false)}
-                      alt="Video Reel of the Week"
-                    /> */}
+                <Link href={`/blog/${news.category_2_title_slug}`}>
 
-                    {news.category_2_image ? (
-                      <Image
-                        src={`${MEDIA_BASE_URL}/${getCleanImageUrl(news.category_2_image)}`}
-                        alt="Video Reel of the Week"
-                        onLoad={() => setLoadingImage(false)}
-                        width={562}
-                        height={400}
-                        priority={true}
-                      />
-                    ) : null}
-                  </a>
+                  {/* <img
+                    className="img-fluid"
+                    src={news.category_2_image}
+                    onLoad={() => setLoadingImage(false)}
+                    alt="Video Reel of the Week"
+                  /> */}
+                  {news.category_2_image ? (
+                    <Image
+                      src={getImageSrc(news.category_2_image)}
+                      alt="Video Reel of the Week"
+                      onLoad={() => setLoadingImage(false)}
+                      width={562}
+                      height={400}
+                      priority={true}
+                    />
+                  ) : null}
+
                 </Link>
 
                 <div className="ArticleDesc">
@@ -253,13 +242,9 @@ const NewSection = () => {
                   <p className="fixHeight">
                     {news.category_2_short_descrption}{" "}
                   </p>
-                  <Link legacyBehavior href={`/blog/${news.category_2_title_slug}`}>
-                    <a
-                      href={`/blog/${news.category_2_title_slug}`}
-                      className="SeeMore"
-                    >
-                      Read More <i className="fas fa-long-arrow-alt-right"></i>
-                    </a>
+                  <Link href={`/blog/${news.category_2_title_slug}`} className="SeeMore">
+                    Read More <i className="fas fa-long-arrow-alt-right"></i>
+
                   </Link>
                 </div>
               </div>
@@ -297,9 +282,9 @@ const NewSection = () => {
 
                           {blog_new_2.image ? (
                             <Image
-                              src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new_2.image)}`}
+                              src={getImageSrc(blog_new_2.image)}
                               className="img-fluid"
-                              alt={blog_new_2.title}
+                              alt={(blog_new_2.title) || 'image'}
                               onLoad={() => setLoadingImage(false)}
                               width={180}
                               height={180}
@@ -321,14 +306,10 @@ const NewSection = () => {
                           {blog_new_2.excerpt ? (
                             <p>{parse(blog_new_2.excerpt)}</p>
                           ) : null}
-                          <Link legacyBehavior href={`/blog/${blog_new_2.slug}`}>
-                            <a
-                              href={`/blog/${blog_new_2.slug}`}
-                              className="SeeMore"
-                            >
-                              Read More{" "}
-                              <i className="fas fa-long-arrow-alt-right"></i>
-                            </a>
+                          <Link href={`/blog/${blog_new_2.slug}`} className="SeeMore">
+                            Read More{" "}
+                            <i className="fas fa-long-arrow-alt-right"></i>
+
                           </Link>
                         </div>
                       </div>

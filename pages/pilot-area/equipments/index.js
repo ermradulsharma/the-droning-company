@@ -32,10 +32,6 @@ const Equipment = () => {
   });
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getAllEquipments();
-    dispatch(getDashboardAds("pilot-my-equipment"));
-  }, [getAllEquipments, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -104,13 +100,17 @@ const Equipment = () => {
         .then((res) => res.json())
         .then((response) => {
           setFullPageLoading(false);
-          console.log(response);
+          
           setEquipments(response.data);
         });
     } catch (error) {
       setFullPageLoading(false);
     }
   }, [userId, accessToken]);
+  useEffect(() => {
+    getAllEquipments();
+    dispatch(getDashboardAds("pilot-my-equipment"));
+  }, [getAllEquipments, dispatch]);
 
   const dragOver = (e) => {
     e.preventDefault();
@@ -145,7 +145,7 @@ const Equipment = () => {
     let isAllFilesValid = true;
     for (let i = 0; i < files.length; i++) {
       if (!validateFile(files[i])) {
-        console.log(files[i]);
+        
         showToastError(`file type not permitted`);
         isAllFilesValid = false;
         break;
@@ -212,11 +212,11 @@ const Equipment = () => {
           })
           .catch((error) => {
             setFullPageLoading(false);
-            console.log(error);
+            
           });
       })
       .catch(() => {
-        console.log("not deleted");
+        
       });
   };
 
@@ -331,7 +331,7 @@ const Equipment = () => {
                                 },
                               })
                               .then((response) => {
-                                console.log(response.data);
+                                
                                 resetForm();
                                 hideToast();
                                 setEquipmentImage(null);
@@ -583,7 +583,7 @@ const Equipment = () => {
                                         className="img-fluid"
                                         style={{ maxHeight: "200px" }}
                                         src={equipment.image}
-                                        alt={equipment.title}
+                                        alt={(equipment.title) || 'image'}
                                         width={300}
                                         height={200}
                                       />

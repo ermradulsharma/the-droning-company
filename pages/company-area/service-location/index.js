@@ -28,10 +28,6 @@ const ServiceLocation = () => {
   const confirm = useConfirm();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getServiceLocationsDetail();
-    dispatch(getDashboardAds("pilot-service-locations"));
-  }, [getServiceLocationsDetail, dispatch]);
 
   const {
     getDashboardAds_status,
@@ -104,6 +100,10 @@ const ServiceLocation = () => {
       setFullPageLoading(false);
     }
   }, [userId, accessToken]);
+  useEffect(() => {
+    getServiceLocationsDetail();
+    dispatch(getDashboardAds("pilot-service-locations"));
+  }, [getServiceLocationsDetail, dispatch]);
 
   const getServiceLocationsDetailAfterAdd = useCallback(async () => {
     settableLoading(true);
@@ -148,11 +148,11 @@ const ServiceLocation = () => {
           })
           .catch((error) => {
             setFullPageLoading(false);
-            console.log(error);
+            
           });
       })
       .catch(() => {
-        console.log("not deleted");
+        
       });
   };
 

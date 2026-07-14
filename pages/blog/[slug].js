@@ -7,7 +7,7 @@ import BlogRecent from "../../components/Blog/BlogRecent";
 import FeaturePilot from "../../components/Blog/FeaturePilot";
 import BlogCategories from "../../components/Blog/BlogCategories";
 import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Loader from "@/components/Common/Loader";
 import SEO from "../../components/Seo/Seo";
 import Head from "next/head";
@@ -240,7 +240,6 @@ const BlogDetail = (props) => {
         />
       </Head>
       <div className="Banner d-none d-sm-block"></div>
-
       {blogDetailData?.length > 0 || Object.keys(blogDetailData)?.length ? (
         <div className="container">
           <div className="row">
@@ -253,8 +252,8 @@ const BlogDetail = (props) => {
                   <Link href="/news">Blogs</Link>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
-                  <Link href={`/blog/${slug}`} legacyBehavior>
-                    <a>{blogDetailData?.title}</a>
+                  <Link href={`/blog/${slug}`}>
+                    {blogDetailData?.title}
                   </Link>
                 </li>
               </ol>
@@ -264,7 +263,6 @@ const BlogDetail = (props) => {
       ) : (
         ""
       )}
-
       <div className="BlogMain paddngb">
         <div className="container">
           <div className="row">
@@ -363,7 +361,7 @@ const BlogDetail = (props) => {
                             <div className="TdMediaBox">
                               <img
                                 className="img-fluid"
-                                src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blogDetailData.image)}`}
+                                src={getImageSrc(blogDetailData.image)}
                                 alt="post1"
                               />{" "}
                               <hr />
@@ -483,8 +481,8 @@ const BlogDetail = (props) => {
                                           {blog.image ? (
                                             <img
                                               className="img-fluid"
-                                              src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog.image)}`}
-                                              alt={parse(blog.title)}
+                                              src={getImageSrc(blog.image)}
+                                              alt={(parse(blog.title)) || 'image'}
                                             />
                                           ) : null}
                                           <h2 className="RelatedPostheading">
@@ -715,7 +713,6 @@ export async function getServerSideProps(context) {
               : "normal",
         },
       };
-    });
-}
+    }).catch(() => ({ notFound: true }));}
 
 export default BlogDetail;

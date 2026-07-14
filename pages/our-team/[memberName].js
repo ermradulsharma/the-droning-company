@@ -18,13 +18,6 @@ const CmsTeam = (props) => {
   const [metaKeyword, setMetaKeyword] = useState(props.metaKeyword);
   const [metaDescription, setMetaDescription] = useState(props.metaDescription);
 
-  useEffect(() => {
-    setLoading(true);
-    if (typeof window !== 'undefined') {
-      window.scrollTo(0, 0);
-    }
-    getOurTeam();
-  }, [memberName]);
 
   const getOurTeam = async () => {
     try {
@@ -45,6 +38,13 @@ const CmsTeam = (props) => {
       setLoading(false);
     }
   }
+  useEffect(() => {
+    setLoading(true);
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+    getOurTeam();
+  }, [memberName]);
   return (
     <Aux>
       {
@@ -94,7 +94,7 @@ const CmsTeam = (props) => {
                           <p className="profile-email">
                             <strong style={{ color: "#000" }}>
                               <Link href={`mailto:${memberDetail.email}`}>
-                                <a href={`mailto:${memberDetail.email}`}>  <i className="fas fa-envelope-open-text"></i> {memberDetail.email}</a>
+                                  <i className="fas fa-envelope-open-text"></i> {memberDetail.email}
                               </Link>
                             </strong>
                           </p>
@@ -191,6 +191,5 @@ export async function getServerSideProps(context) {
           }
         }
       }
-    });
-}
+    }).catch(() => ({ notFound: true }));}
 export default CmsTeam;

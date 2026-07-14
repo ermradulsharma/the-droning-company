@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Link from "next/link";
 import Image from "next/image";
 import Loader from "@/components/Common/Loader";
@@ -27,7 +27,7 @@ const RecentEventsBlock = ({ limit = 3, skip = 0 }) => {
                 })
                 .catch((error) => {
                     setLoadingEvents(false);
-                    console.error("Error fetching recent events:", error);
+                    console.warn("API Fetch Error (backend offline)");
                 });
         } catch (error) {
             setLoadingEvents(false);
@@ -54,17 +54,17 @@ const RecentEventsBlock = ({ limit = 3, skip = 0 }) => {
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <Link href={`/event/${event.slug}`} legacyBehavior>
-                                                <a href={`/event/${event.slug}`}>
-                                                    <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(event.image ? event.image : '/images/no-image.png')}`} alt={event.title} width={200} height={150} />
-                                                </a>
+                                            <Link href={`/event/${event.slug}`}>
+
+                                                <Image className="img-fluid" src={getImageSrc(event.image ? event.image : '/images/no-image.png')} alt={(event.title) || 'image'} width={200} height={150} />
+
                                             </Link>
                                         </div>
                                         <div className="col-md-9">
                                             <h4>{event.title}</h4>
                                             <div className="event-date"><i className="fas fa-calendar"></i> {event.event_start} - {event.event_end}</div>
                                             <div className="event-address"><i className="fas fa-map-marker-alt"></i> {event.location}</div>
-                                            <div className="event-button"><Link href={`/event/${event.slug}`} legacyBehavior><a className="btn btn-sm btn-warning">READ MORE</a></Link></div>
+                                            <div className="event-button"><Link href={`/event/${event.slug}`} className="btn btn-sm btn-warning">READ MORE</Link></div>
                                         </div>
                                     </div>
                                 </div>
@@ -73,9 +73,7 @@ const RecentEventsBlock = ({ limit = 3, skip = 0 }) => {
                     })
                 )
             }
-
-            <div><Link href="/events" legacyBehavior><a className="btn BtnSearch w-100">Show All Events</a></Link></div>
-
+            <div><Link href="/events" className="btn BtnSearch w-100">Show All Events</Link></div>
         </div>
     );
 }

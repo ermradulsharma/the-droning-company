@@ -88,15 +88,14 @@ const ChangePassword = () => {
         position={above_title2_positon}
         index={above_title2_index}
       />
-
       <div className="d-sm-flex align-items-center justify-content-between mb-4 DashHeading">
         <h2 className="h2 mb-0 text-black">
           <i className="far fa-arrow-alt-circle-right"></i> Settings
         </h2>
-        <Link href="/user/create-job" legacyBehavior>
-          <a className="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i className="fas fa-plus fa-sm text-white-50"></i> Create a Job
-          </a>
+        <Link href="/user/create-job" className="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+
+          <i className="fas fa-plus fa-sm text-white-50"></i>Create a Job
+                    
         </Link>
       </div>
       <Formik

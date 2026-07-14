@@ -40,10 +40,6 @@ const BlogCategoryDetail = (props) => {
   } = useSelector((state) => state?.home ?? {});
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getBlogPostsByCategory();
-    dispatch(getNewsPageAdsData());
-  }, [slug, currentPage]);
 
 
   const [topbannerIndex, setTopbannerIndex] = useState(0);
@@ -181,6 +177,10 @@ const BlogCategoryDetail = (props) => {
       );
     }
   }, [getNewsPageAdsData_data]);
+  useEffect(() => {
+    getBlogPostsByCategory();
+    dispatch(getNewsPageAdsData());
+  }, [slug, currentPage]);
 
   return (
     <Aux>
@@ -499,7 +499,7 @@ export async function getServerSideProps(context) {
   })
     .then((res) => res.json())
     .then((response) => {
-      console.log(response);
+      
       if (response.statusCode === 200) {
         return {
           props: {
@@ -517,6 +517,5 @@ export async function getServerSideProps(context) {
           }
         }
       }
-    });
-}
+    }).catch(() => ({ notFound: true }));}
 export default BlogCategoryDetail;

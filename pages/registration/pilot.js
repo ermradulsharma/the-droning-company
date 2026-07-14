@@ -92,7 +92,7 @@ const PilotRegistration = () => {
 									.then((response) => {
 										hideToast();
 										showToastSuccess('Thank you for your Registration!');
-										console.log(response.data);
+										
 										const encodedString = Buffer.from(`${fields.email}:${fields.password}`).toString('base64');
 										let tempData = {
 											userId: response.data.data.id,
@@ -108,7 +108,7 @@ const PilotRegistration = () => {
 										history.push('/pilot-subscription');
 									})
 									.catch((error) => {
-										console.log(error.response);
+										
 										hideToast();
 										showToastError(error.response.data.message)
 										setLoading(false);

@@ -17,7 +17,8 @@ const UpcomingEvents = ({ limit = 3, skip = 0 }) => {
         if (response.statusCode === 200) {
           setRecentBlogPostData(response.data);
         }
-      });
+      })
+      .catch(() => console.warn("API Fetch Error (backend offline)"));
   }, [limit, skip]);
 
   // if layout= footnote dont show fabel footnote titile ,
@@ -37,15 +38,15 @@ const UpcomingEvents = ({ limit = 3, skip = 0 }) => {
                   {event.image ? (
                     <div className="TdImageTextWidgetImage">
                       <Link href={`/event/${event.slug}`}>
-                        <a href={`/event/${event.slug}`}>
-                          <Image
-                            width={160}
-                            height={160}
-                            src={`${MEDIA_BASE_URL}/${getCleanImageUrl(event.image)}`}
-                            className="img-fluid"
-                            alt={event.title}
-                          />
-                        </a>
+
+                        <Image
+                          width={160}
+                          height={160}
+                          src={`${MEDIA_BASE_URL}/${getCleanImageUrl(event.image)}`}
+                          className="img-fluid"
+                          alt={(event.title) || 'image'}
+                        />
+
                       </Link>
                     </div>
                   ) : null}

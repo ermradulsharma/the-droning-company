@@ -17,10 +17,6 @@ const JobDetail = ({ match, location }) => {
     const { accessToken } = useAuthContext();
     const { backgroundStatusColor } = useCommonFunctionContext();
 
-    useEffect(() => {
-        getJobtDetail()
-    }, [getJobtDetail]);
-
     const getJobtDetail = useCallback(async () => {
         try {
             await fetch(`${SERVER_URL}/job/show/${jobId}`, {
@@ -33,16 +29,21 @@ const JobDetail = ({ match, location }) => {
             })
                 .then((res) => res.json())
                 .then((response) => {
-                    console.log(response);
+                    
                     setLoading(false);
                     if (response.statusCode === 200) {
                         setJobDetailData(response.data);
                     }
-                });
+                })
+                .catch(() => console.warn("API Error"));
         } catch (error) {
             setLoading(false);
         }
     }, [jobId, accessToken]);
+
+    useEffect(() => {
+        getJobtDetail()
+    }, [getJobtDetail]);
 
     return (
         <div className="container-fluid JobDetailsProgressTracking">
@@ -117,8 +118,11 @@ const JobDetail = ({ match, location }) => {
 
                                                 </ul>
 
-                                                <Link href="/user/jobs" legacyBehavior><a className="btn btn-dark btn-sm">Go Back to Jobs</a></Link>
-                                                <Link href={`/user/edit-job/${jobDetailData.id}`} legacyBehavior><a className="btn btn-dark btn-sm" style={{ marginLeft: '10px' }}>Edit Job</a></Link>
+                                                <Link href="/user/jobs" className="btn btn-dark btn-sm">Go Back to Jobs</Link>
+                                                <Link
+                                                    href={`/user/edit-job/${jobDetailData.id}`}
+                                                    className="btn btn-dark btn-sm"
+                                                    style={{ marginLeft: '10px' }}>Edit Job</Link>
                                                 <br /><br />
                                             </div>
 
@@ -137,7 +141,7 @@ const JobDetail = ({ match, location }) => {
                     </Aux>
             }
         </div>
-    )
+    );
 }
 
 export default JobDetail;

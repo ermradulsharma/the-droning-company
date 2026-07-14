@@ -11,7 +11,7 @@ export const Verify_Email = createAsyncThunk('verifyEmail', async (token) => {
         });
         return await response.json();
     } catch (e) {
-        console.log(e);
+        
     }
 
 })

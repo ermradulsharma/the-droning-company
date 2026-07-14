@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MEDIA_BASE_URL, SERVER_URL } from "../../util/Constants";
-import { getCleanImageUrl } from "../../util/utils";
+import { getCleanImageUrl, getImageSrc } from "../../util/utils";
 import Link from "next/link";
 import Image from "next/image";
 import Loader from "@/components/Common/Loader";
@@ -20,11 +20,15 @@ const ThreeNewsBlock = ({ category, limit }) => {
       })
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          
           setLoadingNews(false);
           if (response.statusCode === 200) {
             setNews(response.data);
           }
+        })
+        .catch((err) => {
+          setLoadingNews(false);
+          console.warn("Failed to fetch three news block (is backend running?)");
         });
     } catch (error) {
       setLoadingNews(false);
@@ -55,19 +59,15 @@ const ThreeNewsBlock = ({ category, limit }) => {
                 <div className="col-sm-4" key={`blog-new-${index}`}>
                   <div className="ArticleInn">
                     <div className="ArticleDesc">
-                      <Image className="img-fluid" src={`${MEDIA_BASE_URL}/${getCleanImageUrl(blog_new.image)}`} alt={blog_new.title} width={400} height={250} />
+                      <Image className="img-fluid" src={getImageSrc(blog_new.image)} alt={(blog_new.title) || 'image'} width={400} height={250} />
                       <div className="ArticleDescH">{blog_new.title}</div>
                       {blog_new.excerpt ? (
                         <p>{parse(blog_new.excerpt.substring(0, 40).concat('...'))}</p>
                       ) : null}
-                      <Link href={`/blog/${blog_new.slug}`} legacyBehavior>
-                        <a
-                          href={`/blog/${blog_new.slug}`}
-                          className="SeeMore"
-                        >
-                          Read More{" "}
-                          <i className="fas fa-long-arrow-alt-right"></i>
-                        </a>
+                      <Link href={`/blog/${blog_new.slug}`} className="SeeMore">
+                        Read More{" "}
+                        <i className="fas fa-long-arrow-alt-right"></i>
+
                       </Link>
                     </div>
 

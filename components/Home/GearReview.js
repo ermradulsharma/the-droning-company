@@ -18,9 +18,13 @@ const GearReview = () => {
                 if (response.statusCode === 200) {
                     setgearReviewData(response.data);
                 }
+            })
+            .catch((err) => {
+                setLoadingReviews(false);
+                console.warn("Failed to fetch gear reviews (is backend running?)");
             });
         } catch (error) {
-            console.log(error);
+            
             setLoadingReviews(false);
         }
         

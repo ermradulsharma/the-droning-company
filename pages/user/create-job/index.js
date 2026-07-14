@@ -19,21 +19,6 @@ const CreateJob = () => {
     const [isAnywhereLocation, setAnywhereLocation] = useState(false);
     let history = useRouter();
 
-    useEffect(() => {
-        getSkillCategories();
-    }, [getSkillCategories]);
-    const validateFile = (file) => {
-        console.log(file);
-        const validTypes = [
-            'text/csv',
-            'application/vnd.ms-excel',
-            'image/png',
-            'image/jpeg',
-            'application/pdf'
-        ];
-        return validTypes.includes(file.type) && file.size > 0;
-    }
-
     const getSkillCategories = useCallback(async () => {
         try {
             await fetch(`${SERVER_URL}/skill-categories`, {
@@ -44,11 +29,25 @@ const CreateJob = () => {
                     if (response.statusCode === 200) {
                         setSkillCategories(response.data);
                     }
-                });
+                })
+                .catch(() => console.warn("API Error"));
         } catch (error) {
         }
     }, []);
 
+    useEffect(() => {
+        getSkillCategories();
+    }, [getSkillCategories]);
+    const validateFile = (file) => {
+        const validTypes = [
+            'text/csv',
+            'application/vnd.ms-excel',
+            'image/png',
+            'image/jpeg',
+            'application/pdf'
+        ];
+        return validTypes.includes(file.type) && file.size > 0;
+    }
     const onSelectCategory = (selectedList, selectedItem, setFieldValue) => {
         setSelectedCategories([...selectedCategories, selectedItem]);
         setFieldValue('jobCategory', JSON.stringify([...selectedCategories, selectedItem]));
@@ -166,16 +165,16 @@ const CreateJob = () => {
                                         "Access-Control-Allow-Origin": "*"
                                     }
                                 }).then(response => {
-                                    console.log(response.data);
+                                    
                                     hideToast();
                                     showToastSuccess('Your job is under review');
                                     history.push('/user/jobs');
                                 }).catch(error => {
-                                    console.log(error.response);
+                                    
                                     showToastError(error.response.message)
-                                    console.log(error.response)
+                                    
                                 })
-                                console.log(fields);
+                                
                             }}
                             render={({ errors, values, touched, handleChange, isSubmitting, setFieldValue }) => (
                                 <Form id="msform" name="create-job" className="msform DashForm">

@@ -57,33 +57,35 @@ const OurTeams = (props) => {
 		}
 	];
 	return (
-		<Aux>
-			<div className="container">
+        <Aux>
+            <div className="container">
 				<div className="MainHeading">
 					<h1>Our Team</h1>
 				</div>
 				<div className="row">
 					{
 						teamMember.filter(member => member.slug != props.currentMember).map((member, index) => {
-							return <div key={`team-member-${index}`} className="col-sm-6 col-lg-4 col-xl-4">
-								<Link href={`/our-team/${member.slug}`} legacyBehavior>
-									<a className="single-person">
-										<div className="person-image">
-											<Image className="img-fluid" src={member.image} alt="person1" width={300} height={300} />
+							return (
+                                <div key={`team-member-${index}`} className="col-sm-6 col-lg-4 col-xl-4">
+                                    <Link href={`/our-team/${member.slug}`} className="single-person">
+
+                                        <div className="person-image">
+											<Image className="img-fluid" src={member.image || '/images/no-image.png'} alt="person1" width={300} height={300} />
 										</div>
-										<div className="person-info">
+                                        <div className="person-info">
 											<h3 className="full-name">{member.name}</h3>
 											<span className="speciality">{member.designation}</span>
 										</div>
-									</a>
-								</Link>
-							</div>
+
+                                    </Link>
+                                </div>
+                            );
 						})
 					}
 				</div>
 			</div>
-		</Aux>
-	);
+        </Aux>
+    );
 };
 
 export default OurTeams;

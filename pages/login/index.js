@@ -82,7 +82,7 @@ const SignIn = () => {
 				}
 			})
 			.catch((error) => {
-				console.log(error);
+				
 			})
 	}
 
@@ -188,7 +188,7 @@ const SignIn = () => {
 															showToastSuccess('Logged In Successfull');
 															history.push('/pilot-area/dashboard');
 														} else {
-															console.log('else subs')
+															
 															/* let tempData = {
 																userId: response.data.data.id,
 																plans: response.data.data.plans,
@@ -283,13 +283,13 @@ const SignIn = () => {
 															showToastSuccess('Logged In Successfull');
 															history.push('/company-area/dashboard');
 														} else {
-															console.log('else subs')
+															
 														}
 													}
 												}
 											})
 											.catch((error) => {
-												console.log(error.response);
+												
 												hideToast();
 												showToastError(error.response.data.message)
 											})

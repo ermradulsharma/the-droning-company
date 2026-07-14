@@ -82,7 +82,7 @@ const DashboardMain = () => {
     })
       .then((response) => {
         setFullPageLoading(false);
-        console.log(response.data.data);
+        
         if (response.data.statusCode === 200) {
           setDashboardData(response.data.data);
           setProfileBuild(true);
@@ -92,7 +92,7 @@ const DashboardMain = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        
         setFullPageLoading(false);
         setProfileBuild(false);
       });
@@ -187,7 +187,7 @@ const DashboardMain = () => {
   const confirm = useConfirm();
   const { showToast, hideToast, showToastSuccess, showToastError } = useToastContext();
   const handleDeleteProfile = (id) => {
-    console.log(id);
+    
     confirm({
       description: "You want to delete this Profile",
       confirmationButtonProps: {},
@@ -207,11 +207,11 @@ const DashboardMain = () => {
             history.push('/logout');
           })
           .catch((error) => {
-            console.log(error);
+            
           });
       })
       .catch(() => {
-        console.log("Profile not deleted");
+        
       });
   };
 
@@ -259,36 +259,33 @@ const DashboardMain = () => {
               Delete Profile
             </button>
 
-            <Link href={`/company/${dashboardData.basic_profile.slug}`} legacyBehavior>
-              <a
-                href={`/company/${dashboardData.basic_profile.slug}`}
-                rel="noreferrer"
-                name="view-profile"
-                className="m-0 btn action-button float-right mx-1"
-                target="_blank"
-              >
+            <Link
+              href={`/company/${dashboardData.basic_profile.slug}`}
+              rel="noreferrer"
+              name="view-profile"
+              className="m-0 btn action-button float-right mx-1"
+              target="_blank">
+              
                 View Profile
-              </a>
+              
             </Link>
-            <Link href={`/company-area/build-profile`} legacyBehavior>
-              <a
-                href={`/company-area/build-profile`}
-                rel="noreferrer"
-                name="edit-profile"
-                className="m-0 btn action-button float-right mx-1"
-              >
+            <Link
+              href={`/company-area/build-profile`}
+              rel="noreferrer"
+              name="edit-profile"
+              className="m-0 btn action-button float-right mx-1">
+              
                 Edit Profile
-              </a>
+              
             </Link>
-            <Link href={`/company-area/change-password`} legacyBehavior>
-              <a
-                href={`/company-area/change-password`}
-                rel="noreferrer"
-                name="change-password"
-                className="m-0 btn action-button float-right mx-1"
-              >
+            <Link
+              href={`/company-area/change-password`}
+              rel="noreferrer"
+              name="change-password"
+              className="m-0 btn action-button float-right mx-1">
+              
                 Change Password
-              </a>
+              
             </Link>
           </div>
         ) : null}
@@ -304,7 +301,7 @@ const DashboardMain = () => {
                     <Image
                       className="img-fluid"
                       src={getCleanImageUrl(dashboardData.basic_profile.logo)}
-                      alt={dashboardData.basic_profile.title}
+                      alt={(dashboardData.basic_profile.title) || 'image'}
                       width={200}
                       height={200}
                       style={{ objectFit: 'contain' }}
@@ -468,27 +465,27 @@ const DashboardMain = () => {
                             })}
                           </div>
                           <div className="text-center">
-                            <Link href="/company-area/videos" legacyBehavior>
-                              <a
-                                id="add-video"
-                                name="add-video"
-                                className="btn action-button"
-                              >
+                            <Link
+                              href="/company-area/videos"
+                              id="add-video"
+                              name="add-video"
+                              className="btn action-button">
+                              
                                 Check All
-                              </a>
+                              
                             </Link>
                           </div>
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/company-area/videos" legacyBehavior>
-                            <a
-                              id="add-video"
-                              name="add-video"
-                              className="btn action-button"
-                            >
+                          <Link
+                            href="/company-area/videos"
+                            id="add-video"
+                            name="add-video"
+                            className="btn action-button">
+                            
                               Add Video
-                            </a>
+                            
                           </Link>
                         </div>
                       )}
@@ -528,27 +525,27 @@ const DashboardMain = () => {
                             })}
                           </div>
                           <div className="text-center">
-                            <Link href="/company-area/gallery" legacyBehavior>
-                              <a
-                                id="photo-gallery"
-                                name="photo-gallery"
-                                className="btn action-button"
-                              >
+                            <Link
+                              href="/company-area/gallery"
+                              id="photo-gallery"
+                              name="photo-gallery"
+                              className="btn action-button">
+                              
                                 Check All
-                              </a>
+                              
                             </Link>
                           </div>
                         </Aux>
                       ) : (
                         <div className="row">
-                          <Link href="/company-area/gallery" legacyBehavior>
-                            <a
-                              id="add-photo"
-                              name="add-photo"
-                              className="btn action-button"
-                            >
+                          <Link
+                            href="/company-area/gallery"
+                            id="add-photo"
+                            name="add-photo"
+                            className="btn action-button">
+                            
                               Add Photo
-                            </a>
+                            
                           </Link>
                         </div>
                       )}
@@ -564,10 +561,13 @@ const DashboardMain = () => {
           style={{ minHeight: "400px" }}
           className="flex-row align-items-center justify-content-between"
         >
-          <Link href="/company-area/build-profile" legacyBehavior>
-            <a className="btn action-button" style={{ width: "auto" }}>
+          <Link
+            href="/company-area/build-profile"
+            className="btn action-button"
+            style={{ width: "auto" }}>
+            
               Build your profile
-            </a>
+            
           </Link>
         </div>
       )}

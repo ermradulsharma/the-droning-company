@@ -28,12 +28,6 @@ const Job = (props) => {
     const [limitMoreNumber, setLimitMoreNumber] = useState(2);
     const [limitMoreLabel, setLimitMoreLabel] = useState('Show more');
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            window.scrollTo(0, 0);
-        }
-        getProfile()
-    }, [jobId]);
 
     useEffect(()=>{  
         if (typeof window !== 'undefined') {      
@@ -67,6 +61,12 @@ const Job = (props) => {
         }
         setDataLoading(false)
     }
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            window.scrollTo(0, 0);
+        }
+        getProfile()
+    }, [jobId]);
 
     const changeLimitLabel = (limit, total) => {
         if (limit === 8) {   
@@ -108,213 +108,209 @@ const Job = (props) => {
 
     
 
-    return (
-
-        dataLoading ?
-            <div className="row">
-                <div className="col-12 text-center justify-content-between" style={{ textAlign: 'center' }}>
-                    <Loader
-                        type="ThreeDots"
-                        color="#ffcc0e"
-                        height={100}
-                        width={100}
-                        visible={dataLoading}
-                    />
-                </div>
-            </div>
-            :
-            <Aux>
-                <SEO 
-                    title={metaTitle}
-                    description={metaDescription}
-                    siteTitle={metaTitle}
-                    keywords={metaKeyword}
-                    href={currentUrl}
-                />
-                <Head>
-                    <script 
-                        type='application/ld+json'
-                        dangerouslySetInnerHTML={{
-                            __html:`
-                            {
-                                "@context": "https://schema.org/",
-                                "@type": "JobPosting",
-                                "title": "${metaTitle}",
-                                "description": "${metaDescription}",
-                                "hiringOrganization": {
-                                  "@type": "Organization",
-                                  "name": "${jobData.company_name}",
-                                  "sameAs": "${currentUrl}"
-                                },
-                                "employmentType": "CONTRACTOR",
-                                "datePosted": "${jobData.created_at}",
-                                "validThrough": "",
-                                "applicantLocationRequirements": {
-                                  "@type": "Country",
-                                  "name": "US"
-                                },
-                                "jobLocationType": "TELECOMMUTE"
-                              }
-                            `
-                        }}
-                    />
-                </Head>
-                <nav aria-label="breadcrumb">
-                    <div className="container">
-                        <ol className="breadcrumb">
-                            <li className="breadcrumb-item">
-                                <Link href="/">Home</Link>
-                            </li>
-                            <li className="breadcrumb-item" aria-current="page">
-                            <Link href="/job-list">Find a Job</Link>
-                            </li>
-                            <li className="breadcrumb-item active" aria-current="page">
-                                {jobData.job_title}
-                            </li>
-                        </ol>
-                    </div>
-                </nav>
-
-                <div className="PilotFullInfo">
+    return (dataLoading ? <div className="row">
+        <div className="col-12 text-center justify-content-between" style={{ textAlign: 'center' }}>
+            <Loader
+                type="ThreeDots"
+                color="#ffcc0e"
+                height={100}
+                width={100}
+                visible={dataLoading}
+            />
+        </div>
+    </div> : <Aux>
+        <SEO 
+            title={metaTitle}
+            description={metaDescription}
+            siteTitle={metaTitle}
+            keywords={metaKeyword}
+            href={currentUrl}
+        />
+        <Head>
+            <script 
+                type='application/ld+json'
+                dangerouslySetInnerHTML={{
+                    __html:`
                     {
+                        "@context": "https://schema.org/",
+                        "@type": "JobPosting",
+                        "title": "${metaTitle}",
+                        "description": "${metaDescription}",
+                        "hiringOrganization": {
+                          "@type": "Organization",
+                          "name": "${jobData.company_name}",
+                          "sameAs": "${currentUrl}"
+                        },
+                        "employmentType": "CONTRACTOR",
+                        "datePosted": "${jobData.created_at}",
+                        "validThrough": "",
+                        "applicantLocationRequirements": {
+                          "@type": "Country",
+                          "name": "US"
+                        },
+                        "jobLocationType": "TELECOMMUTE"
+                      }
+                    `
+                }}
+            />
+        </Head>
+        <nav aria-label="breadcrumb">
+            <div className="container">
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item">
+                        <Link href="/">Home</Link>
+                    </li>
+                    <li className="breadcrumb-item" aria-current="page">
+                    <Link href="/job-list">Find a Job</Link>
+                    </li>
+                    <li className="breadcrumb-item active" aria-current="page">
+                        {jobData.job_title}
+                    </li>
+                </ol>
+            </div>
+        </nav>
 
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-9">
-                                    <div className="row PilotBox">
-                                        {/* <div className="col-sm-3">
-                                            <div className="PilotImg">
-                                                <img
-                                                    className="img-fluid"
-                                                    src={jobData.file_attachment}
-                                                    alt=""
-                                                />
-                                            </div>
-                                        </div> */}
-                                        <div className="col-sm-8">
-                                            <div className="PilotInfo PilotJobInfoDetails">
-                                                <h1> {jobData.job_title}</h1><br/>
-                                                <p>Posted on {jobData.created_at}</p>
-                                                <ul className="PilotDetails">
-                                                    {
-                                                        jobData.company_name
-                                                        ?
-                                                        <li>Company Name : {jobData.company_name}</li>
-                                                        :
-                                                        ''
-                                                    }
-                                                </ul>
-                                                
-                                                <hr/>
-                                                    <div className="JobLoc">
-                                                    <h2>Job Locations:</h2>
-                                                    <ul>
-                                                    {
-                                                        jobData.location ?
-                                                        listJobLocations(jobData.location, 'detail')
-                                                        : null
-                                                    }
-                                                    {
-                                                        jobData.location && jobData.location.length > 8
-                                                        ?
-                                                        <li style={{backgroundColor:'#fff'}}><span style={{cursor:'pointer'}} onClick={()=>changeLimitLabel(limitNumber, jobData.location.length)}>{limitLabel}</span></li>
-                                                        :
-                                                        null  
-                                                    }
-                                                    </ul>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-sm-4 align-self-center">
-                                            {/* {
-                                                jobData.profile && jobData.profile.is_insured
-                                                ?
-                                                <img className="img-fluid PilotVerified" style={{marginBottom: '-140px', height:'200px', position:'relative'}} src={insuredIcon} alt="verified" />
-                                                :
-                                                null
-                                            } */}                                       
+        <div className="PilotFullInfo">
+            {
+
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-9">
+                            <div className="row PilotBox">
+                                {/* <div className="col-sm-3">
+                                    <div className="PilotImg">
+                                        <img
+                                            className="img-fluid"
+                                            src={jobData.file_attachment}
+                                            alt=""
+                                        />
+                                    </div>
+                                </div> */}
+                                <div className="col-sm-8">
+                                    <div className="PilotInfo PilotJobInfoDetails">
+                                        <h1> {jobData.job_title}</h1><br/>
+                                        <p>Posted on {jobData.created_at}</p>
+                                        <ul className="PilotDetails">
                                             {
-                                                isSetContactButton || (authTokens && accessToken)
+                                                jobData.company_name
                                                 ?
-                                                    isViewContact
-                                                    ?
-                                                        <div className="PilotBoxContactDetails">                                                            
-                                                            <p><i className="fas fa-phone"></i> {jobData.contact_via_phone_number && jobData.user_mobile ? <a href={`tel:${jobData.user_mobile}`}> {jobData.user_mobile}</a> : 'Not available'}</p>
-                                                            <p><i className="fas fa-envelope"></i> {jobData.contact_via_email && jobData.user_email ? <a href={`mailto:${jobData.user_email}`}>{jobData.user_email}</a> : 'Not available'}</p>
-                                                        </div>
-                                                    :
-                                                    <button className="btn btn-warning BtnLog" type="button" onClick={()=>setViewContact(true)}>View Contact</button>
+                                                <li>Company Name : {jobData.company_name}</li>
                                                 :
-                                                <button className="btn btn-warning BtnLog" type="button" onClick={()=>handleLoginToContactButton()}>
-                                                    Log In To Contact
-                                                </button>
+                                                ''
                                             }
-                                            
-                                        </div>
-                                    </div>
-                                    <div className="AboutInfo">
-                                        <div className="NormalHeading">Job Description:</div>
-                                        <p>
-                                            {jobData.job_description && parse(jobData.job_description)}
-                                        </p>
-                                    </div>
-                            
-                                    <div className="EqpBox">
-                                        <div className="NormalHeading">More Jobs in the Area:</div>
-                                            <div className="card-columns">
-                                                    {
-                                                        moreJobs && moreJobs.length
-                                                        ?
-                                                        moreJobs.map((job) => {
-                                                            return <div key={job.id} className="card">
-                                                                <div className="PilotInfo PilotJobInfo PilotMoreJob">
-                                                                    <h1>{job.job_title}</h1><br />
-                                                                    <ul>
-                                                                    {
-                                                                        job.location ?
-                                                                        listJobLocations(job.location, 'more-jobs')
-                                                                        : null
-                                                                    }
-                                                                    {
-                                                                        job.location && job.location.length > 2
-                                                                        ?
-                                                                        <li style={{backgroundColor:'#fff'}}><span style={{cursor:'pointer'}} onClick={()=>changeLimitMoreLabel(limitMoreNumber, job.location.length)}>{limitMoreLabel}</span></li>
-                                                                        :
-                                                                        null  
-                                                                    }
-                                                                    </ul>
-                                                                    {
-                                                                        job.job_description
-                                                                        ?
-                                                                        <p className="PilotText">{parse(job.job_description.substr(0, 80))}</p>
-                                                                        :
-                                                                        null
-                                                                    }
-                                                                    <br />
-                                                                    <Link  href={`/job/${job.id}/${job.slug}`}><a className="SeeMore">View Job &gt;</a></Link>
-                                                                </div>
-                                                            </div>
-                                                        })
-                                                        :
-                                                        <p>No jobs found.</p>
-                                                    }
+                                        </ul>
+                                        
+                                        <hr/>
+                                            <div className="JobLoc">
+                                            <h2>Job Locations:</h2>
+                                            <ul>
+                                            {
+                                                jobData.location ?
+                                                listJobLocations(jobData.location, 'detail')
+                                                : null
+                                            }
+                                            {
+                                                jobData.location && jobData.location.length > 8
+                                                ?
+                                                <li style={{backgroundColor:'#fff'}}><span style={{cursor:'pointer'}} onClick={()=>changeLimitLabel(limitNumber, jobData.location.length)}>{limitLabel}</span></li>
+                                                :
+                                                null  
+                                            }
+                                            </ul>
                                             </div>
                                     </div>
                                 </div>
-                                  
-                                <div className="col-md-3 paddngt">
-                                <aside className="TdSidebar">
+                                <div className="col-sm-4 align-self-center">
+                                    {/* {
+                                        jobData.profile && jobData.profile.is_insured
+                                        ?
+                                        <img className="img-fluid PilotVerified" style={{marginBottom: '-140px', height:'200px', position:'relative'}} src={insuredIcon} alt="verified" />
+                                        :
+                                        null
+                                    } */}                                       
                                     {
-                                    <FeaturePilot />
+                                        isSetContactButton || (authTokens && accessToken)
+                                        ?
+                                            isViewContact
+                                            ?
+                                                <div className="PilotBoxContactDetails">                                                            
+                                                    <p><i className="fas fa-phone"></i> {jobData.contact_via_phone_number && jobData.user_mobile ? <a href={`tel:${jobData.user_mobile}`}> {jobData.user_mobile}</a> : 'Not available'}</p>
+                                                    <p><i className="fas fa-envelope"></i> {jobData.contact_via_email && jobData.user_email ? <a href={`mailto:${jobData.user_email}`}>{jobData.user_email}</a> : 'Not available'}</p>
+                                                </div>
+                                            :
+                                            <button className="btn btn-warning BtnLog" type="button" onClick={()=>setViewContact(true)}>View Contact</button>
+                                        :
+                                        <button className="btn btn-warning BtnLog" type="button" onClick={()=>handleLoginToContactButton()}>
+                                            Log In To Contact
+                                        </button>
                                     }
-                                </aside>
+                                    
                                 </div>
                             </div>
+                            <div className="AboutInfo">
+                                <div className="NormalHeading">Job Description:</div>
+                                <p>
+                                    {jobData.job_description && parse(jobData.job_description)}
+                                </p>
+                            </div>
+                    
+                            <div className="EqpBox">
+                                <div className="NormalHeading">More Jobs in the Area:</div>
+                                    <div className="card-columns">
+                                            {
+                                                moreJobs && moreJobs.length
+                                                ?
+                                                moreJobs.map((job) => {
+                                                    return (
+                                                        <div key={job.id} className="card">
+                                                            <div className="PilotInfo PilotJobInfo PilotMoreJob">
+                                                                <h1>{job.job_title}</h1><br />
+                                                                <ul>
+                                                                {
+                                                                    job.location ?
+                                                                    listJobLocations(job.location, 'more-jobs')
+                                                                    : null
+                                                                }
+                                                                {
+                                                                    job.location && job.location.length > 2
+                                                                    ?
+                                                                    <li style={{backgroundColor:'#fff'}}><span style={{cursor:'pointer'}} onClick={()=>changeLimitMoreLabel(limitMoreNumber, job.location.length)}>{limitMoreLabel}</span></li>
+                                                                    :
+                                                                    null  
+                                                                }
+                                                                </ul>
+                                                                {
+                                                                    job.job_description
+                                                                    ?
+                                                                    <p className="PilotText">{parse(job.job_description.substr(0, 80))}</p>
+                                                                    :
+                                                                    null
+                                                                }
+                                                                <br />
+                                                                <Link href={`/job/${job.id}/${job.slug}`}  className="SeeMore">View Job &gt;</Link>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })
+                                                :
+                                                <p>No jobs found.</p>
+                                            }
+                                    </div>
+                            </div>
                         </div>
-                    }
+                          
+                        <div className="col-md-3 paddngt">
+                        <aside className="TdSidebar">
+                            {
+                            <FeaturePilot />
+                            }
+                        </aside>
+                        </div>
+                    </div>
                 </div>
-            </Aux>
-    );
+            }
+        </div>
+    </Aux>);
 };
 
 export async function getServerSideProps(context) {
@@ -357,7 +353,6 @@ export async function getServerSideProps(context) {
                 }
             }
         }
-    });
-  }
+    }).catch(() => ({ notFound: true }));}
 
 export default Job;

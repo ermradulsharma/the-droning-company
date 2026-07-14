@@ -24,6 +24,32 @@ const PhotoGallery = () => {
 
   const dispatch = useDispatch();
 
+  const getAllImages = useCallback(async (showLoading) => {
+    if (showLoading) {
+      setIsLoading(true);
+    }
+    try {
+      await fetch(`${SERVER_URL}/company-dashboard/gallery/show/${userId}`, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + accessToken,
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((res) => res.json())
+        .then((response) => {
+          setFullPageLoading(false);
+          setIsLoading(false);
+          setImageGallery(response.data);
+        })
+        .catch(() => console.warn("API Error"));
+    } catch (error) {
+      setFullPageLoading(false);
+      setIsLoading(false);
+    }
+  }, [userId, accessToken]);
+
   useEffect(() => {
     getAllImages();
     dispatch(getDashboardAds("pilot-photo-gallery"));
@@ -81,31 +107,6 @@ const PhotoGallery = () => {
 
     }
   }, [getDashboardAds_data]);
-
-  const getAllImages = useCallback(async (showLoading) => {
-    if (showLoading) {
-      setIsLoading(true);
-    }
-    try {
-      await fetch(`${SERVER_URL}/company-dashboard/gallery/show/${userId}`, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + accessToken,
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-        .then((res) => res.json())
-        .then((response) => {
-          setFullPageLoading(false);
-          setIsLoading(false);
-          setImageGallery(response.data);
-        });
-    } catch (error) {
-      setFullPageLoading(false);
-      setIsLoading(false);
-    }
-  }, [userId, accessToken]);
   const dragOver = (e) => {
     e.preventDefault();
   };
@@ -192,7 +193,7 @@ const PhotoGallery = () => {
       .catch((error) => {
         // if there's an error, log it
         hideToast();
-        console.log(error);
+        
         /* if (error.response) {
                 const errorCode = error.response.status;
                 const errorMessage = error.response.statusText;
@@ -241,11 +242,11 @@ const PhotoGallery = () => {
           })
           .catch((error) => {
             setFullPageLoading(false);
-            console.log(error);
+            
           });
       })
       .catch(() => {
-        console.log("not deleted");
+        
       });
   };
   return fullPageLoading ? (

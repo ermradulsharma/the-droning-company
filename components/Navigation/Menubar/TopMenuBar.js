@@ -31,7 +31,7 @@ const TopMenuBar = () => {
                 }
             })
             .catch((error) => {
-                console.log(error);
+                
             })
     }
 
@@ -74,7 +74,6 @@ const TopMenuBar = () => {
                     :
                     null
             }
-
             {/* <!-- Nav Item - Alerts --> */}
             {/* <li className="nav-item dropdown no-arrow mx-1">
                 <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -129,7 +128,7 @@ const TopMenuBar = () => {
                 <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span className="mr-2 d-none d-lg-inline text-gray-600 small">{name}</span>
-                    <Image className="img-profile rounded-circle" alt={name}
+                    <Image className="img-profile rounded-circle" alt={(name) || 'image'}
                         src={profileImage ? profileImage : '/user-pilot/images/undraw_profile.svg'} width={32} height={32} />
                 </a>
                 {/* <!-- Dropdown - User Information --> */}
@@ -143,11 +142,10 @@ const TopMenuBar = () => {
                         <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                         Settings
                     </a> */}
-                    <Link href="/" legacyBehavior>
-                        <a className="dropdown-item">
-                            <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Web Front
-                        </a>
+                    <Link href="/" className="dropdown-item">
+
+                        <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Web Front
+                                                
                     </Link>
                     <div className="dropdown-divider"></div>
                     <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -176,7 +174,7 @@ const TopMenuBar = () => {
                 </div>
             </li>
         </ul>
-    )
+    );
 }
 
 export default TopMenuBar

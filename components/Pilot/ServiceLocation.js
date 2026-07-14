@@ -15,11 +15,12 @@ const ServiceLocation = ({ profileId, travelOption }) => {
             .then((res) => res.json())
             .then((response) => {
                 if (response.statusCode === 200) {
-                    console.log(response);
+                    
                     setLocations(response.data);
                     setMapDataExist(true)
                 }
-            });
+            })
+            .catch(() => console.warn("API Fetch Error (backend offline)"));
     }, []);
 
 
