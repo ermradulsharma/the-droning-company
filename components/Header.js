@@ -207,7 +207,7 @@ const Header = () => {
                                             src="/images/logo.webp"
                                             alt="logo"
                                             width={200}
-                                            height={50}
+                                            height={55}
                                             priority={true}
                                             style={{ width: "auto", height: "auto" }}
                                         />
