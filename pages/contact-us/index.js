@@ -8,8 +8,8 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { generateRandomBannerIndex } from "../../util/utils";
 import Loader from "@/components/Common/Loader";
-import AddBan from "../../components/Addbanner/AddBan";
-import { getContactUsData } from "../../redux/HomePageSlice";
+import AddBan from "../../components/AddBanner/AddBan";
+import { getContactUsData } from "../../redux/homePageSlice";
 import AddBannerComponent from "../../components/AddBannerComponent/AddBannerComponent";
 import { MEDIA_BASE_URL } from "../../util/Constants";
 const ContactUs = (props) => {

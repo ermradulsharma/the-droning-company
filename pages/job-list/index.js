@@ -11,9 +11,9 @@ import SearchLocationInput from "../../components/SearchLocationInput/SearchLoca
 import { useRouter } from "next/router";
 import useCommonFunctionContext from "../../hooks/useCommonFunctionContext";
 import { useDispatch, useSelector } from "react-redux";
-import { getJobPageAdsData } from "../../redux/HomePageSlice";
+import { getJobPageAdsData } from "../../redux/homePageSlice";
 import { generateRandomBannerIndex } from "../../util/utils";
-import AddBan from "../../components/Addbanner/AddBan";
+import AddBan from "../../components/AddBanner/AddBan";
 //import insuredIcon from "../../assets/user-pilot/droneinsuredicon.png";
 
 const JobList = () => {

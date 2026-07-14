@@ -1,18 +1,18 @@
 import { MEDIA_BASE_URL } from "./Constants";
 
 // generate random number from 0 to max
-export function random(max) {
+export function random(max: number) {
     return Math.floor(Math.random() * max);
 }
 // generate random number from min to max
-export function randomRangeIndex(length) {
+export function randomRangeIndex(length: number) {
     let x = Math.floor(Math.random() * length);
 
     return x;
 }
 
 //checking token exist or not
-export function checkTokenExist() {
+export function checkTokenExist(): boolean | undefined {
     if (typeof window !== "undefined") {
         const token = window.localStorage.getItem("tokens");
 
@@ -25,23 +25,24 @@ export function checkTokenExist() {
 }
 
 //function for generate random banner index
-export const generateRandomBannerIndex = (key, length) => {
+export const generateRandomBannerIndex = (key: string, length: number) => {
     if (typeof window !== "undefined") {
         let local = localStorage.getItem(key);
-        if (local === null || local === undefined || local >= length) {
-            localStorage.setItem(key, 0);
+        if (local === null || local === undefined || parseInt(local, 10) >= length || isNaN(parseInt(local, 10))) {
+            localStorage.setItem(key, "0");
             return 0;
         } else {
-            let x = parseInt(local);
+            let x = parseInt(local, 10);
             if (x + 1 >= length) {
-                localStorage.setItem(key, 0);
+                localStorage.setItem(key, "0");
                 return 0;
             } else {
-                localStorage.setItem(key, x + 1);
+                localStorage.setItem(key, (x + 1).toString());
                 return x + 1;
             }
         }
     }
+    return 0;
 };
 
 // FUNCTION FOR DISPLAYING 2 ADDS IN THE DASHBOARD SECTION ONLY
@@ -56,11 +57,11 @@ export const generateRandomBannerIndex = (key, length) => {
  * @param local_storage_name - This is the name of the local storage key.
  */
 export const DisplayAddsInDashboardPages = (
-    data,
-    slug_name,
-    position_state,
-    index_state,
-    local_storage_name
+    data: any[],
+    slug_name: string,
+    position_state: any,
+    index_state: any,
+    local_storage_name: string
 ) => {
     if (typeof window !== "undefined") {
         let _index = data?.findIndex(
@@ -77,7 +78,7 @@ export const DisplayAddsInDashboardPages = (
     }
 };
 
-export const GetFavBoxData = (data, slug) => {
+export const GetFavBoxData = (data: any[], slug: string) => {
     if (data?.length > 0) {
         let item = data?.find((_item) => _item?.slug === slug);
 
@@ -87,7 +88,7 @@ export const GetFavBoxData = (data, slug) => {
     return null;
 };
 
-export const extractVedioId = (vedio_url) => {
+export const extractVedioId = (vedio_url: string) => {
     if (vedio_url?.length) {
         let get_id = vedio_url?.split("v=");
 
@@ -105,11 +106,11 @@ export const extractVedioId = (vedio_url) => {
     return "";
 };
 
-export const trancateStr = (str, length) => {
+export const trancateStr = (str: string, length: number) => {
     return str.substring(0, length) + "...";
 };
 
-export const getCleanImageUrl = (url) => {
+export const getCleanImageUrl = (url: any) => {
     if (!url) return "/images/no-image.png";
     if (typeof url !== 'string') return url;
 
@@ -129,7 +130,7 @@ export const getCleanImageUrl = (url) => {
     return url.replace(/^\//, ""); // Remove leading slash if any
 };
 
-export const getImageSrc = (url) => {
+export const getImageSrc = (url: any) => {
     if (!url) return "/images/no-image.png";
     const cleanedPath = getCleanImageUrl(url);
     if (cleanedPath.startsWith('/')) {

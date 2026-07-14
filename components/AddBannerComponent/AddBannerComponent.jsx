@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Loader from "@/components/Common/Loader";
-import AddBan from "../Addbanner/AddBan";
+import AddBan from "../AddBanner/AddBan";
 
 const AddBannerComponent = ({ data, status, position, index }) => {
   const [mainData, setData] = useState([]);

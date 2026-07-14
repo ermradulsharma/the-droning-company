@@ -13,7 +13,7 @@ import {
   getCleanImageUrl,
 } from "../../../util/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { getDashboardAds } from "../../../redux/HomePageSlice";
+import { getDashboardAds } from "../../../redux/homePageSlice";
 import AddBannerComponent from "../../../components/AddBannerComponent/AddBannerComponent";
 import { useRouter } from "next/router";
 import { useConfirm } from "material-ui-confirm";

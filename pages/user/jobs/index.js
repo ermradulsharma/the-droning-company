@@ -7,7 +7,7 @@ import Loader from "@/components/Common/Loader";
 import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Moment from "react-moment";
+import dayjs from "dayjs";
 
 const MyJobs = () => {
     const { accessToken, userId } = useAuthContext();
@@ -179,9 +179,7 @@ const MyJobs = () => {
                                                                             </button>
                                                                             <p>{extractLocation ? extractLocation.city : ''}, {extractLocation ? extractLocation.state : ''}, {extractLocation ? extractLocation.country : ''}</p>
                                                                             <small>Posted On: {
-                                                                                <Moment format="MM/DD/YYYY">
-                                                                                    {job.created_at}
-                                                                                </Moment>
+                                                                                {dayjs(job.created_at).format("MM/DD/YYYY")}
                                                                             }
                                                                             </small>
                                                                         </div>

@@ -1,3 +1,4 @@
+import type { AppProps } from 'next/app';
 import { useEffect } from "react";
 import Script from "next/script";
 import Head from "next/head";
@@ -26,10 +27,10 @@ import "../styles/cookieconsent.css";
 
 import { GOOGLE_API_KEY } from "../util/Constants";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
     useEffect(() => {
-        const handleRouteChange = (url) => {
+        const handleRouteChange = (url: string) => {
             gtag.pageview(url);
         };
         router.events.on("routeChangeComplete", handleRouteChange);

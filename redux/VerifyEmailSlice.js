@@ -24,7 +24,7 @@ const InitialState = {
 
 }
 
-const VerifyEmailSlice = createSlice({
+const verifyEmailSlice = createSlice({
     name: 'verifyEmail',
     initialState: InitialState,
     extraReducers: (builder) => {
@@ -50,4 +50,4 @@ const VerifyEmailSlice = createSlice({
     },
 })
 
-export default VerifyEmailSlice.reducer;
+export default verifyEmailSlice.reducer;

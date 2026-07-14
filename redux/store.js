@@ -1,13 +1,13 @@
 import { configureStore, t } from "@reduxjs/toolkit";
-import HomePageSlice from "./HomePageSlice";
+import homePageSlice from "./homePageSlice";
 import ProfileSlice from "./profileSlice";
-import VerifyEmailSlice from "./VerifyEmailSlice";
+import verifyEmailSlice from "./verifyEmailSlice";
 // import globalReducer from "./globalSlice";
 
 // export const store = configureStore({
 //   reducer: {
-//      verifyEmail: VerifyEmailSlice,
-//      home:HomePageSlice,
+//      verifyEmail: verifyEmailSlice,
+//      home:homePageSlice,
 //      profile:profileSlice
 //   },
 //   middleware: (getDefaultMiddleware) =>
@@ -17,8 +17,8 @@ import VerifyEmailSlice from "./VerifyEmailSlice";
 // });
 export const store = configureStore({
   reducer: {
-    verifyEmail: VerifyEmailSlice,
-    home: HomePageSlice,
+    verifyEmail: verifyEmailSlice,
+    home: homePageSlice,
     profile: ProfileSlice,
   },
   middleware: (getDefaultMiddleware) =>

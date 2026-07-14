@@ -8,8 +8,8 @@ import SEO from "../../components/Seo/Seo";
 import useCommonFunctionContext from "../../hooks/useCommonFunctionContext";
 import { generateRandomBannerIndex } from "../../util/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { getAboutAdsData } from "../../redux/HomePageSlice";
-import AddBan from "../../components/Addbanner/AddBan";
+import { getAboutAdsData } from "../../redux/homePageSlice";
+import AddBan from "../../components/AddBanner/AddBan";
 import Loader from "@/components/Common/Loader";
 const AboutUs = (props) => {
   const { currentUrlFn } = useCommonFunctionContext();

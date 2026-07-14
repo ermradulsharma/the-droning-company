@@ -15,8 +15,8 @@ import Head from "next/head";
 import useMetaTags from "../../hooks/useMetaTags";
 import CompanyProfileArticles from "../../components/Category/CompanyProfileArticles";
 
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
 
 const Pilot = (props) => {
 
@@ -372,9 +372,9 @@ const Pilot = (props) => {
                   {pilotData.profile && pilotData.profile.pic_desc_1 ? (
                     <div className="profile_pic_more_btn" onClick={() => handleShow(1)}>Read More</div>
                   ) : ("")}
-                  <Modal show={show} onHide={handleClose} size="lg">
-                    <Modal.Body style={{ whiteSpace: 'break-spaces' }}>{modalContent}</Modal.Body>
-                  </Modal>
+                  <Dialog open={show} onClose={handleClose} maxWidth="lg" fullWidth>
+                    <DialogContent style={{ whiteSpace: 'break-spaces' }}>{modalContent}</DialogContent>
+                  </Dialog>
                 </div>
               ) : ("")}
 

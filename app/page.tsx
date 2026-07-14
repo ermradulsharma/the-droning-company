@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect, Fragment } from "react";
 import Link from "next/link";
 import FeaturePilotNew from "../components/Home/FeaturePilotNew";
@@ -10,13 +11,13 @@ import VideoReelOfWeek from "../components/Home/VideoReelOfWeek";
 import RecentEventsBlock from "../components/Event/RecentEventsBlock";
 import FeaturedVideoReel from "../components/Home/FeaturedVideoReel";
 import SearchLocationInput from "../components/SearchLocationInput/SearchLocationInput";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import useCommonFunctionContext from "../hooks/useCommonFunctionContext";
 import { SERVER_URL, APPLICATION_NAME } from "../util/Constants";
 import Loader from "@/components/Common/Loader";
 import SEO from "../components/Seo/Seo";
 import { useDispatch, useSelector } from "react-redux";
-import { getHomePageAdsData } from "../redux/HomePageSlice";
+import { getHomePageAdsData } from "../redux/homePageSlice";
 import { generateRandomBannerIndex, randomRangeIndex } from "../util/utils";
 import AddBannerComponent from "../components/AddBannerComponent/AddBannerComponent";
 import Aux from '../hoc/Auxiliary/Auxiliary';
@@ -26,7 +27,7 @@ import dynamic from "next/dynamic";
 const Calendar = dynamic(() => import("../components/Event/calendar"), { ssr: false });
 import Image from 'next/image';
 
-/*import AddBan from "../components/Addbanner/AddBan";
+/*import AddBan from "../components/AddBanner/AddBan";
 import FeaturePilot from "../components/Home/FeaturePilot";
 import PhotoGallery from "../components/Home/PhotoGallery";
 import GearReview from "../components/Home/GearReview";
@@ -35,7 +36,7 @@ import ThreeNewsBlock from "../components/Home/ThreeNewsBlock";*/
 
 const Home = () => {
     const router = useRouter();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
     const [freeTrainingBlocks, setFreeTrainingBlocks] = useState([]);
     const [loadingFreeTraining, setLoadingFreeTraining] = useState(true);
     const [threeBlocks, setThreeBlocks] = useState([]);
@@ -64,7 +65,7 @@ const Home = () => {
         getHomePageAdsData_status,
         getHomePageAdsData_data,
         getHomePageAdsData_error,
-    } = useSelector((state) => state?.home || {});
+    } = useSelector((state: any) => state?.home || {});
     const [homeBannerTopIndex, setHomeBannerTopIndex] = useState(0);
     const [homeBannerBottomIndex, setHomeBannerBottomIndex] = useState(0);
     const [abovegearReview, setAboveGearReview] = useState(0);
@@ -78,13 +79,13 @@ const Home = () => {
     const onSearchPilotByLocation = async () => {
         let obj = document
             .getElementById("location-input")
-            .getAttribute("data-obj");
+            ?.getAttribute("data-obj");
         let locationString = document
             .getElementById("location-input")
-            .getAttribute("value");
+            ?.getAttribute("value");
         setLocationString(locationString);
         setSearchLocation(obj);
-        let city = locationString.split(",")[0];
+        let city = locationString?.split(",")[0];
         router.push(`/pilot-list/${city}`);
     };
 
@@ -200,33 +201,33 @@ const Home = () => {
                 generateRandomBannerIndex(
                     "homeBannerTopIndex",
                     getHomePageAdsData_data[underbanner_index]?.banner?.length || 0
-                )
+                ) || 0
             );
             setHomeBannerBottomIndex(
                 generateRandomBannerIndex(
                     "homeBannerBottomIndex",
                     getHomePageAdsData_data[abovegalleryitem_index]?.banner?.length || 0
-                )
+                ) || 0
             );
 
             setAboveGearReview(
                 generateRandomBannerIndex(
                     "homeAboveGearReviewIndex",
                     getHomePageAdsData_data[abovegearReview_index]?.banner?.length || 0
-                )
+                ) || 0
             );
             setUnderGearReview(
                 generateRandomBannerIndex(
                     "home_UNDER_GEAR_REVIEW_Index",
                     getHomePageAdsData_data[undergearreview_index]?.banner?.length || 0
-                )
+                ) || 0
             );
 
             sethomeBannerCommunityNewsIndex(
                 generateRandomBannerIndex(
                     "homeBannerCommunityNewsIndex",
                     getHomePageAdsData_data[under_community_news_index]?.banner?.length || 0
-                )
+                ) || 0
             );
         }
     }, [getHomePageAdsData_data]);

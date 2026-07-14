@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { SERVER_URL } from "../../../util/Constants";
 import Loader from "@/components/Common/Loader";
-import Moment from "react-moment";
+import dayjs from "dayjs";
 import Aux from "../../../hoc/Auxiliary/Auxiliary";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useCommonFunctionContext from "../../../hooks/useCommonFunctionContext";
@@ -129,9 +129,7 @@ const JobDetail = ({ match, location }) => {
                                         </div>
                                         <div className="card-action-right text-center">
                                             <p><b>Posted On: {
-                                                <Moment format="MM/DD/YYYY">
-                                                    {jobDetailData.created_at}
-                                                </Moment>
+                                                {dayjs(jobDetailData.created_at).format("MM/DD/YYYY")}
                                             }</b></p>
                                         </div>
                                     </div>

@@ -18,7 +18,7 @@ import {
   checkTokenExist,
   DisplayAddsInDashboardPages,
 } from "../../../util/utils";
-import { getDashboardAds } from "../../../redux/HomePageSlice";
+import { getDashboardAds } from "../../../redux/homePageSlice";
 import AddBannerComponent from "../../../components/AddBannerComponent/AddBannerComponent";
 
 // export const getServerSideProps = async function ({ req, res }) {

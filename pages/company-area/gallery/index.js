@@ -8,7 +8,7 @@ import useToastContext from "../../../hooks/useToastContext";
 import { useConfirm } from "material-ui-confirm";
 import { useDispatch, useSelector } from "react-redux";
 import { DisplayAddsInDashboardPages, getCleanImageUrl } from "../../../util/utils";
-import { getDashboardAds } from "../../../redux/HomePageSlice";
+import { getDashboardAds } from "../../../redux/homePageSlice";
 import AddBannerComponent from "../../../components/AddBannerComponent/AddBannerComponent";
 
 const PhotoGallery = () => {

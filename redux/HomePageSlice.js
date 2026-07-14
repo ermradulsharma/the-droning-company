@@ -148,7 +148,7 @@ const initialState = {
     getDashboardSidebarAds_error: null,
 };
 
-const HomePageSlice = createSlice({
+const homePageSlice = createSlice({
     name: "homepage",
     initialState,
     reducers: {},
@@ -307,4 +307,4 @@ const HomePageSlice = createSlice({
     },
 });
 
-export default HomePageSlice.reducer;
+export default homePageSlice.reducer;

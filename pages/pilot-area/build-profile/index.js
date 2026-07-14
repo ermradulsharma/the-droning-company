@@ -11,7 +11,7 @@ import { SERVER_URL } from "../../../util/Constants";
 import { checkTokenExist, DisplayAddsInDashboardPages } from "../../../util/utils";
 import axiosInstance from "../../../api/AxiosInstance";
 import { toast } from "react-toastify";
-import { getDashboardAds } from "../../../redux/HomePageSlice";
+import { getDashboardAds } from "../../../redux/homePageSlice";
 import AddBannerComponent from "../../../components/AddBannerComponent/AddBannerComponent";
 import { useDispatch, useSelector } from "react-redux";
 

@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { SERVER_URL } from "../../../util/Constants";
 import useAuthContext from "../../../hooks/useAuthContext";
 import useToastContext from "../../../hooks/useToastContext";
-import { getDashboardAds } from "../../../redux/HomePageSlice";
+import { getDashboardAds } from "../../../redux/homePageSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { DisplayAddsInDashboardPages } from "../../../util/utils";
 import AddBannerComponent from "../../../components/AddBannerComponent/AddBannerComponent";

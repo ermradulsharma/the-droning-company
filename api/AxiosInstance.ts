@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { InternalAxiosRequestConfig } from "axios";
 import { SERVER_URL } from "../util/Constants";
 
 let axiosInstance = axios.create({
@@ -6,9 +6,9 @@ let axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(
-  async function (config) {
+  async function (config: InternalAxiosRequestConfig) {
     if (typeof window !== "undefined") {
-      let tokenData = {};
+      let tokenData: any = {};
       try {
         const tokensString = localStorage.getItem("tokens");
         if (tokensString) {

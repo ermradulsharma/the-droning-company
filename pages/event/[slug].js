@@ -11,8 +11,8 @@ import Loader from "@/components/Common/Loader";
 import SEO from "../../components/Seo/Seo";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
-import { getBlogDetailsPageAdsData } from "../../redux/HomePageSlice";
-import AddBan from "../../components/Addbanner/AddBan";
+import { getBlogDetailsPageAdsData } from "../../redux/homePageSlice";
+import AddBan from "../../components/AddBanner/AddBan";
 import { generateRandomBannerIndex } from "../../util/utils";
 import AddBannerComponentSmall from "../../components/AddBannerComponent/AddBannerComponentSmall";
 

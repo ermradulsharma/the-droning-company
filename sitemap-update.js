@@ -1,6 +1,6 @@
 const fs = require('fs'),
     convert = require('xml-js'),
-    moment = require('moment'),
+    moment = require('dayjs'),
     SERVER_URL = process.env.SERVER_URL || 'http://127.0.0.1:8000/api/v1',
     HOST_DOMAIN = 'http://localhost:3000', // Placeholder domain
     hostBlogBaseURL = `${HOST_DOMAIN}/blog`,

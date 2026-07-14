@@ -6,7 +6,7 @@ import Loader from "../Common/Loader";
 import parse from "html-react-parser";
 import Image from 'next/image';
 
-const ArticleByCategoryBlock = ({ category, limit, title = category, image = null, skip = 0, slug = null, cbody = 'show', column = null, }) => {
+const ArticleByCategoryBlock = ({ category, limit, title = category, image = '', skip = 0, slug = '', cbody = 'show', column = 0, }) => {
   const [news, setNews] = useState([]);
   const [loadingNews, setLoadingNews] = useState(true);
   const [loadingImage, setLoadingImage] = useState(true);

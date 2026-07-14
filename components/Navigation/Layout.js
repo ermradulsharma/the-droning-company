@@ -5,14 +5,14 @@ import TopMenuBar from '../../components/Navigation/Menubar/TopMenuBar';
 import useAuthContext from "../../hooks/useAuthContext";
 import CookieConsent from "react-cookie-consent";
 import useUserContext from "../../hooks/useUserContext";
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 
 const Layout = (props) => {
-  let location = useRouter();
+  let pathname = usePathname();
   const { authTokens, accessToken } = useAuthContext();
   const { drawerCollapsed, setDrawerCollapsed } = useUserContext();
   const drawerCollapsedHandler = (isCollapsed) => {
@@ -57,7 +57,7 @@ const Layout = (props) => {
       </p>
     </CookieConsent>
   )
-  return authTokens && accessToken && (location.pathname.includes('user') || location.pathname.includes('pilot-area')) ?
+  return authTokens && accessToken && pathname && (pathname.includes('user') || pathname.includes('pilot-area')) ?
     (
       <Aux>
         <div id="wrapper">

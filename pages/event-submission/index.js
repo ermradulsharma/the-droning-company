@@ -6,8 +6,8 @@ import SEO from "../../components/Seo/Seo";
 import useCommonFunctionContext from "../../hooks/useCommonFunctionContext";
 import { useDispatch, useSelector } from "react-redux";
 import { generateRandomBannerIndex } from "../../util/utils";
-import AddBan from "../../components/Addbanner/AddBan";
-import { getFaqData } from "../../redux/HomePageSlice";
+import AddBan from "../../components/AddBanner/AddBan";
+import { getFaqData } from "../../redux/homePageSlice";
 import AddBannerComponent from "../../components/AddBannerComponent/AddBannerComponent";
 const EventSubmission = (props) => {
   const { currentUrlFn } = useCommonFunctionContext();

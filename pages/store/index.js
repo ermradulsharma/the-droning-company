@@ -10,7 +10,7 @@ import { SERVER_URL, APPLICATION_NAME } from "../../util/Constants";
 import Loader from "@/components/Common/Loader";
 import SEO from "../../components/Seo/Seo";
 import { useDispatch, useSelector } from "react-redux";
-import { getHomePageAdsData } from "../../redux/HomePageSlice";
+import { getHomePageAdsData } from "../../redux/homePageSlice";
 import { generateRandomBannerIndex, randomRangeIndex } from "../../util/utils";
 import AddBannerComponent from "../../components/AddBannerComponent/AddBannerComponent";
 

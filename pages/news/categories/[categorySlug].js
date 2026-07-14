@@ -13,7 +13,7 @@ import SEO from '../../../components/Seo/Seo';
 import useCommonFunctionContext from '../../../hooks/useCommonFunctionContext';
 
 import { useDispatch, useSelector } from "react-redux";
-import { getNewsPageAdsData } from "../../../redux/HomePageSlice";
+import { getNewsPageAdsData } from "../../../redux/homePageSlice";
 import { generateRandomBannerIndex } from "../../../util/utils";
 import AddBanSmall from "../../../components/AddBannerSmall/AddBanSmall";
 import AddBannerComponent from "../../../components/AddBannerComponent/AddBannerComponent";

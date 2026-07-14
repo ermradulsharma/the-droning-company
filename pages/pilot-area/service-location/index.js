@@ -14,7 +14,7 @@ import { GOOGLE_API_KEY } from "../../../util/Constants";
 
 import Script from "next/script";
 import { useDispatch, useSelector } from "react-redux";
-import { getDashboardAds } from "../../../redux/HomePageSlice";
+import { getDashboardAds } from "../../../redux/homePageSlice";
 import { DisplayAddsInDashboardPages } from "../../../util/utils";
 import AddBannerComponent from "../../../components/AddBannerComponent/AddBannerComponent";
 

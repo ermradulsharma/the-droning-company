@@ -8,7 +8,7 @@ import useToastContext from "../../../hooks/useToastContext";
 import { SERVER_URL } from "../../../util/Constants";
 import { useConfirm } from "material-ui-confirm";
 import { useDispatch, useSelector } from "react-redux";
-import { getDashboardAds } from "../../../redux/HomePageSlice";
+import { getDashboardAds } from "../../../redux/homePageSlice";
 import { DisplayAddsInDashboardPages } from "../../../util/utils";
 import AddBannerComponent from "../../../components/AddBannerComponent/AddBannerComponent";
 

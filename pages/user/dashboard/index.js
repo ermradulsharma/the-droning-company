@@ -4,7 +4,7 @@ import useAuthContext from "../../../hooks/useAuthContext";
 import Loader from "@/components/Common/Loader";
 import Link from "next/link";
 import Image from "next/image";
-import Moment from "react-moment";
+import dayjs from "dayjs";
 const Dashboard = () => {
     const { accessToken, userId, setUserProfileImage
     } = useAuthContext();
@@ -131,9 +131,7 @@ const Dashboard = () => {
                                 <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Member Since</div>
                                 <div className="h5 mb-0 font-weight-bold text-gray-800">
-                                    <Moment format="MM/DD/YYYY">
-                                        {getRecentJob.member_since}
-                                    </Moment>
+                                    {dayjs(getRecentJob.member_since).format("MM/DD/YYYY")}
                                 </div>
                             </div>
                         </div>
@@ -204,9 +202,7 @@ const Dashboard = () => {
                                                     </p></td>
                                                     {/* <td>{job.job_category}</td> */}
                                                     <td>{
-                                                        <Moment format="MM/DD/YYYY">
-                                                            {job.created_at}
-                                                        </Moment>
+                                                        {dayjs(job.created_at).format("MM/DD/YYYY")}
                                                     }</td>
                                                     <td>
                                                         <Link href={`/user/edit-job/${job.id}`} className="btn btn-outline-primary btn-sm mt-2">

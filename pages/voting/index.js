@@ -4,7 +4,7 @@ import SEO from "../../components/Seo/Seo";
 import { APPLICATION_NAME, MEDIA_BASE_URL } from "../../util/Constants";
 import { useDispatch, useSelector } from "react-redux";
 import { generateRandomBannerIndex } from "../../util/utils";
-import { getContactUsData } from "../../redux/HomePageSlice";
+import { getContactUsData } from "../../redux/homePageSlice";
 import AddBannerComponent from "../../components/AddBannerComponent/AddBannerComponent";
 const AwardVoting = (props) => {
 	const dispatch = useDispatch();
