@@ -1,8 +1,13 @@
 "use client";
 import FullCalendar from "@fullcalendar/react";
-import interactionPlugin from "@fullcalendar/interaction";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import dayGridPlugin from "@fullcalendar/daygrid";
+import classicThemePlugin from "@fullcalendar/react/themes/classic";
+import interactionPlugin from "@fullcalendar/react/interaction";
+import timeGridPlugin from "@fullcalendar/react/timegrid";
+import dayGridPlugin from "@fullcalendar/react/daygrid";
+
+import "@fullcalendar/react/skeleton.css";
+import "@fullcalendar/react/themes/classic/theme.css";
+import "@fullcalendar/react/themes/classic/palette.css";
 import React, { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { SERVER_URL } from "../../util/Constants";
@@ -67,7 +72,7 @@ const Calendar = () => {
                 }*/
                 editable={false}
                 ref={calendarRef}
-                plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+                plugins={[classicThemePlugin, dayGridPlugin, interactionPlugin, timeGridPlugin]}
                 initialView="dayGridMonth"
                 selectMirror={true}
                 events={events}
