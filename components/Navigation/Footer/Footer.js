@@ -24,7 +24,7 @@ const Footer = () => {
             <footer className="Footer paddngtb">
                 <div className="container">
                     <div className="FooterInn text-center">
-                        <div><Image className="img-fluid FootLogo" src="/images/logo.webp" alt="logo" width={200} height={50} /></div>
+                        <div><Image className="img-fluid FootLogo" src="/images/logo.webp" alt="logo" width={200} height={50} style={{ width: 'auto', height: 'auto' }} /></div>
                         {/* <address>1111 Santa Monica Blvd. Los Angeles CA 90025</address>
                         <a href="tel:0123456789">012.345.6789</a><br>
                         <a href="mailto:info@thedroningcompany">info@thedroningcompany</a>

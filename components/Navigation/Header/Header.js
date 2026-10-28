@@ -144,7 +144,7 @@ const Header = () => {
                                 width={160}
                                 height={40}
                                 priority={true}
-                                style={{ width: 'auto' }}
+                                style={{ width: 'auto', height: 'auto' }}
                             />
 
                         </Link>
@@ -220,7 +220,7 @@ const Header = () => {
                                             width={200}
                                             height={50}
                                             priority={true}
-                                            style={{ width: 'auto' }}
+                                            style={{ width: 'auto', height: 'auto' }}
                                         />
 
                                     </Link>

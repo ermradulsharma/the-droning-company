@@ -8,8 +8,5 @@ export const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_KEY;
 
 // Environment Configuration (Local)
 export const SERVER_URL = process.env.NEXT_PUBLIC_API_URL;
-export const SERVER_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-export const MEDIA_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
-
-
+export const SERVER_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+export const MEDIA_BASE_URL = process.env.NEXT_PUBLIC_MEDIA_BASE_URL;

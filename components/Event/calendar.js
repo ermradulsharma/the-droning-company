@@ -80,13 +80,6 @@ const Calendar = () => {
                 dayMaxEventRows={0}
                 titleFormat={{ year: "numeric", month: "long" }}
                 allDaySlot={false}
-                buttonText={{
-                    today: "Today",
-                    month: "Month",
-                    week: "Week",
-                    day: "Day",
-                    list: "List",
-                }}
                 headerToolbar={{
                     left: "dayGridMonth,timeGridWeek,timeGridDay",
                     center: "title",

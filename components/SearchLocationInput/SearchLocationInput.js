@@ -118,7 +118,7 @@ const getPlaceObject = (places) => {
 }
 
 const SearchLocationInput = (props) => {
-  const [query, setQuery] = useState(props?.setInputLocation);
+  const [query, setQuery] = useState(props?.setInputLocation || "");
   const [locObj, setLocObj] = useState("");
   const { location } = useCommonFunctionContext();
   const autoCompleteRef = useRef(null);
@@ -137,7 +137,7 @@ const SearchLocationInput = (props) => {
 
   useEffect(() => {
     if (props.hasOwnProperty('locationString')) {
-      setQuery(props.locationString);
+      setQuery(props.locationString || "");
     }
     if (location) {
       setQuery("");
@@ -146,7 +146,7 @@ const SearchLocationInput = (props) => {
   }, [location, props.locationString, props]);
 
   useEffect(() => {
-    if (props.hasOwnProperty('locationSelect')) {
+    if (props.hasOwnProperty('locationSelect') && query !== undefined) {
       props.locationSelect(query)
     }
   }, [query, props]);
@@ -157,10 +157,10 @@ const SearchLocationInput = (props) => {
       ref={autoCompleteRef}
       onChange={event => setQuery(event.target.value)}
       placeholder={props.placeholder ? props.placeholder : 'Enter a City'}
-      value={query}
+      value={query ?? ""}
       name={props.name ? props.name : ''}
       style={{ minWidth: 260 }}
-      className={props.class ? props.class : "form-control"}
+      className={props.className || props.class || "form-control"}
     />
   );
 };
